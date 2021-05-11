@@ -5,6 +5,7 @@ MSD.Icons48 = {
 	layers = Material("msd/icons/layers.png", "smooth"),
 	layers_plus = Material("msd/icons/layers-plus.png", "smooth"),
 	layers_remove = Material("msd/icons/layers-remove.png", "smooth"),
+	account = Material("msd/icons/account.png", "smooth"),
 	account_edit = Material("msd/icons/account-edit.png", "smooth"),
 	account_multiple = Material("msd/icons/account-multiple.png", "smooth"),
 	menu = Material("msd/icons/menu.png", "smooth"),
@@ -20,12 +21,15 @@ MSD.Icons48 = {
 	copy = Material("msd/icons/content-copy.png", "smooth"),
 	submit = Material("msd/icons/check-decagram.png", "smooth"),
 	alert = Material("msd/icons/alert-circle.png", "smooth"),
-	arrow_down_color = Material("msd/icons/arrow_down_color.png", "smooth")
+	arrow_down_color = Material("msd/icons/arrow_down_color.png", "smooth"),
+	swap = Material("msd/icons/swap.png", "smooth")
 }
 
 
 MSD.Materials = {
-	vignette = Material("mmd/vignette.png", "smooth"),
+	vignette = Material("msd/vignette.png", "smooth"),
+	gradient = Material("gui/gradient", "smooth"),
+	gradient_right = Material("msd/gradient_right.png", "smooth"),
 }
 
 MSD.PinPoints = {
@@ -81,6 +85,17 @@ function MSD.DrawTexturedRect(x,y,w,h,mat,color)
 	surface.SetDrawColor(color)
 	surface.SetMaterial(mat)
 	surface.DrawTexturedRect(x,y,w,h)
+end
+
+function MSD.DrawTexturedRectRotated(rot,x,y,w,h,mat,color)
+	
+	if isstring(mat) then
+		mat = Material(mat)
+	end
+	
+	surface.SetDrawColor(color)
+	surface.SetMaterial(mat)
+	surface.DrawTexturedRectRotated(x,y,w,h,rot)
 end
 
 function MSD.ColorAlpha(color, alfa)

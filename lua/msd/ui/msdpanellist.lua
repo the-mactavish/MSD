@@ -297,7 +297,7 @@ function PANEL:Rebuild()
 				local h = panel:GetTall()
 				local vbar = 0
 				
-				if ( self.VBar and self.VBar.Enabled ) then
+				if ( self.VBar and self.VBar.Enabled and !self.IgnoreVbar ) then
 					vbar = 13
 				end
 

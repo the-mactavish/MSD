@@ -388,7 +388,65 @@ function MSD.ColorSelectBut(parent, x, y, w, h, color, func)
 
 end
 
-function MSD.Button(parent, x, y, w, h, text, func)
+function MSD.Binder(parent, x, y, w, h, text, var, func)
+	local binder = vgui.Create("DBinder")
+	if x and y then
+		binder:SetParent(parent)
+		binder:SetPos(x, y)
+	end
+	if x == "static" then
+		binder.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h }
+	else
+		binder:SetSize( w, h)
+	end
+	binder:SetValue(var)
+	binder.alpha = 0
+	binder.Paint = function(self, w, h)
+		draw.RoundedBox( 0, 0, 0, w, h, MSD.Theme["l"])
+
+		if (self.hover or self.hovered or self.Trapping) and !self.disabled then
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 1)
+		else
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
+		end
+
+		draw.DrawText(text,"MSDFont.22",5,h/2-11,MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha*255),TEXT_ALIGN_LEFT)
+		draw.DrawText(text,"MSDFont.22",5,h/2-11,MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255-self.alpha*255),TEXT_ALIGN_LEFT)
+
+		draw.DrawText(string.upper(self:GetText()),"MSDFont.22",w-w/3/2,h/2-11,MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha*255),TEXT_ALIGN_CENTER)
+		draw.DrawText(string.upper(self:GetText()),"MSDFont.22",w-w/3/2,h/2-11,MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255-self.alpha*255),TEXT_ALIGN_CENTER)
+
+		draw.RoundedBox( 0, 0, h-1, (w/3)*2-5, 1, MSD.ColorAlpha(MSD.Text["l"], 255-self.alpha*255))
+		draw.RoundedBox( 0, 0, h-1, (w/3)*2-5, 1, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha*255))
+
+		draw.RoundedBox( 0, w-w/3, h-1, w/3, 1, MSD.ColorAlpha(MSD.Text["l"], 255-self.alpha*255))
+		draw.RoundedBox( 0, w-w/3, h-1, w/3, 1, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha*255))
+
+		return true
+	end
+
+	binder.OnCursorEntered = function(self)
+		self.hover = true
+	end
+
+	binder.OnCursorExited = function(self)
+		self.hover = false
+	end
+
+	function binder:OnChange(num)
+		if num > 106 and num < 114 then
+			binder:SetValue(var)
+		else
+			func(num)
+		end
+	end
+
+	if !x or !y then
+		parent:AddItem(binder)
+	end
+end
+
+function MSD.Button(parent, x, y, w, h, text, func, al_left)
 
 	local button = vgui.Create("DButton")
 	button:SetText(text)
@@ -412,9 +470,9 @@ function MSD.Button(parent, x, y, w, h, text, func)
 			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
 		end
 		
-		draw.DrawText(self:GetText(),"MSDFont.22",w/2,h/2-11,MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha*255),TEXT_ALIGN_CENTER)
-		draw.DrawText(self:GetText(),"MSDFont.22",w/2,h/2-11,MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255-self.alpha*255),TEXT_ALIGN_CENTER)
-		
+		draw.DrawText(self:GetText(),"MSDFont.22",al_left and 5 or w/2,h/2-11,MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha*255),al_left and TEXT_ALIGN_LEFT or TEXT_ALIGN_CENTER)
+		draw.DrawText(self:GetText(),"MSDFont.22",al_left and 5 or w/2,h/2-11,MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255-self.alpha*255),al_left and TEXT_ALIGN_LEFT or TEXT_ALIGN_CENTER)
+
 		draw.RoundedBox( 0, 0, h-1, w, 1, MSD.ColorAlpha(MSD.Text["l"], 255-self.alpha*255))
 		draw.RoundedBox( 0, 0, h-1, w, 1, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha*255))
 
@@ -722,7 +780,7 @@ function MSD.ComboBox(parent, x, y, w, h, label, val)
 	
 end
 
-function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2)
+function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2, text3)
 
 	local button = vgui.Create("DButton")
 	button:SetText("")
@@ -736,16 +794,17 @@ function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2
 		button:SetSize( w, h)
 	end
 	button.alpha = 0
+	button.color_idle = color_white
 	button.Paint = function( self, w, h )
-		if self.hover then
+		if self.hover and !self.disable then
 			self.alpha = Lerp(FrameTime() * 5, self.alpha, 1)
 		else
 			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
 		end
 
 		draw.RoundedBox( 0, 0, 0, w, h, MSD.Theme["d"])
-		MSD.DrawTexturedRect(w/2-24,h/2-36,48,48,icon,MSD.ColorAlpha(color_white, 255-self.alpha*255))
-		draw.DrawText(MSD.GetPhrase(text),"MSDFont.25",w/2,h/2+10,MSD.ColorAlpha(color_white, 255-self.alpha*255),TEXT_ALIGN_CENTER)
+		MSD.DrawTexturedRect(w/2-24,h/2-36,48,48,icon,MSD.ColorAlpha(self.color_idle, 255-self.alpha*255))
+		draw.DrawText(MSD.GetPhrase(text),"MSDFont.25",w/2,h/2+10,MSD.ColorAlpha(self.color_idle, 255-self.alpha*255),TEXT_ALIGN_CENTER)
 
 		if self.alpha > 0.01 then
 			MSD.DrawTexturedRect(w/2-24,h/2-36,48,48,icon,MSD.ColorAlpha(color or MSD.Config.MainColor["p"], self.alpha*255))
@@ -755,11 +814,15 @@ function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2
 		if text2 then
 			draw.DrawText("id: "..text2,"MSDFont.20",10,10,MSD.Text.d,TEXT_ALIGN_LEFT)
 		end
+
+		if text3 then
+			draw.DrawText(text3,"MSDFont.20",w/2,h-20,MSD.Text.n,TEXT_ALIGN_CENTER)
+		end
 	end
 	button.OnCursorEntered = function( self ) self.hover = true end
 	button.OnCursorExited = function( self ) self.hover = false end
-	button.DoClick = function(self) func(self) end
-	button.DoRightClick = function(self) func2(self) end
+	button.DoClick = function(self) if self.disable then return end func(self) end
+	button.DoRightClick = function(self) if self.disable or !func2 then return end func2(self) end
 	if !x or !y then
 		parent:AddItem(button)
 	end
