@@ -34,11 +34,13 @@ MSD.Language["en"] = {
 	active_quest = "You have an active quest",
 	inactive_quest = "You can't play this quest",
 	quest_editor = "Quest editor",
+	quests = "Quests",
 
 	q_play_limit = "There is a limit on how much players can play this quest",
 	q_time_wait = "You need to wait before replaying this quest",
 	q_noreplay = "You can't replay this quest",
 	q_needquest = "You need to finish another quest first",
 	q_enterror = "Quest entities didn't spawn, check quest setup",
+	q_start = "Start Quest",
 
 }

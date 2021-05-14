@@ -130,3 +130,106 @@ function MSD.Blur( panel, inn, density, alpha, back_alpha, w, h )
 	end
 	
 end
+
+// Same used in DarkRP, used it here so we can use it with any gamemodes
+
+local function CharWrap(t, w)
+    local a = 0
+
+    t = t:gsub(".", function(c)
+        a = a + surface.GetTextSize(c)
+        if a >= w then
+            a = 0
+            return "\n" .. c
+        end
+        return c
+    end)
+
+    return t, a
+end
+
+function MSD.TextWrap(text, font, w)
+    local total = 0
+
+    surface.SetFont(font)
+
+    local spaceSize = surface.GetTextSize(' ')
+    text = text:gsub("(%s?[%S]+)", function(word)
+            local char = string.sub(word, 1, 1)
+            if char == "\n" or char == "\t" then
+                total = 0
+            end
+
+            local wordlen = surface.GetTextSize(word)
+            total = total + wordlen
+
+            if wordlen >= w then
+                local splitWord, splitPoint = CharWrap(word, w - (total - wordlen))
+                total = splitPoint
+                return splitWord
+            elseif total < w then
+                return word
+            end
+
+            if char == ' ' then
+                total = wordlen - spaceSize
+                return '\n' .. string.sub(word, 2)
+            end
+
+            total = wordlen
+            return '\n' .. word
+        end)
+
+    return text
+end
+
+MSD.ImgLib = {}
+
+MSD.ImgLib.Images = {}
+
+MSD.ImgLib.PreCacheStarted = {}
+
+MSD.ImgLib.NoMaterial = Material("msd/icons/file-hidden.png", "smooth noclamp")
+
+function MSD.ImgLib.GetMaterial(url)
+    local crc = util.CRC(url)..".png"
+
+    if MSD.ImgLib.Images[crc] then
+        return MSD.ImgLib.Images[crc]
+    end
+    
+    if (file.Exists("msd_imgs/" .. crc, "DATA")) then
+        MSD.ImgLib.Images[crc] = Material("data/msd_imgs/" .. crc, "smooth noclamp")
+        return MSD.ImgLib.Images[crc]
+    else
+        return MSD.ImgLib.PreCacheMaterial(url, crc)
+    end
+end
+
+function MSD.ImgLib.PreCacheMaterial(url, crc)
+    
+    if !crc then
+        crc = util.CRC(url)..".png"
+    end
+    
+    if !file.Exists("msd_imgs", "DATA") then
+        file.CreateDir("msd_imgs")
+    end
+    
+	if !MSD.ImgLib.PreCacheStarted[crc] then
+		MSD.ImgLib.PreCacheStarted[crc] = true
+		http.Fetch(url, function(body, size, headers, code)
+			if (body:find("^.PNG")) then
+				file.Write("msd_imgs/" .. crc, body)
+				MSD.ImgLib.Images[crc] = Material("data/msd_imgs/" .. crc, "smooth noclamp")
+				return MSD.ImgLib.Images[crc]
+			else
+				print("Image is not a PNG, url - " .. url)
+			end
+		end, function()
+			print("Failed to get image, url - " .. url)
+		end)
+    end
+	
+    return MSD.ImgLib.NoMaterial
+end
