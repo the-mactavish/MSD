@@ -488,6 +488,55 @@ function MSD.Button(parent, x, y, w, h, text, func, al_left)
 
 end
 
+function MSD.NumberWang(parent, x, y, w, h, min, max, val, label, func)
+
+	local button = vgui.Create("DNumberWang")
+	button:SetValue(val)
+	if x and y then
+		button:SetParent(parent)
+		button:SetPos(x, y)
+	end
+	if x == "static" then
+		button.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h }
+	else
+		button:SetSize( w, h)
+	end
+	button.alpha = 0
+	button:SetFont("MSDFont.22")
+	button:SetMin(min)
+	button:SetMax(max)
+	button.Paint = function( self, w, h )
+		
+		if self:HasFocus() then
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 255)
+		else
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
+		end
+		
+		draw.RoundedBox( 0, 0, 0, w, h, MSD.Theme["l"])
+		draw.RoundedBox( 0, 0, h-1, w, 1, MSD.ColorAlpha(MSD.Text["n"], 255-self.alpha))
+		draw.RoundedBox( 0, 0, h-1, w, 1, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha))
+
+		if label and !self.error then
+			draw.SimpleText(label, "MSDFont.16", 3, 0, MSD.ColorAlpha(MSD.Text["d"], 120), TEXT_ALIGN_LEFT )
+		end
+		
+		if self.error then
+			draw.SimpleText(self.error, "MSDFont.16", 3, 0, MSD.Config.MainColor["r"], TEXT_ALIGN_LEFT )
+		end
+
+		self:DrawTextEntryText(self.error and MSD.Config.MainColor["rd"] or MSD.Text["l"], MSD.Config.MainColor["p"], MSD.Text["d"])
+
+		return true
+	end
+	button.OnValueChanged = function(self) func(self) end
+	if !x or !y then
+		parent:AddItem(button)
+	end
+	return button
+
+end
+
 function MSD.ButtonIcon(parent, x, y, w, h, text, icon, func, func2, color)
 
 	local button = vgui.Create("DButton")

@@ -139,7 +139,7 @@ end
 
 function PANEL:AddSubMenu()
 
-	local SubMenu = MDermaMenu( true, self )
+	local SubMenu = MSD.MenuOpen( true, self )
 	SubMenu:SetVisible( false )
 	SubMenu:SetParent( self )
 

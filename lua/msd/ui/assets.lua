@@ -6,8 +6,12 @@ MSD.Icons48 = {
 	layers_plus = Material("msd/icons/layers-plus.png", "smooth"),
 	layers_remove = Material("msd/icons/layers-remove.png", "smooth"),
 	account = Material("msd/icons/account.png", "smooth"),
+	account_plus = Material("msd/icons/account-plus.png", "smooth"),
 	account_edit = Material("msd/icons/account-edit.png", "smooth"),
 	account_multiple = Material("msd/icons/account-multiple.png", "smooth"),
+	account_convert = Material("msd/icons/account-convert.png", "smooth"),
+	folder_open = Material("msd/icons/folder-open.png", "smooth"),
+	file_document = Material("msd/icons/file-document.png", "smooth"),
 	menu = Material("msd/icons/menu.png", "smooth"),
 	dot = Material("msd/icons/dot.png", "smooth"),
 	pencil = Material("msd/icons/pencil.png", "smooth"),
@@ -22,6 +26,7 @@ MSD.Icons48 = {
 	submit = Material("msd/icons/check-decagram.png", "smooth"),
 	alert = Material("msd/icons/alert-circle.png", "smooth"),
 	arrow_down_color = Material("msd/icons/arrow_down_color.png", "smooth"),
+	face_agent = Material("msd/icons/face-agent.png", "smooth"),
 	swap = Material("msd/icons/swap.png", "smooth")
 }
 

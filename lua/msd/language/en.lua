@@ -18,6 +18,7 @@ MSD.Language["en"] = {
 	time_ex = "Time expired",
 	vehicle_bum = "Your vehicle is derstroyed",
 	left_area = "You left the area",
+	m_blew = "You blew up the mission",
 	m_failed = "Mission failed",
 	m_success = "Mission success",
 	m_loop = "Mission update",
@@ -42,5 +43,8 @@ MSD.Language["en"] = {
 	q_needquest = "You need to finish another quest first",
 	q_enterror = "Quest entities didn't spawn, check quest setup",
 	q_start = "Start Quest",
+	
+	-- Simple NPCs
 
+	npc_editor = "NPC Editor"
 }
