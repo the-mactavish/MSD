@@ -192,7 +192,7 @@ function MSD.Header(parent, text, back)
 	panel.StaticScale = { w = 1, fixed_h = 50, minw = 250, minh = 50 }
 	panel.Paint = function(self,w,h) 
 		draw.RoundedBox( 0, 0, 0, w, h, MSD.Theme["l"])
-		draw.DrawText(MSD.GetPhrase(text),"MSDFont.25",w/2,12,color_white,TEXT_ALIGN_CENTER)
+		draw.DrawText(text,"MSDFont.25",w/2,12,color_white,TEXT_ALIGN_CENTER)
 	end
 	parent:AddItem(panel)
 
@@ -208,7 +208,7 @@ function MSD.InfoHeader(parent, text)
 	panel.StaticScale = { w = 1, fixed_h = 25, minw = 250, minh = 25 }
 	panel.Paint = function(self,w,h) 
 		draw.RoundedBox( 0, 0, 0, w, h, MSD.Theme["l"])
-		draw.DrawText(MSD.GetPhrase(text),"MSDFont.20",5,h/2-11,color_white,TEXT_ALIGN_LEFT)
+		draw.DrawText(text,"MSDFont.20",5,h/2-11,color_white,TEXT_ALIGN_LEFT)
 	end
 	parent:AddItem(panel)
 
@@ -621,7 +621,7 @@ function MSD.VolumeSlider(parent, x, y, w, h, text, var, func, cl)
 		draw.RoundedBox( 0, w - w / 2 + 10, h/2-10, w / 2 - 20, 20, MSD.Theme["d"])
 
 		if self.disabled then
-			draw.DrawText("Disabled","MSDFont.16", w-(w/2)/2,h/2-8,MSD.Text["n"],TEXT_ALIGN_CENTER)
+			draw.DrawText(MSD.GetPhrase("disabled"),"MSDFont.16", w-(w/2)/2,h/2-8,MSD.Text["n"],TEXT_ALIGN_CENTER)
 		else
 			draw.RoundedBox(0, w - w / 2 + 10, h/2-10, (w / 2 - 19) * self.var, 20, cl or MSD.Config.MainColor["p"])
 			draw.DrawText(math.Round(self.value * 100) .. "%","MSDFont.16", w-(w/2)/2,h/2-8,MSD.Text["s"],TEXT_ALIGN_CENTER)
@@ -692,10 +692,10 @@ function MSD.BoolSlider(parent, x, y, w, h, text, var, func)
 		draw.RoundedBox( 0, w-75, h/2-10, 68, 20, MSD.Theme["d"])
 
 		if self.disabled then
-			draw.DrawText("Disabled","MSDFont.16",w-40,h/2-8,MSD.Text["n"],TEXT_ALIGN_CENTER)
+			draw.DrawText(MSD.GetPhrase("disabled"),"MSDFont.16",w-40,h/2-8,MSD.Text["n"],TEXT_ALIGN_CENTER)
 		else
-			draw.DrawText("Off","MSDFont.16",w-25,h/2-8,MSD.ColorAlpha(MSD.Text["s"], 255-self.pos*255),TEXT_ALIGN_CENTER)
-			draw.DrawText("On","MSDFont.16",w-60,h/2-8,MSD.ColorAlpha(MSD.Text["s"], self.pos*255),TEXT_ALIGN_CENTER)
+			draw.DrawText(MSD.GetPhrase("off"),"MSDFont.16",w-25,h/2-8,MSD.ColorAlpha(MSD.Text["s"], 255-self.pos*255),TEXT_ALIGN_CENTER)
+			draw.DrawText(MSD.GetPhrase("on"),"MSDFont.16",w-60,h/2-8,MSD.ColorAlpha(MSD.Text["s"], self.pos*255),TEXT_ALIGN_CENTER)
 
 			draw.RoundedBox( 0, w-75+self.pos*35, h/2-10, 34, 20, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.pos*255))
 			draw.RoundedBox( 0, w-75+self.pos*35, h/2-10, 34, 20, MSD.ColorAlpha(MSD.Text["n"], 255-self.pos*255))
@@ -853,11 +853,11 @@ function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2
 
 		draw.RoundedBox( 0, 0, 0, w, h, MSD.Theme["d"])
 		MSD.DrawTexturedRect(w/2-24,h/2-36,48,48,icon,MSD.ColorAlpha(self.color_idle, 255-self.alpha*255))
-		draw.DrawText(MSD.GetPhrase(text),"MSDFont.25",w/2,h/2+10,MSD.ColorAlpha(self.color_idle, 255-self.alpha*255),TEXT_ALIGN_CENTER)
+		draw.DrawText(text,"MSDFont.25",w/2,h/2+10,MSD.ColorAlpha(self.color_idle, 255-self.alpha*255),TEXT_ALIGN_CENTER)
 
 		if self.alpha > 0.01 then
 			MSD.DrawTexturedRect(w/2-24,h/2-36,48,48,icon,MSD.ColorAlpha(color or MSD.Config.MainColor["p"], self.alpha*255))
-			draw.DrawText(MSD.GetPhrase(text),"MSDFont.25",w/2,h/2+10,MSD.ColorAlpha(color or MSD.Config.MainColor["p"], self.alpha*255),TEXT_ALIGN_CENTER)
+			draw.DrawText(text,"MSDFont.25",w/2,h/2+10,MSD.ColorAlpha(color or MSD.Config.MainColor["p"], self.alpha*255),TEXT_ALIGN_CENTER)
 		end
 
 		if text2 then
