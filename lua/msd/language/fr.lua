@@ -232,6 +232,7 @@ MSD.Language[lng]["Leave area"] = "Quitter la zone"
 MSD.Language[lng]["Kill NPC"] = "Tuer un NPC"
 MSD.Language[lng]["Collect quest ents"] = "Collecter les ents de quête"
 MSD.Language[lng]["Talk to NPC"] = "Parler à NPC"
+MSD.Language[lng]["Wait time"] = "Temps d'attente"
 
 MSD.Language[lng]["There is no quests avalible"] = "Il n'y a pas de quêtes disponibles"
 
