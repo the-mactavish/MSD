@@ -90,6 +90,52 @@ function MSD.IconButton(parent, mat, x, y, s, color, color2, func)
 
 end
 
+function MSD.IconButtonText(parent, text, mat, x, y, s, color, color2, func)
+
+	local button = vgui.Create( "DButton")
+	if x and y then
+		button:SetParent(parent)
+		button:SetPos(x, y)
+	end
+	if x == "static" then
+		button.StaticScale  = { w = s*2, fixed_h = s+16, minw = s*2, minh = s+16 }
+	end
+	button:SetSize( s, s+16 )
+	button:SetText( text )
+	button.hovered = false
+	button.alpha = 0
+	button.mat = mat
+	button.Paint = function( self, w, h )
+		
+		if self.hover or self.hovered then
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 1)
+		else
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
+		end
+		
+		MSD.DrawTexturedRect(w/2-s/2,0,s,s,self.mat,MSD.ColorAlpha(color or MSD.Text.d, 255-self.alpha*255))
+		
+		if self.alpha > 0 then
+			MSD.DrawTexturedRect(w/2-s/2,0,s,s,self.mat,MSD.ColorAlpha(color2 or MSD.Config.MainColor["p"], self.alpha*255))
+		end 
+		
+		draw.DrawText(self:GetText(text),"MSDFont.16",w/2,h-16,color or MSD.Text.d,TEXT_ALIGN_CENTER)
+
+		return true
+
+	end
+	button.DoClick = func
+	button.OnCursorEntered = function( self ) self.hover = true end
+	button.OnCursorExited = function( self ) self.hover = false end
+	button.DoRightClick = func
+	if !x or !y then
+		parent:AddItem(button)
+	end
+
+	return button
+
+end
+
 function MSD.IconButtonBG(parent, mat, x, y, s, color, color2, func)
 
 	local button = vgui.Create( "DButton" )
@@ -134,7 +180,7 @@ function MSD.IconButtonBG(parent, mat, x, y, s, color, color2, func)
 
 end
 
-function MSD.MenuButton(parent, mat, x, y, w, h, text, func, rfunc)
+function MSD.MenuButton(parent, mat, x, y, w, h, text, func, rfunc, small)
 
 	local t_par
 	if istable(text) then
@@ -167,7 +213,7 @@ function MSD.MenuButton(parent, mat, x, y, w, h, text, func, rfunc)
 			draw.RoundedBox( 0, 0, 0, w*self.alpha, h, MSD.Config.MainColor["p"] )	
 		end
 
-		MSD.DrawTexturedRect(10,10,h-20,h-20,self.mat,color_white)
+		MSD.DrawTexturedRect(small and h/2-8 or 10,small and h/2-8 or 10,small and 16 or h-20, small and 16 or h-20,self.mat,color_white)
 		draw.DrawText(MSD.GetPhrase(text, t_par),"MSDFont.22",55,12,color_white,TEXT_ALIGN_LEFT)
 		
 		return true

@@ -222,6 +222,21 @@ MSD.Language["en"] = {
 	npc_q_target = "NPC is an objective target",
 	npc_hostile = "Hostile NPC",
 
+
+	-- Update 1.0.1
+
+	duration = "Duration",
+	dis_text = "Displayed text",
+	cam_speed = "Camera movement speed (lower number - slower movement)",
+	fov_speed = "FOV change speed (lower number - slower movement)",
+	cam_start = "Camera start parameters",
+	cam_end = "Camera end parameters",
+	cam_pos = "Camera position",
+	cam_ang = "Camera angle",
+	cam_fov = "Camera FOV",
+	cam_effect = "Camera shutter effect",
+	not_spawned = "not spawned",
+
 }
 
 -- Other phrases
