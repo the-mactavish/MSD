@@ -49,7 +49,7 @@ MSD.Language["en"] = {
 	custom_val = "Set custom value",
 	set_hp_full = "Set full HP",
 	dist_to_close = "Distance to closest",
-	
+
 	e_text = "Enter text",
 	e_number = "Enter number",
 	e_class = "Enter class",
@@ -122,7 +122,7 @@ MSD.Language["en"] = {
 	m_failed = "Mission failed",
 	m_success = "Mission success",
 	m_loop = "Mission update",
-	
+
 	-- Errors
 
 	inv_quest = "Invalid quest",

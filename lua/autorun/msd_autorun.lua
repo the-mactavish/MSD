@@ -32,15 +32,13 @@ MSD = {}
 MSD.Config = {}
 MSD.Language = {}
 
-if SERVER then 
+if SERVER then
 	util.AddNetworkString( "MSD.GetConfigData" )
 	util.AddNetworkString( "MSD.SaveConfig" )
 end
 
 function MSD.Load()
-
 	MsgC( Color(174, 0, 255), "[MSD] Initialization started\n" )
-	
 	if !file.Exists("msd_data", "DATA") then
 		file.CreateDir("msd_data")
 		MsgC( Color(174, 0, 255), "[MSD] Server DATA Dir created \n" )
@@ -55,8 +53,7 @@ function MSD.Load()
 		AddCSLuaFile("msd/sh_language.lua")
 
 		local f = file.Find( "msd/ui/*", "LUA" )
-	
-		for k,v in pairs( f ) do
+		for k,v in ipairs( f ) do
 			AddCSLuaFile( "msd/ui/" .. v )
 		end
 
@@ -65,15 +62,13 @@ function MSD.Load()
 		include("msd/sh_language.lua")
 
 		local f = file.Find( "msd/ui/*", "LUA" )
-	
-		for k,v in pairs( f ) do
+		for k,v in ipairs( f ) do
 			include( "msd/ui/" .. v )
 		end
 	end
 
 
 	MsgC( Color(174, 0, 255), "[MSD] Initialization done\n" )
-	
 end
 
 MSD.Load()

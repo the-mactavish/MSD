@@ -4,21 +4,16 @@
 -- ┃┃┃┃┃┣━━┓┃┃┃┃┃───────────────────────
 -- ┃┃┃┃┃┃┗━┛┣┛┗┛┃───────────────────────
 -- ┗┛┗┛┗┻━━━┻━━━┛───────────────────────
-
 -- MIT License
-
 -- Copyright (c) 2021 Ayden Mactavish
-
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 -- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
-
 -- The above copyright notice and this permission notice shall be included in all
 -- copies or substantial portions of the Software.
-
 -- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 -- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 -- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,22 +25,21 @@
 MSD.Config.Language = "en"
 
 MSD.Config.MainColor = {
-	["p"] = Color(0,155,255),
-	["r"] = Color(255,0,0),
-	["rd"] = Color(220,0,0),
+	["p"] = Color(0, 155, 255),
+	["r"] = Color(255, 0, 0),
+	["rd"] = Color(220, 0, 0),
 }
 
 --──────────────────────────────────--
 ------------- CFG Saving -------------
 --──────────────────────────────────--
-
 net.Receive("MSD.GetConfigData", function(l, ply)
 	if CLIENT then
 		local config = net.ReadTable()
 		MSD.Config = config
 	else
 		net.Start("MSD.GetConfigData")
-			net.WriteTable(MSD.Config)
+		net.WriteTable(MSD.Config)
 		net.Send(ply)
 	end
 end)
@@ -53,11 +47,11 @@ end)
 MSD.SaveConfig = function()
 	if CLIENT then
 		net.Start("MSD.SaveConfig")
-			net.WriteTable(MSD.Config)
+		net.WriteTable(MSD.Config)
 		net.SendToServer()
 	else
 		net.Start("MSD.GetConfigData")
-			net.WriteTable(MSD.Config)
+		net.WriteTable(MSD.Config)
 		net.Broadcast()
 		json_table = util.TableToJSON(MSD.Config, true)
 		file.Write("msd_data/config.txt", json_table)
@@ -65,7 +59,6 @@ MSD.SaveConfig = function()
 end
 
 function MSD.LoadConfig()
-	
 	if CLIENT then
 		net.Start("MSD.GetConfigData")
 		net.SendToServer()
@@ -93,7 +86,7 @@ function MSD.LoadConfig()
 
 			if #player.GetAll() > 0 then
 				net.Start("MSD.GetConfigData")
-					net.WriteTable(config)
+				net.WriteTable(config)
 				net.Broadcast()
 			end
 		end
@@ -101,9 +94,13 @@ function MSD.LoadConfig()
 end
 
 if SERVER then
-	hook.Add("PostGamemodeLoaded", "MQMSDS.Load.SV", function() MSD.LoadConfig() end)	
+	hook.Add("PostGamemodeLoaded", "MQMSDS.Load.SV", function()
+		MSD.LoadConfig()
+	end)
 else
-	hook.Add("InitPostEntity", "MSD.Load.CL", function() MSD.LoadConfig() end)
+	hook.Add("InitPostEntity", "MSD.Load.CL", function()
+		MSD.LoadConfig()
+	end)
 end
 
 if GAMEMODE then
