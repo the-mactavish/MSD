@@ -70,6 +70,8 @@ function MSD.LoadConfig()
 
 	if SERVER then
 		net.Receive("MSD.SaveConfig", function(l, ply)
+			if MSD.cfgLastChange and MSD.cfgLastChange > CurTime() then return end
+			MSD.cfgLastChange = CurTime() + 1
 			if not ply:IsSuperAdmin() then return end
 			local bytes_number = net.ReadInt(32)
 			local compressed_data = net.ReadData(bytes_number)
