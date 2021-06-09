@@ -106,8 +106,10 @@ function MSD.DrawTexturedRectRotated(rot, x, y, w, h, mat, color)
 	surface.DrawTexturedRectRotated(x, y, w, h, rot)
 end
 
-function MSD.ColorAlpha(color, alfa)
-	return Color(color.r, color.g, color.b, alfa)
+function MSD.ColorAlpha(cl, al)
+	local new_cl = table.Copy(cl)
+	new_cl.a = al
+	return new_cl
 end
 
 local blur = Material("pp/blurscreen")

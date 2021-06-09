@@ -46,8 +46,12 @@ end)
 
 MSD.SaveConfig = function()
 	if CLIENT then
+		local json_data = util.TableToJSON(MSD.Config, false)
+		local cd = util.Compress(json_data)
+		local bn = string.len(cd)
 		net.Start("MSD.SaveConfig")
-		net.WriteTable(MSD.Config)
+			net.WriteInt(bn, 32)
+			net.WriteData(cd, bn)
 		net.SendToServer()
 	else
 		net.Start("MSD.GetConfigData")
@@ -67,7 +71,11 @@ function MSD.LoadConfig()
 	if SERVER then
 		net.Receive("MSD.SaveConfig", function(l, ply)
 			if not ply:IsSuperAdmin() then return end
-			local config = net.ReadTable()
+			local bytes_number = net.ReadInt(32)
+			local compressed_data = net.ReadData(bytes_number)
+			local json_data = util.Decompress(compressed_data)
+			local config = util.JSONToTable(json_data)
+
 			MSD.Config = config
 			MSD.SaveConfig()
 		end)
