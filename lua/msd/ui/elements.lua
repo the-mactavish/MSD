@@ -223,7 +223,7 @@ function MSD.IconButtonBG(parent, mat, x, y, s, color, color2, func)
     return button
 end
 
-function MSD.MenuButton(parent, mat, x, y, w, h, text, func, rfunc, small)
+function MSD.MenuButton(parent, mat, x, y, sw, sh, text, func, rfunc, small)
     local t_par
 
     if istable(text) then
@@ -231,7 +231,7 @@ function MSD.MenuButton(parent, mat, x, y, w, h, text, func, rfunc, small)
     end
 
     local button = vgui.Create("DButton")
-    button:SetSize(w, h)
+    button:SetSize(sw, sh)
 
     if x then
         button:SetParent(parent)
