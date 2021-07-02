@@ -138,6 +138,68 @@ function MSD.Blur(panel, inn, density, alpha, back_alpha, w, h)
 	end
 end
 
+-- subUTF8 functions
+local function SubStringGetByteCount(str, index)
+	local curByte = string.byte(str, index)
+	local byteCount = 1
+
+	if curByte == nil then
+		byteCount = 0
+	elseif curByte > 0 and curByte <= 127 then
+		byteCount = 1
+	elseif curByte >= 192 and curByte <= 223 then
+		byteCount = 2
+	elseif curByte >= 224 and curByte <= 239 then
+		byteCount = 3
+	elseif curByte >= 240 and curByte <= 247 then
+		byteCount = 4
+	end
+
+	return byteCount
+end
+
+local function SubStringGetTotalIndex(str)
+	local curIndex = 0
+	local i = 1
+	local lastCount = 1
+	repeat
+		lastCount = SubStringGetByteCount(str, i)
+		i = i + lastCount
+		curIndex = curIndex + 1
+	until (lastCount == 0)
+
+	return curIndex - 1
+end
+
+local function SubStringGetTrueIndex(str, index)
+	local curIndex = 0
+	local i = 1
+	local lastCount = 1
+	repeat
+		lastCount = SubStringGetByteCount(str, i)
+		i = i + lastCount
+		curIndex = curIndex + 1
+	until (curIndex >= index)
+
+	return i - lastCount
+end
+
+function string.subUTF8(str, startIndex, endIndex)
+	if startIndex < 0 then
+		startIndex = SubStringGetTotalIndex(str) + startIndex + 1
+	end
+
+	if endIndex ~= nil and endIndex < 0 then
+		endIndex = SubStringGetTotalIndex(str) + endIndex + 1
+	end
+
+	if endIndex == nil then
+		return string.sub(str, SubStringGetTrueIndex(str, startIndex))
+	else
+		return string.sub(str, SubStringGetTrueIndex(str, startIndex), SubStringGetTrueIndex(str, endIndex + 1) - 1)
+	end
+end
+
 -- Same used in DarkRP, used it here so we can use it with any gamemodes
 local function CharWrap(t, w)
 	local a = 0
@@ -163,7 +225,7 @@ function MSD.TextWrap(text, font, w)
 	local spaceSize = surface.GetTextSize(' ')
 
 	text = text:gsub("(%s?[%S]+)", function(word)
-		local char = string.sub(word, 1, 1)
+		local char = string.subUTF8(word, 1, 1)
 
 		if char == "\n" or char == "\t" then
 			total = 0
@@ -184,7 +246,7 @@ function MSD.TextWrap(text, font, w)
 		if char == ' ' then
 			total = wordlen - spaceSize
 
-			return '\n' .. string.sub(word, 2)
+			return '\n' .. string.subUTF8(word, 2)
 		end
 
 		total = wordlen
@@ -197,6 +259,7 @@ function MSD.TextWrap(text, font, w)
 	return text, w_end, h_end
 end
 
+-- Image Lib
 MSD.ImgLib = {}
 MSD.ImgLib.Images = {}
 MSD.ImgLib.PreCacheStarted = {}
