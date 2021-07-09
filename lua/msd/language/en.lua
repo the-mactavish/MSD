@@ -237,6 +237,12 @@ MSD.Language["en"] = {
 	cam_effect = "Camera shutter effect",
 	not_spawned = "not spawned",
 
+	-- Update 1.1.0
+
+	q_open_target = "Allow other players to kill NPCs",
+	q_npc_mind = "Min. distance to NPCs",
+	duplicate = "Duplicate",
+	hold_use = "Hold [%s] key"
 }
 
 -- Other phrases

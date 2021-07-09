@@ -199,114 +199,126 @@ function PANEL:CleanList()
 	end
 end
 
+function PANEL:HorizontalRebuild(Offset)
+	local x, y = self.Padding, self.Padding
+	local l_highest = 0
+
+	for k, panel in pairs(self.Items) do
+		if (panel:IsVisible()) then
+			if panel.StaticScale then
+				local w, h
+
+				if panel.StaticScale.fixed_h then
+					h = panel.StaticScale.fixed_h
+				else
+					if isstring(panel.StaticScale.h) then
+						h = tonumber(panel.StaticScale.h)
+						h = (self:GetTall() - (self:GetTall() / h)) - (self.Spacing + self.Spacing / h + self.Padding)
+					elseif panel.StaticScale.h == 1 then
+						h = self:GetTall() / panel.StaticScale.h - (self.Spacing + self.Padding)
+					else
+						h = self:GetTall() / panel.StaticScale.h - (self.Spacing + self.Padding)
+					end
+				end
+
+				if isstring(panel.StaticScale.w) then
+					w = tonumber(panel.StaticScale.w)
+					w = (self.pnlCanvas:GetWide() - (self.pnlCanvas:GetWide() / w)) - (self.Spacing + self.Padding)
+				elseif panel.StaticScale.w == 1 then
+					w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding)
+				else
+					w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding)
+				end
+
+				if panel.StaticScale.minw > w then
+					w = panel.StaticScale.minw
+				end
+
+				if panel.StaticScale.minh > h then
+					h = panel.StaticScale.minh
+				end
+
+				panel:SetSize(w, h)
+			end
+
+			local OwnLine = (panel.m_strLineState and panel.m_strLineState == "ownline")
+			local w = panel:GetWide()
+			local h = panel:GetTall()
+			local vbar = 0
+
+			if (self.VBar and self.VBar.Enabled and not self.IgnoreVbar) then
+				vbar = 13
+			end
+
+			if (x > self.Padding and (x + w > (self:GetWide() - vbar) or OwnLine)) then
+				x = self.Padding
+				y = y + l_highest + self.Spacing
+				l_highest = h
+			end
+
+			if h > l_highest then
+				l_highest = h
+			end
+
+			if (self.m_fAnimTime > 0 and self.m_iBuilds > 1) then
+				panel:MoveTo(x, y, self.m_fAnimTime, 0, self.m_fAnimEase)
+			else
+				panel:SetPos(x, y)
+			end
+
+			x = x + w + self.Spacing
+			Offset = y + l_highest + self.Spacing
+
+			if (OwnLine) then
+				x = self.Padding
+				y = y + h + self.Spacing
+			end
+		end
+	end
+
+	return Offset
+end
+
+function PANEL:NormalRebuild(Offset)
+	for k, panel in pairs(self.Items) do
+		if (panel:IsVisible()) then
+			if (self.m_bNoSizing) then
+				panel:SizeToContents()
+
+				if (self.m_fAnimTime > 0 and self.m_iBuilds > 1) then
+					panel:MoveTo((self:GetCanvas():GetWide() - panel:GetWide()) * 0.5, self.Padding + Offset, self.m_fAnimTime, 0, self.m_fAnimEase)
+				else
+					panel:SetPos((self:GetCanvas():GetWide() - panel:GetWide()) * 0.5, self.Padding + Offset)
+				end
+			else
+				panel:SetWide(self:GetCanvas():GetWide() - self.Padding * 2)
+
+				if (self.m_fAnimTime > 0 and self.m_iBuilds > 1) then
+					panel:MoveTo(self.Padding, self.Padding + Offset, self.m_fAnimTime, self.m_fAnimEase)
+				else
+					panel:SetPos(self.Padding, self.Padding + Offset)
+				end
+			end
+
+			panel:InvalidateLayout(true)
+			Offset = Offset + panel:GetTall() + self.Spacing
+		end
+	end
+
+	Offset = Offset + self.Padding
+
+	return Offset
+end
+
 function PANEL:Rebuild()
 	local Offset = 0
 	self.m_iBuilds = self.m_iBuilds + 1
 	self:CleanList()
 
 	if (self.Horizontal) then
-		local x, y = self.Padding, self.Padding
-		local l_highest = 0
-
-		for k, panel in pairs(self.Items) do
-			if (panel:IsVisible()) then
-				if panel.StaticScale then
-					local w, h
-
-					if panel.StaticScale.fixed_h then
-						h = panel.StaticScale.fixed_h
-					else
-						if isstring(panel.StaticScale.h) then
-							h = tonumber(panel.StaticScale.h)
-							h = (self:GetTall() - (self:GetTall() / h)) - (self.Spacing + self.Spacing / h + self.Padding)
-						elseif panel.StaticScale.h == 1 then
-							h = self:GetTall() / panel.StaticScale.h - (self.Spacing + self.Padding)
-						else
-							h = self:GetTall() / panel.StaticScale.h - (self.Spacing + self.Padding)
-						end
-					end
-
-					if isstring(panel.StaticScale.w) then
-						w = tonumber(panel.StaticScale.w)
-						w = (self.pnlCanvas:GetWide() - (self.pnlCanvas:GetWide() / w)) - (self.Spacing + self.Padding)
-					elseif panel.StaticScale.w == 1 then
-						w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding)
-					else
-						w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding)
-					end
-
-					if panel.StaticScale.minw > w then
-						w = panel.StaticScale.minw
-					end
-
-					if panel.StaticScale.minh > h then
-						h = panel.StaticScale.minh
-					end
-
-					panel:SetSize(w, h)
-				end
-
-				local OwnLine = (panel.m_strLineState and panel.m_strLineState == "ownline")
-				local w = panel:GetWide()
-				local h = panel:GetTall()
-				local vbar = 0
-
-				if (self.VBar and self.VBar.Enabled and not self.IgnoreVbar) then
-					vbar = 13
-				end
-
-				if (x > self.Padding and (x + w > (self:GetWide() - vbar) or OwnLine)) then
-					x = self.Padding
-					y = y + l_highest + self.Spacing
-					l_highest = h
-				end
-
-				if h > l_highest then
-					l_highest = h
-				end
-
-				if (self.m_fAnimTime > 0 and self.m_iBuilds > 1) then
-					panel:MoveTo(x, y, self.m_fAnimTime, 0, self.m_fAnimEase)
-				else
-					panel:SetPos(x, y)
-				end
-
-				x = x + w + self.Spacing
-				Offset = y + l_highest + self.Spacing
-
-				if (OwnLine) then
-					x = self.Padding
-					y = y + h + self.Spacing
-				end
-			end
-		end
+		Offset = self:HorizontalRebuild(Offset)
 	else
-		for k, panel in pairs(self.Items) do
-			if (panel:IsVisible()) then
-				if (self.m_bNoSizing) then
-					panel:SizeToContents()
-
-					if (self.m_fAnimTime > 0 and self.m_iBuilds > 1) then
-						panel:MoveTo((self:GetCanvas():GetWide() - panel:GetWide()) * 0.5, self.Padding + Offset, self.m_fAnimTime, 0, self.m_fAnimEase)
-					else
-						panel:SetPos((self:GetCanvas():GetWide() - panel:GetWide()) * 0.5, self.Padding + Offset)
-					end
-				else
-					panel:SetWide(self:GetCanvas():GetWide() - self.Padding * 2)
-
-					if (self.m_fAnimTime > 0 and self.m_iBuilds > 1) then
-						panel:MoveTo(self.Padding, self.Padding + Offset, self.m_fAnimTime, self.m_fAnimEase)
-					else
-						panel:SetPos(self.Padding, self.Padding + Offset)
-					end
-				end
-
-				panel:InvalidateLayout(true)
-				Offset = Offset + panel:GetTall() + self.Spacing
-			end
-		end
-
-		Offset = Offset + self.Padding
+		Offset = self:NormalRebuild(Offset)
 	end
 
 	self:GetCanvas():SetTall(Offset + self.Padding - self.Spacing)
