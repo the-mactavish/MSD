@@ -223,7 +223,7 @@ MSD.Language["en"] = {
 	npc_hostile = "Hostile NPC",
 
 
-	-- Update 1.0.1
+	-- Update 1.1.0
 
 	duration = "Duration",
 	dis_text = "Displayed text",
@@ -236,13 +236,22 @@ MSD.Language["en"] = {
 	cam_fov = "Camera FOV",
 	cam_effect = "Camera shutter effect",
 	not_spawned = "not spawned",
-
-	-- Update 1.1.0
-
 	q_open_target = "Allow other players to kill NPCs",
 	q_npc_mind = "Min. distance to NPCs",
 	duplicate = "Duplicate",
-	hold_use = "Hold [%s] key"
+	hold_use = "Hold [%s] key",
+	category = "Category",
+	category_des = "Quest category, used to sort quests",
+	sortquests_cat = "Sort quests by category",
+	unsorted = "Unsorted",
+	search = "Search",
+	search_q = "Search quests",
+	quest_tools = "Quest tools",
+	set_anim = "Set Animation",
+	s_quest_blacklist = "Setup quest blacklist",
+	blacklist = "Blacklist",
+	s_quest_blacklist_desc = "Select quests that will block this quest if you played them",
+
 }
 
 -- Other phrases

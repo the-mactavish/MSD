@@ -1,9 +1,11 @@
 MSD.Icons48 = {
 	cross = Material("msd/icons/cross.png", "smooth"),
 	cog = Material("msd/icons/cog.png", "smooth"),
+	eye = Material("msd/icons/eye.png", "smooth"),
 	layers = Material("msd/icons/layers.png", "smooth"),
 	layers_plus = Material("msd/icons/layers-plus.png", "smooth"),
 	layers_remove = Material("msd/icons/layers-remove.png", "smooth"),
+	briefcase = Material("msd/icons/briefcase.png", "smooth"),
 	account = Material("msd/icons/account.png", "smooth"),
 	account_plus = Material("msd/icons/account-plus.png", "smooth"),
 	account_edit = Material("msd/icons/account-edit.png", "smooth"),
@@ -26,7 +28,11 @@ MSD.Icons48 = {
 	alert = Material("msd/icons/alert-circle.png", "smooth"),
 	arrow_down_color = Material("msd/icons/arrow_down_color.png", "smooth"),
 	face_agent = Material("msd/icons/face-agent.png", "smooth"),
-	swap = Material("msd/icons/swap.png", "smooth")
+	swap = Material("msd/icons/swap.png", "smooth"),
+	search = Material("mqs/map_markers/c4.png", "smooth"),
+	tools = Material("mqs/map_markers/t1.png", "smooth"),
+	human_female = Material("msd/icons/human-female.png", "smooth"),
+	human_male = Material("msd/icons/human-male.png", "smooth")
 }
 
 MSD.Materials = {
@@ -48,6 +54,7 @@ end
 MSD.ColorPresets = {Color(255, 20, 20), Color(255, 115, 0), Color(210, 255, 0), Color(0, 170, 25), Color(0, 155, 255), Color(0, 100, 200), Color(135, 0, 255), Color(255, 0, 100),}
 
 MSD.Theme = {
+	["d_na"] = Color(25, 25, 26),
 	["d"] = Color(0, 5, 10, 165),
 	["m"] = Color(0, 5, 10, 120),
 	["l"] = Color(0, 5, 10, 85),

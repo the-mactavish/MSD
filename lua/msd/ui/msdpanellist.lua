@@ -227,7 +227,7 @@ function PANEL:HorizontalRebuild(Offset)
 				elseif panel.StaticScale.w == 1 then
 					w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding)
 				else
-					w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding)
+					w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding) / 1.5
 				end
 
 				if panel.StaticScale.minw > w then

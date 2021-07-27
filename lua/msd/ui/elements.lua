@@ -283,7 +283,7 @@ function MSD.MenuButton(parent, mat, x, y, sw, sh, text, func, rfunc, small)
 	return button
 end
 
-function MSD.Header(parent, text, back)
+function MSD.Header(parent, text, back, icon)
 	local panel = vgui.Create("DPanel")
 
 	panel.StaticScale = {
@@ -301,7 +301,7 @@ function MSD.Header(parent, text, back)
 	parent:AddItem(panel)
 
 	if back then
-		MSD.IconButton(panel, MSD.Icons48.back, 13, 13, 24, nil, nil, back)
+		MSD.IconButton(panel, icon or MSD.Icons48.back, 13, 13, 24, nil, nil, back)
 	end
 
 	return panel
@@ -408,36 +408,80 @@ function MSD.TextEntry(parent, x, y, w, h, text, label, value, func, auto_update
 	return Entry
 end
 
-function MSD.VectorDisplay(parent, x, y, w, h, text, vector)
-	local Entry = vgui.Create("DPanel")
-
+function MSD.VectorDisplay(parent, x, y, w, h, text, vector, func)
+	local Entry = vgui.Create("DButton")
+	Entry:SetText("")
 	if x and y then
 		Entry:SetParent(parent)
 		Entry:SetPos(x, y)
 	end
 
 	if x == "static" then
-		Entry.StaticScale = {
-			w = w,
-			fixed_h = h,
-			minw = 150,
-			minh = h
-		}
+		Entry.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h }
 	else
 		Entry:SetSize(w, h)
 	end
-
 	Entry.vector = vector or Vector(0, 0, 0)
-
-	Entry.Paint = function(self, w, h)
-		draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["l"])
-		draw.RoundedBox(0, 0, h - 1, w, 1, MSD.Text["n"])
+	Entry.Paint = function(self, sw, sh)
+		draw.RoundedBox(0, 0, 0, sw, sh, MSD.Theme["l"])
+		draw.RoundedBox(0, 0, sh - 1, sw, 1, MSD.Text["n"])
 
 		if text then
 			draw.SimpleText(text, "MSDFont.16", 3, 0, MSD.ColorAlpha(MSD.Text["d"], 120), TEXT_ALIGN_LEFT)
 		end
 
 		draw.SimpleText("x: " .. self.vector.x .. " y: " .. self.vector.y .. " z: " .. self.vector.z, "MSDFont.22", 3, h / 2 - 10, MSD.Text["d"], TEXT_ALIGN_LEFT)
+	end
+	Entry.DoClick = function(self)
+
+		if self.rebuild or self.disabled then return end
+		self.rebuild = true
+
+		if IsValid(self.cpanel) then
+			self.cpanel:Remove()
+			self.cpanel = nil
+			self:SizeTo(self:GetWide(), h, 0.2, 0, -1, function()
+				Entry.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h}
+				parent:Rebuild()
+				self.rebuild = nil
+			end)
+			return
+		end
+
+		Entry.StaticScale = {
+			w = w,
+			fixed_h = h + 50,
+			minw = 150,
+			minh = h + 50
+		}
+		parent:Rebuild()
+		self:SetSize(self:GetWide(), h)
+		self:SizeTo(self:GetWide(), h + 50, 0.2, 0, -1, function()
+			self.rebuild = nil
+		end)
+		local mpw = self:GetWide()
+		self.cpanel = vgui.Create("DPanel", self)
+		self.cpanel:SetSize(mpw, 50)
+		self.cpanel:SetPos(0, h)
+		self.cpanel.Paint = function() end
+
+		self.x = MSD.TextEntry(self.cpanel, 0, 0, mpw / 3, 45, "", "X", self.vector.x, function(sp, value)
+			value = tonumber(value) or 0
+			self.vector.x = value
+			func(self.vector, self)
+		end, true, nil, false, true)
+
+		self.y = MSD.TextEntry(self.cpanel, mpw / 3, 0, mpw / 3, 45, "", "Y", self.vector.y, function(sp, value)
+			value = tonumber(value) or 0
+			self.vector.y = value
+			func(self.vector, self)
+		end, true, nil, false, true)
+
+		self.z = MSD.TextEntry(self.cpanel, mpw - mpw / 3, 0, mpw / 3, 45, "", "Z", self.vector.z, function(sp, value)
+			value = tonumber(value) or 0
+			self.vector.z = value
+			func(self.vector, self)
+		end, true, nil, false, true)
 	end
 
 	if not x or not y then
@@ -447,36 +491,81 @@ function MSD.VectorDisplay(parent, x, y, w, h, text, vector)
 	return Entry
 end
 
-function MSD.AngleDisplay(parent, x, y, w, h, text, angle)
-	local Entry = vgui.Create("DPanel")
-
+function MSD.AngleDisplay(parent, x, y, w, h, text, angle, func)
+	local Entry = vgui.Create("DButton")
+	Entry:SetText("")
 	if x and y then
 		Entry:SetParent(parent)
 		Entry:SetPos(x, y)
 	end
 
 	if x == "static" then
-		Entry.StaticScale = {
-			w = w,
-			fixed_h = h,
-			minw = 150,
-			minh = h
-		}
+		Entry.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h }
 	else
 		Entry:SetSize(w, h)
 	end
 
 	Entry.angle = angle or Angle(0, 0, 0)
-
-	Entry.Paint = function(self, w, h)
-		draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["l"])
-		draw.RoundedBox(0, 0, h - 1, w, 1, MSD.Text["n"])
+	Entry.Paint = function(self, sw, sh)
+		draw.RoundedBox(0, 0, 0, sw, h, MSD.Theme["l"])
+		draw.RoundedBox(0, 0, sh - 1, sw, 1, MSD.Text["n"])
 
 		if text then
 			draw.SimpleText(text, "MSDFont.16", 3, 0, MSD.ColorAlpha(MSD.Text["d"], 120), TEXT_ALIGN_LEFT)
 		end
 
 		draw.SimpleText("p: " .. self.angle.p .. " y: " .. self.angle.y .. " r: " .. self.angle.r, "MSDFont.22", 3, h / 2 - 10, MSD.Text["d"], TEXT_ALIGN_LEFT)
+	end
+	Entry.DoClick = function(self)
+
+		if self.rebuild or self.disabled then return end
+		self.rebuild = true
+
+		if IsValid(self.cpanel) then
+			self.cpanel:Remove()
+			self.cpanel = nil
+			self:SizeTo(self:GetWide(), h, 0.2, 0, -1, function()
+				Entry.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h}
+				parent:Rebuild()
+				self.rebuild = nil
+			end)
+			return
+		end
+
+		Entry.StaticScale = {
+			w = w,
+			fixed_h = h + 50,
+			minw = 150,
+			minh = h + 50
+		}
+		parent:Rebuild()
+		self:SetSize(self:GetWide(), h)
+		self:SizeTo(self:GetWide(), h + 50, 0.2, 0, -1, function()
+			self.rebuild = nil
+		end)
+		local mpw = self:GetWide()
+		self.cpanel = vgui.Create("DPanel", self)
+		self.cpanel:SetSize(mpw, 50)
+		self.cpanel:SetPos(0, h)
+		self.cpanel.Paint = function() end
+
+		self.x = MSD.TextEntry(self.cpanel, 0, 0, mpw / 3, 45, "", "X", self.angle.p, function(sp, value)
+			value = tonumber(value) or 0
+			self.angle.p = value
+			func(self.angle, self)
+		end, true, nil, false, true)
+
+		self.y = MSD.TextEntry(self.cpanel, mpw / 3, 0, mpw / 3, 45, "", "Y", self.angle.y, function(sp, value)
+			value = tonumber(value) or 0
+			self.angle.y = value
+			func(self.angle, self)
+		end, true, nil, false, true)
+
+		self.z = MSD.TextEntry(self.cpanel, mpw - mpw / 3, 0, mpw / 3, 45, "", "Z", self.angle.r, function(sp, value)
+			value = tonumber(value) or 0
+			self.angle.r = value
+			func(self.angle, self)
+		end, true, nil, false, true)
 	end
 
 	if not x or not y then
@@ -754,6 +843,76 @@ function MSD.ButtonIcon(parent, x, y, w, h, text, icon, func, func2, color)
 			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
 		end
 
+		draw.DrawText(self:GetText(), "MSDFont.22", 48, h / 2 - 11, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255), TEXT_ALIGN_LEFT)
+		draw.DrawText(self:GetText(), "MSDFont.22", 48, h / 2 - 11, MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255 - self.alpha * 255), TEXT_ALIGN_LEFT)
+		draw.RoundedBox(0, 0, h - 1, w, 1, MSD.ColorAlpha(color or MSD.Text["l"], 255 - self.alpha * 255))
+		draw.RoundedBox(0, 0, h - 1, w, 1, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255))
+		MSD.DrawTexturedRect(12, h / 2 - 12, 24, 24, icon, MSD.ColorAlpha(color or MSD.Text["l"], 255 - self.alpha * 255))
+		MSD.DrawTexturedRect(12, h / 2 - 12, 24, 24, icon, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255))
+
+		return true
+	end
+
+	if func then
+		button.OnCursorEntered = function(self)
+			self.hover = true
+		end
+
+		button.OnCursorExited = function(self)
+			self.hover = false
+		end
+
+		button.DoClick = function(self)
+			func(self)
+		end
+	end
+
+	if func2 then
+		button.DoRightClick = function(self)
+			func2(self)
+		end
+	end
+
+	if not x or not y then
+		parent:AddItem(button)
+	end
+
+	return button
+end
+
+function MSD.ButtonIconText(parent, x, y, w, h, text, text2, icon, func, func2, color)
+	local button = vgui.Create("DButton")
+	button:SetText(text)
+
+	if x and y then
+		button:SetParent(parent)
+		button:SetPos(x, y)
+	end
+
+	if x == "static" then
+		button.StaticScale = {
+			w = w,
+			fixed_h = h,
+			minw = 50,
+			minh = h
+		}
+	else
+		button:SetSize(w, h)
+	end
+
+	button.alpha = 0
+	button.text = text2
+
+	button.Paint = function(self, w, h)
+		draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["l"])
+
+		if (self.hover or self.hovered) and not self.disabled then
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 1)
+		else
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
+		end
+
+		draw.DrawText(self.text, "MSDFont.22", w - 5, h / 2 - 11, self.disabled and MSD.Text["n"] or MSD.Text["s"], TEXT_ALIGN_RIGHT)
 		draw.DrawText(self:GetText(), "MSDFont.22", 48, h / 2 - 11, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255), TEXT_ALIGN_LEFT)
 		draw.DrawText(self:GetText(), "MSDFont.22", 48, h / 2 - 11, MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255 - self.alpha * 255), TEXT_ALIGN_LEFT)
 		draw.RoundedBox(0, 0, h - 1, w, 1, MSD.ColorAlpha(color or MSD.Text["l"], 255 - self.alpha * 255))
@@ -1336,4 +1495,124 @@ function MSD.ColorSelector(parent, x, y, w, h, text, color, func)
 	end
 
 	return button
+end
+
+function MSD.VectorSelectorList(parent, text, vector, showa, angle, texta, copy_but, func)
+	local vecd, amgl
+	vecd = MSD.VectorDisplay(parent, "static", nil, 1, 50, text, vector, function(vec)
+		func(vec, showa and amgl.angle)
+	end)
+	if showa then
+		amgl = MSD.AngleDisplay(parent, "static", nil, 1, 50, texta, angle, function(ang)
+			func(vecd.vector, ang)
+		end)
+	end
+
+	if copy_but then
+		MSD.Button(parent, "static", nil, 3, 50, MSD.GetPhrase("set_pos_self"), function()
+			local vec = LocalPlayer():GetPos() vecd.vector = vec
+			if showa then local ang = Angle(0, LocalPlayer():GetAngles().y, 0) amgl.angle = ang end
+			func(vecd.vector, showa and amgl.angle)
+		end)
+
+		MSD.Button(parent, "static", nil, 3, 50, MSD.GetPhrase("set_pos_aim"), function()
+			local vec = LocalPlayer():GetEyeTrace().HitPos
+			if not vec then return end
+			vecd.vector = vec
+			if showa then local ang = Angle(0, LocalPlayer():GetAngles().y, 0) amgl.angle = ang end
+			func(vecd.vector, showa and amgl.angle)
+		end)
+
+		MSD.Button(parent, "static", nil, 3, 50, MSD.GetPhrase("copy_from_ent"), function()
+			local vec = LocalPlayer():GetEyeTrace().Entity
+			if not vec then return end
+			vecd.vector = vec:GetPos()
+			if showa then local ang = vec:GetAngles() amgl.angle = ang end
+			func(vecd.vector, showa and amgl.angle)
+		end)
+	end
+
+end
+
+function MSD.NPCModelFrame(parent, x, y, w, h, model, anim)
+	if not model then
+		model = "models/Humans/Group01/Male_01.mdl"
+	end
+
+	if ScrH() > 1000 then
+		modelsize = 500
+	end
+
+	local icon = vgui.Create("DModelPanel")
+
+	if x and y then
+		icon:SetParent(parent)
+		icon:SetPos(x, y)
+	end
+
+	if x == "static" then
+		icon.StaticScale = {
+			w = w,
+			fixed_h = h,
+			minw = 150,
+			minh = h
+		}
+	else
+		icon:SetSize(w, h)
+	end
+
+	icon:SetFOV(20)
+	icon:SetCamPos(Vector(0, 0, 0))
+	icon:SetDirectionalLight(BOX_RIGHT, Color(255, 160, 80, 255))
+	icon:SetDirectionalLight(BOX_LEFT, Color(80, 160, 255, 255))
+	icon:SetAmbientLight(Vector(-64, -64, -64))
+	icon:SetAnimated(true)
+	icon.Angles = Angle(0, 0, 0)
+	icon:SetLookAt(Vector(-100, 0, -22))
+	icon:SetModel(model)
+	icon.Entity:ResetSequence(anim or 1)
+	icon.Entity:SetPos(Vector(-100, 0, -61))
+	function icon:DragMousePress()
+		self.PressX, self.PressY = gui.MousePos()
+		self.Pressed = true
+	end
+	function icon:DoDoubleClick()
+		if icon:GetFOV() < 10 then
+			icon:SetFOV(50)
+		else
+			icon:SetFOV(icon:GetFOV() - 5)
+		end
+	end
+	function icon:DragMouseRelease()
+		self.Pressed = false
+	end
+	function icon:LayoutEntity(ent)
+		if (self.bAnimated) then
+			self:RunAnimation()
+		end
+
+		if (self.Pressed) then
+			local mx = gui.MousePos()
+			self.Angles = self.Angles - Angle(0, (self.PressX or mx) - mx, 0)
+			self.PressX, self.PressY = gui.MousePos()
+		end
+
+		ent:SetAngles(self.Angles)
+	end
+
+	function icon:UpdateModelValue(value)
+		if value == "" then return end
+		icon:SetModel(value)
+
+		if icon.Entity then
+			icon.Entity:ResetSequence("idle")
+			icon.Entity:SetPos(Vector(-100, 0, -61))
+		end
+	end
+
+	if not x or not y then
+		parent:AddItem(button)
+	end
+
+	return icon
 end

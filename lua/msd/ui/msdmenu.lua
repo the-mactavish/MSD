@@ -5,7 +5,7 @@ function RegisterDermaMenuForClose(dmenu)
 	table.insert(tblOpenMenus, dmenu)
 end
 
-function MSD.MenuOpen(parentmenu, parent)
+function MSD.MenuOpen(parentmenu, parent, bg)
 	if (not parentmenu) then
 		CloseDermaMenus()
 	end
@@ -15,8 +15,12 @@ function MSD.MenuOpen(parentmenu, parent)
 	dmenu.ShadowInt = 1
 
 	dmenu.Paint = function(self, w, h)
-		MSD.Blur(self, 1, 1, 255, 55, w, h)
-		draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["d"])
+		if bg then
+			draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["d_na"])
+		else
+			MSD.Blur(self, 1, 1, 255, 55, w, h)
+			draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["d"])
+		end
 	end
 
 	return dmenu
@@ -68,10 +72,14 @@ function PANEL:Init()
 	RegisterDermaMenuForClose(self)
 end
 
-function PANEL:AddOption(strText, funcFunction)
+function PANEL:AddOption(strText, funcFunction, icon)
 	local pnl = vgui.Create("MSD.DMenuOption", self)
 	pnl:SetMenu(self)
 	pnl:SetText(strText)
+	if icon then
+		pnl.icon = icon
+		pnl:SetTextInset(38, 0)
+	end
 
 	if (funcFunction) then
 		pnl.DoClick = funcFunction
@@ -145,6 +153,32 @@ function PANEL:Paint(w, h)
 		self:SetTextColor(self.ColorText)
 		self.ChangeCC = nil
 	end
+
+	if self.icon then
+		local ih = h - 6
+		MSD.DrawTexturedRect(5, 3, ih, ih, self.icon, self.ColorText)
+	end
+end
+
+function PANEL:PerformLayout( w, h )
+
+	self:SizeToContents()
+	self:SetWide( self:GetWide() + 30 )
+
+	local w = math.max( self:GetParent():GetWide(), self:GetWide() )
+
+	self:SetSize( w, self.icon and 30 or 22 )
+
+	if ( IsValid( self.SubMenuArrow ) ) then
+
+		self.SubMenuArrow:SetSize( 15, 15 )
+		self.SubMenuArrow:CenterVertical()
+		self.SubMenuArrow:AlignRight( 4 )
+
+	end
+
+	DButton.PerformLayout( self, w, h )
+
 end
 
 derma.DefineControl("MSD.DMenuOption", "Menu Option Line 2", PANEL, "DMenuOption")
