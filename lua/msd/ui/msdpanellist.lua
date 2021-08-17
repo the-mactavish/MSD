@@ -208,9 +208,20 @@ function PANEL:HorizontalRebuild(Offset)
 			if panel.StaticScale then
 				local w, h
 
+				if isstring(panel.StaticScale.w) then
+					w = tonumber(panel.StaticScale.w)
+					w = (self.pnlCanvas:GetWide() - (self.pnlCanvas:GetWide() / w)) - (self.Spacing + self.Padding)
+				elseif panel.StaticScale.w == 1 then
+					w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding)
+				else
+					w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding) / 1.5
+				end
+
 				if panel.StaticScale.fixed_h then
 					h = panel.StaticScale.fixed_h
-				else
+				elseif panel.StaticScale.h_w then
+					h = w
+				elseif panel.StaticScale.h then
 					if isstring(panel.StaticScale.h) then
 						h = tonumber(panel.StaticScale.h)
 						h = (self:GetTall() - (self:GetTall() / h)) - (self.Spacing + self.Spacing / h + self.Padding)
@@ -221,20 +232,11 @@ function PANEL:HorizontalRebuild(Offset)
 					end
 				end
 
-				if isstring(panel.StaticScale.w) then
-					w = tonumber(panel.StaticScale.w)
-					w = (self.pnlCanvas:GetWide() - (self.pnlCanvas:GetWide() / w)) - (self.Spacing + self.Padding)
-				elseif panel.StaticScale.w == 1 then
-					w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding)
-				else
-					w = self.pnlCanvas:GetWide() / panel.StaticScale.w - (self.Spacing + self.Padding) / 1.5
-				end
-
 				if panel.StaticScale.minw > w then
 					w = panel.StaticScale.minw
 				end
 
-				if panel.StaticScale.minh > h then
+				if panel.StaticScale.h and panel.StaticScale.minh > h then
 					h = panel.StaticScale.minh
 				end
 

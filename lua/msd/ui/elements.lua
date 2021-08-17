@@ -123,13 +123,13 @@ function MSD.IconButtonText(parent, text, mat, x, y, s, color, color2, func)
 	if x == "static" then
 		button.StaticScale = {
 			w = s * 2,
-			fixed_h = s + 16,
+			fixed_h = s + 32,
 			minw = s * 2,
 			minh = s + 16
 		}
 	end
 
-	button:SetSize(s, s + 16)
+	button:SetSize(s, s + 32)
 	button:SetText(text)
 	button.hovered = false
 	button.alpha = 0
@@ -148,7 +148,7 @@ function MSD.IconButtonText(parent, text, mat, x, y, s, color, color2, func)
 			MSD.DrawTexturedRect(w / 2 - s / 2, 0, s, s, self.mat, MSD.ColorAlpha(color2 or MSD.Config.MainColor["p"], self.alpha * 255))
 		end
 
-		draw.DrawText(self:GetText(text), "MSDFont.16", w / 2, h - 16, color or MSD.Text.d, TEXT_ALIGN_CENTER)
+		draw.DrawText(MSD.TextWrap(self:GetText(), "MSDFont.16", w - 4), "MSDFont.16", w / 2, s, color or MSD.Text.d, TEXT_ALIGN_CENTER)
 
 		return true
 	end
@@ -692,6 +692,63 @@ function MSD.Binder(parent, x, y, w, h, text, var, func)
 	if not x or not y then
 		parent:AddItem(binder)
 	end
+end
+
+function MSD.ButtonScr(parent, x, y, w, h, text, func, al_left)
+	local button = vgui.Create("DButton")
+	button:SetText(text)
+
+	if x and y then
+		button:SetParent(parent)
+		button:SetPos(x, y)
+	end
+
+	if x == "static" then
+		button.StaticScale = {
+			w = w,
+			h_w = true,
+			minw = 150
+		}
+	else
+		button:SetSize(w, h)
+	end
+
+	button.alpha = 0
+
+	button.Paint = function(self, w, h)
+		draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["l"])
+
+		if (self.hover or self.hovered) and not self.disabled then
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 1)
+		else
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
+		end
+
+		draw.DrawText(MSD.TextWrap(self:GetText(), "MSDFont.18", w - 20), "MSDFont.18", al_left and 5 or w / 2, h / 2 - 11, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255), al_left and TEXT_ALIGN_LEFT or TEXT_ALIGN_CENTER)
+		draw.DrawText(MSD.TextWrap(self:GetText(), "MSDFont.18", w - 20), "MSDFont.18", al_left and 5 or w / 2, h / 2 - 11, MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255 - self.alpha * 255), al_left and TEXT_ALIGN_LEFT or TEXT_ALIGN_CENTER)
+		draw.RoundedBox(0, 0, h - 1, w, 1, MSD.ColorAlpha(MSD.Text["l"], 255 - self.alpha * 255))
+		draw.RoundedBox(0, 0, h - 1, w, 1, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255))
+
+		return true
+	end
+
+	button.OnCursorEntered = function(self)
+		self.hover = true
+	end
+
+	button.OnCursorExited = function(self)
+		self.hover = false
+	end
+
+	button.DoClick = function(self)
+		func(self)
+	end
+
+	if not x or not y then
+		parent:AddItem(button)
+	end
+
+	return button
 end
 
 function MSD.Button(parent, x, y, w, h, text, func, al_left)

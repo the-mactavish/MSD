@@ -32,7 +32,18 @@ MSD.Icons48 = {
 	search = Material("mqs/map_markers/c4.png", "smooth"),
 	tools = Material("mqs/map_markers/t1.png", "smooth"),
 	human_female = Material("msd/icons/human-female.png", "smooth"),
-	human_male = Material("msd/icons/human-male.png", "smooth")
+	human_male = Material("msd/icons/human-male.png", "smooth"),
+	human_female_dance = Material("msd/icons/human-female-dance.png", "smooth"),
+	hand_peace_variant = Material("msd/icons/hand-peace-variant.png", "smooth"),
+	key = Material("msd/icons/key-variant.png", "smooth"),
+	key_arrow_right = Material("msd/icons/key-arrow-right.png", "smooth"),
+	key_link = Material("msd/icons/key-link.png", "smooth"),
+	key_plus = Material("msd/icons/key-plus.png", "smooth"),
+	key_remove = Material("msd/icons/key-remove.png", "smooth"),
+	key_star = Material("msd/icons/key-star.png", "smooth"),
+	door = Material("msd/icons/door.png", "smooth"),
+	car = Material("mqs/map_markers/v1.png", "smooth"),
+	cash = Material("msd/icons/cash.png", "smooth")
 }
 
 MSD.Materials = {
