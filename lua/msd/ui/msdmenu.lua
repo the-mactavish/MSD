@@ -72,7 +72,9 @@ function PANEL:Init()
 	RegisterDermaMenuForClose(self)
 end
 
-function PANEL:AddOption(strText, funcFunction, icon)
+function PANEL:AddOption(strText, funcFunction, icon, check)
+	if check and not check() then return end
+
 	local pnl = vgui.Create("MSD.DMenuOption", self)
 	pnl:SetMenu(self)
 	pnl:SetText(strText)

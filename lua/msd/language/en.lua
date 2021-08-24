@@ -252,6 +252,7 @@ MSD.Language["en"] = {
 	blacklist = "Blacklist",
 	s_quest_blacklist_desc = "Select quests that will block this quest if you played them",
 
+	restore_wep = "Restore weapons on quest end",
 }
 
 -- Other phrases
