@@ -253,6 +253,9 @@ MSD.Language["en"] = {
 	s_quest_blacklist_desc = "Select quests that will block this quest if you played them",
 
 	restore_wep = "Restore weapons on quest end",
+	e_cmd = "Enter console command",
+	e_args = "Enter command arguments",
+	hint_cmd = "Autofill shortuts: \n$uid - UserID, \n$sid - SteamID,  \n$s64 - SteamID 64, \n$n - Player name",
 }
 
 -- Other phrases

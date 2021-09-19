@@ -327,6 +327,30 @@ function MSD.InfoHeader(parent, text)
 	return panel
 end
 
+function MSD.InfoText(parent, text)
+	local panel = vgui.Create("DPanel")
+
+	panel.StaticScale = {
+		w = 1,
+		fixed_h = 25,
+		minw = 250,
+		minh = 25
+	}
+
+	panel.Paint = function(self, w, h)
+		local ts, _, th = MSD.TextWrap(text, "MSDFont.18", w - 10)
+		draw.DrawText(ts, "MSDFont.18", 5, 5, MSD.Text.d, TEXT_ALIGN_LEFT)
+
+		if th > h then
+			self.StaticScale.fixed_h = th + 10
+		end
+	end
+
+	parent:AddItem(panel)
+
+	return panel
+end
+
 function MSD.TextEntry(parent, x, y, w, h, text, label, value, func, auto_update, focuse_update, multi, num)
 	local Entry = vgui.Create("DTextEntry")
 
