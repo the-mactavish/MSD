@@ -1113,6 +1113,88 @@ function MSD.VolumeSlider(parent, x, y, w, h, text, var, func, cl)
 	return button
 end
 
+function MSD.VolumeScale(parent, x, y, w, h, text, var, func, cl)
+	local button = vgui.Create("DButton")
+	button:SetText("")
+
+	if x and y then
+		button:SetParent(parent)
+		button:SetPos(x, y)
+	end
+
+	if x == "static" then
+		button.StaticScale = {
+			w = w,
+			fixed_h = h,
+			minw = 150,
+			minh = h
+		}
+	else
+		button:SetSize(w, h)
+	end
+
+	button.var = var or 1
+	button.value = var or 1
+	button.alpha = 0
+	button.disabled = false
+
+	button.Paint = function(self, w, h)
+		draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["l"])
+
+		if (self.hover or self.hovered) and not self.disabled then
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 1)
+		else
+			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
+		end
+
+		draw.DrawText(text, "MSDFont.22", 3, h / 2 - 11, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255), TEXT_ALIGN_LEFT)
+		draw.DrawText(text, "MSDFont.22", 3, h / 2 - 11, MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255 - self.alpha * 255), TEXT_ALIGN_LEFT)
+		self.var = Lerp(FrameTime() * 7, self.var, self.value)
+		draw.RoundedBox(0, w - w / 2 + 10, h / 2 - 10, w / 2 - 20, 20, MSD.Theme["d"])
+
+		if self.disabled then
+			draw.DrawText(MSD.GetPhrase("disabled"), "MSDFont.16", w - (w / 2) / 2, h / 2 - 8, MSD.Text["n"], TEXT_ALIGN_CENTER)
+		else
+			draw.RoundedBox(0, w - w / 2 + 10, h / 2 - 10, (w / 2 - 19) * ( self.var / 2), 20, cl or MSD.Config.MainColor["p"])
+			draw.DrawText(math.Round(self.value * 100) .. "%", "MSDFont.16", w - (w / 2) / 2, h / 2 - 8, MSD.Text["s"], TEXT_ALIGN_CENTER)
+		end
+	end
+
+	button.OnCursorEntered = function(self)
+		self.hover = true
+	end
+
+	button.OnCursorExited = function(self)
+		self.hover = false
+	end
+
+	button.DoClick = function(self)
+		if self.disabled then return end
+		local w = self:GetWide()
+		local mx, my = gui.MousePos()
+		local x = self:ScreenToLocal(mx, my)
+
+		if x < w - w / 2 + 10 then
+			self.value = 1
+		elseif x > w - 10 then
+			self.value = 2
+		else
+			x = x - ((w - w / 2) + 10)
+			x = x / ((w / 2) - 20) * 2
+			self.value = math.Clamp(x, 0.01, 2)
+		end
+
+		self.value = math.Round(self.value, 2)
+		func(self, self.value)
+	end
+
+	if not x or not y then
+		parent:AddItem(button)
+	end
+
+	return button
+end
+
 function MSD.BoolSlider(parent, x, y, w, h, text, var, func)
 	local button = vgui.Create("DButton")
 	button:SetText("")
