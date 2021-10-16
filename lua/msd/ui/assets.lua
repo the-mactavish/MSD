@@ -90,6 +90,15 @@ for i = 0, 20 do
 	})
 end
 
+for i = 0, 20 do
+	NewFont("MSDFontB." .. 16 + i, {
+		font = "AdihausDIN",
+		extended = true,
+		size = 16 + i,
+		weight = 800
+	})
+end
+
 NewFont("MSDFont.Big", {
 	font = "AdihausDIN",
 	extended = true,
@@ -103,6 +112,41 @@ NewFont("MSDFont.Biger", {
 	size = 55,
 	weight = 500
 })
+
+function SimpleTextOutlined(text, font, x, y, colour, xalign, yalign, outlinewidth, outlinecolour)
+
+	local steps = ( outlinewidth * 2 ) / 3
+	if ( steps < 1 ) then steps = 1 end
+
+	for _x = -outlinewidth, outlinewidth, steps do
+		for _y = -outlinewidth, outlinewidth, steps do
+			SimpleText( text, font, x + _x, y + _y, outlinecolour, xalign, yalign )
+		end
+	end
+
+	return SimpleText( text, font, x, y, colour, xalign, yalign )
+
+end
+
+function MSD.DrawTexturedOutlined(x, y, w, h, mat, color, outlinewidth, ocolor)
+	if isstring(mat) then
+		mat = Material(mat)
+	end
+
+	surface.SetMaterial(mat)
+	surface.SetDrawColor(ocolor)
+	local steps = ( outlinewidth * 2 ) / 3
+	if ( steps < 1 ) then steps = 1 end
+
+	for _x = -outlinewidth, outlinewidth, steps do
+		for _y = -outlinewidth, outlinewidth, steps do
+			surface.DrawTexturedRect(x + _x, y + _y, w, h)
+		end
+	end
+
+	surface.SetDrawColor(color)
+	surface.DrawTexturedRect(x, y, w, h)
+end
 
 function MSD.DrawTexturedRect(x, y, w, h, mat, color)
 	if isstring(mat) then
