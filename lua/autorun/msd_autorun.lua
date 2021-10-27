@@ -29,7 +29,10 @@
 
 
 MSD = {}
+MSD.Version = "1.0.1"
 MSD.Config = {}
+MSD.Modules = {}
+MSD.ModuleIds = {}
 MSD.Language = {}
 
 if SERVER then
@@ -65,6 +68,18 @@ function MSD.Load()
 		for k,v in ipairs( f ) do
 			include( "msd/ui/" .. v )
 		end
+
+		list.Set( "DesktopWindows", "MSDModulesSetup", {
+			title		= "Setup Menu",
+			icon		= "msd/macnco.png",
+			width		= 960,
+			height		= 700,
+			onewindow	= true,
+			init		= function( icon, window )
+				window:Close()
+				icon.Window = MSD.OpenMenuManager(g_ContextMenu)
+			end
+		} )
 	end
 
 
