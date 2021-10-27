@@ -257,6 +257,9 @@ MSD.Language["en"] = {
 	e_args = "Enter command arguments",
 	hint_cmd = "Autofill shortuts: \n$uid - UserID, \n$sid - SteamID,  \n$s64 - SteamID 64, \n$n - Player name",
 	youaretracked = "Your position is now compromised to other players!",
+	border_rounded = "Rounded border design",
+	border_square = "Square border design",
+	access_settings = "Menu access",
 }
 
 -- Other phrases

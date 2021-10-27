@@ -2,6 +2,7 @@ MSD.Icons48 = {
 	cross = Material("msd/icons/cross.png", "smooth"),
 	cog = Material("msd/icons/cog.png", "smooth"),
 	eye = Material("msd/icons/eye.png", "smooth"),
+	box = Material("mqs/map_markers/b5.png", "smooth"),
 	layers = Material("msd/icons/layers.png", "smooth"),
 	layers_plus = Material("msd/icons/layers-plus.png", "smooth"),
 	layers_remove = Material("msd/icons/layers-remove.png", "smooth"),
@@ -113,19 +114,12 @@ NewFont("MSDFont.Biger", {
 	weight = 500
 })
 
-function SimpleTextOutlined(text, font, x, y, colour, xalign, yalign, outlinewidth, outlinecolour)
-
-	local steps = ( outlinewidth * 2 ) / 3
-	if ( steps < 1 ) then steps = 1 end
-
-	for _x = -outlinewidth, outlinewidth, steps do
-		for _y = -outlinewidth, outlinewidth, steps do
-			SimpleText( text, font, x + _x, y + _y, outlinecolour, xalign, yalign )
-		end
+function MSD.DrawBG(panel, w, h)
+	if MSD.Config.Blur then
+		MSD.Blur(panel, 1, 3, 255, 250 - MSD.Config.BgrColor.r, w, h)
+	else
+		draw.RoundedBox(MSD.Config.Rounded, 0, 0, w, h, MSD.Config.BgrColor)
 	end
-
-	return SimpleText( text, font, x, y, colour, xalign, yalign )
-
 end
 
 function MSD.DrawTexturedOutlined(x, y, w, h, mat, color, outlinewidth, ocolor)
@@ -196,7 +190,7 @@ function MSD.Blur(panel, inn, density, alpha, back_alpha, w, h)
 	end
 
 	if back_alpha and back_alpha > 0 then
-		draw.RoundedBox(0, 0, 0, w, h, Color(10, 10, 10, back_alpha))
+		draw.RoundedBox(8, 0, 0, w, h, MSD.ColorAlpha(color_black, back_alpha))
 	end
 end
 

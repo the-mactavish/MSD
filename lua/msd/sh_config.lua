@@ -23,12 +23,36 @@
 -- SOFTWARE.
 
 MSD.Config.Language = "en"
-
+MSD.Config.Rounded = 8
+MSD.Config.Blur = false
+MSD.Config.Vignette = false
+MSD.Config.BgrColor = Color(45, 45, 45)
 MSD.Config.MainColor = {
 	["p"] = Color(0, 155, 255),
 	["r"] = Color(255, 0, 0),
 	["rd"] = Color(220, 0, 0),
 }
+
+-- Util
+
+function MSD.AddModule(name, menu, icon)
+	local mod = {
+		name = name,
+		icon = icon,
+		menu = menu
+	}
+
+	local id = MSD.ModuleIds[name]
+
+	if id then
+		MSD.Modules[id] = mod
+	else
+		id = table.insert(MSD.Modules, mod)
+		MSD.ModuleIds[name] = id
+	end
+
+	return id
+end
 
 --──────────────────────────────────--
 ------------- CFG Saving -------------
@@ -89,14 +113,13 @@ function MSD.LoadConfig()
 			local config = util.JSONToTable(file.Read("msd_data/config.txt", "DATA"))
 
 			for k, v in pairs(config) do
-				if MSD.Config[k] then
+				if MSD.Config[k] != nil then
 					MSD.Config[k] = v
 				end
 			end
-
 			if #player.GetAll() > 0 then
 				net.Start("MSD.GetConfigData")
-				net.WriteTable(config)
+				net.WriteTable(MSD.Config)
 				net.Broadcast()
 			end
 		end

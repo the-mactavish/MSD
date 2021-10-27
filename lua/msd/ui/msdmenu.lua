@@ -16,10 +16,10 @@ function MSD.MenuOpen(parentmenu, parent, bg)
 
 	dmenu.Paint = function(self, w, h)
 		if bg then
-			draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["d_na"])
+			draw.RoundedBox(MSD.Config.Rounded, 0, 0, w, h, MSD.Theme["d_na"])
 		else
-			MSD.Blur(self, 1, 1, 255, 55, w, h)
-			draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["d"])
+			MSD.Blur(self, 1, 2, 255, 55, w, h)
+			draw.RoundedBox(MSD.Config.Rounded, 0, 0, w, h, MSD.Theme["d"])
 		end
 	end
 
@@ -108,7 +108,7 @@ end
 
 derma.DefineControl("MSD.DMenu", "A Menu 2", PANEL, "DMenu")
 
-local PANEL = {}
+PANEL = {}
 AccessorFunc(PANEL, "m_pMenu", "Menu")
 AccessorFunc(PANEL, "m_bChecked", "Checked")
 AccessorFunc(PANEL, "m_bCheckable", "IsCheckable")
@@ -167,7 +167,7 @@ function PANEL:PerformLayout( w, h )
 	self:SizeToContents()
 	self:SetWide( self:GetWide() + 30 )
 
-	local w = math.max( self:GetParent():GetWide(), self:GetWide() )
+	w = math.max( self:GetParent():GetWide(), self:GetWide() )
 
 	self:SetSize( w, self.icon and 30 or 22 )
 
