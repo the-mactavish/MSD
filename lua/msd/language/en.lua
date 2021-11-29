@@ -260,6 +260,22 @@ MSD.Language["en"] = {
 	border_rounded = "Rounded border design",
 	border_square = "Square border design",
 	access_settings = "Menu access",
+	compact_obj = "Compact objective list for quests",
+	e_usergroup = "Enter user group",
+	ug_isanadmin = "This user gproup allready has full access",
+	find_player_id32 = "Find player data by SteamID 32",
+	user_data = "User data editor",
+	access_editors = "Set quest editors access",
+	access_admins = "Set full access",
+	add_usergroup = "Add user group",
+	edit_objmod = "Edit objective order",
+	editmod = "Edit mode",
+	move = "Move",
+	q_errorloop = "Quest entered in an endless loop",
+	q_cooldow_perply = "Publick cooldown timer",
+	q_cooldow_publick = "Per-Player cooldown timer",
+	q_stop_anytime = "Allow to abandon quest manually",
+	quest_abandon = "You abandon the quest",
 }
 
 -- Other phrases

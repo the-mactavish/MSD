@@ -44,6 +44,10 @@ MSD.Icons48 = {
 	key_star = Material("msd/icons/key-star.png", "smooth"),
 	door = Material("msd/icons/door.png", "smooth"),
 	car = Material("mqs/map_markers/v1.png", "smooth"),
+	cancel = Material("msd/icons/cancel.png", "smooth"),
+	reload = Material("msd/icons/reload.png", "smooth"),
+	reload_alert = Material("msd/icons/reload-alert.png", "smooth"),
+	skip_to = Material("msd/icons/debug-step-over.png", "smooth"),
 	cash = Material("msd/icons/cash.png", "smooth")
 }
 
@@ -73,6 +77,7 @@ MSD.Theme = {
 }
 
 MSD.Text = {
+	["a"] = Color(150, 150, 150, 200),
 	["n"] = Color(150, 150, 150),
 	["d"] = Color(220, 220, 220),
 	["s"] = Color(235, 235, 235),

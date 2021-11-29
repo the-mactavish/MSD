@@ -3,8 +3,15 @@ local Ln = MSD.GetPhrase
 local logo = Material("msd/macnco.png", "smooth")
 CreateClientConVar("mmd_lastscr", 0, true, false)
 
+function MSD.AdminAccess(ply)
+	if MQS then
+		return MQS.IsEditor(ply)
+	end
+	return ply:IsSuperAdmin()
+end
+
 function MSD.OpenMenuManager(parrent, mod_open)
-	if not LocalPlayer():IsSuperAdmin() then return end
+	if not MSD.AdminAccess(LocalPlayer()) then return end
 	if MSD.SetupMenu then
 		if parrent then
 			MSD.SetupMenu:Center()

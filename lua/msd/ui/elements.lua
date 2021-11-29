@@ -344,7 +344,7 @@ function MSD.MenuButtonTop(parent, mat, x, y, sw, sh, text, func, rfunc, small)
 	return button
 end
 
-function MSD.Header(parent, text, back, icon)
+function MSD.Header(parent, text, back, icon, align)
 	local panel = vgui.Create("DPanel")
 
 	panel.StaticScale = {
@@ -356,7 +356,7 @@ function MSD.Header(parent, text, back, icon)
 
 	panel.Paint = function(self, w, h)
 		draw.RoundedBox(MSD.Config.Rounded, 0, 0, w, h, MSD.Theme["l"])
-		draw.DrawText(text, "MSDFont.25", w / 2, 12, color_white, TEXT_ALIGN_CENTER)
+		draw.DrawText(text, "MSDFont.25", align and 50 or w / 2, 12, color_white, align and TEXT_ALIGN_LEFT or TEXT_ALIGN_CENTER)
 	end
 
 	parent:AddItem(panel)
@@ -368,11 +368,11 @@ function MSD.Header(parent, text, back, icon)
 	return panel
 end
 
-function MSD.InfoHeader(parent, text)
+function MSD.InfoHeader(parent, text, wd)
 	local panel = vgui.Create("DPanel")
-
+	wd = wd or 1
 	panel.StaticScale = {
-		w = 1,
+		w = wd,
 		fixed_h = 25,
 		minw = 250,
 		minh = 25
@@ -1533,7 +1533,7 @@ function MSD.ComboBox(parent, x, y, w, h, label, val)
 	return ComboBox
 end
 
-function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2, text3)
+function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2, text3, func3)
 	local button = vgui.Create("DButton")
 	button:SetText("")
 
@@ -1564,6 +1564,9 @@ function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2
 		end
 
 		draw.RoundedBox(MSD.Config.Rounded, 0, 0, wd, hd, MSD.Theme["d"])
+
+		if func3 then func3(self, wd, hd) end
+
 		MSD.DrawTexturedRect(wd / 2 - 24, hd / 2 - 36, 48, 48, icon, MSD.ColorAlpha(self.color_idle, 255 - self.alpha * 255))
 		draw.DrawText(text, "MSDFont.25", wd / 2, hd / 2 + 10, MSD.ColorAlpha(self.color_idle, 255 - self.alpha * 255), TEXT_ALIGN_CENTER)
 
