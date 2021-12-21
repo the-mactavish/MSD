@@ -1,7 +1,5 @@
 MSD.Language["en"] = {
 
-	-- UI
-
 	lang_name = "English",
 
 	ok = "OK",
@@ -225,32 +223,35 @@ MSD.Language["en"] = {
 
 	-- Update 1.1.0
 
-	duration = "Duration",
-	dis_text = "Displayed text",
-	cam_speed = "Camera movement speed (lower number - slower movement)",
-	fov_speed = "FOV change speed (lower number - slower movement)",
 	cam_start = "Camera start parameters",
 	cam_end = "Camera end parameters",
 	cam_pos = "Camera position",
 	cam_ang = "Camera angle",
 	cam_fov = "Camera FOV",
 	cam_effect = "Camera shutter effect",
-	not_spawned = "not spawned",
 	q_open_target = "Allow other players to kill NPCs",
 	q_npc_mind = "Min. distance to NPCs",
-	duplicate = "Duplicate",
-	hold_use = "Hold [%s] key",
-	category = "Category",
+	not_spawned = "not spawned",
+	dis_text = "Displayed text",
+	cam_speed = "Camera movement speed (lower number - slower movement)",
+	fov_speed = "FOV change speed (lower number - slower movement)",
 	category_des = "Quest category, used to sort quests",
 	sortquests_cat = "Sort quests by category",
-	unsorted = "Unsorted",
-	search = "Search",
 	search_q = "Search quests",
 	quest_tools = "Quest tools",
 	set_anim = "Set Animation",
 	s_quest_blacklist = "Setup quest blacklist",
-	blacklist = "Blacklist",
 	s_quest_blacklist_desc = "Select quests that will block this quest if you played them",
+	hold_use = "Hold [%s] key",
+	duplicate = "Duplicate",
+	unsorted = "Unsorted",
+	search = "Search",
+	duration = "Duration",
+	category = "Category",
+	blacklist = "Blacklist",
+
+
+	--  Update 1.2.0
 
 	restore_wep = "Restore weapons on quest end",
 	e_cmd = "Enter console command",
@@ -279,18 +280,18 @@ MSD.Language["en"] = {
 	q_dotime_set = "Set quest do time",
 
 
+	-- Ranks
+
 	enter_path_or_url = "Enter path or url",
 	rank_edit = "Ranks setup",
 	rank_list = "Ranks list",
 	group_list = "Group list",
 	group_addnew = "Add new group",
 	blank = "Blank",
-
 	mrs_show_all = "Show ranks to all players",
 	mrs_show_team = "Show ranks only to the group",
 	mrs_use_sn = "Display short rank names",
 	use_url = "Use URL",
-
 	enter_srt_name = "Enter short name",
 	srt_name = "Short name",
 	mrs_prom_demote = "The next 2 options affect only lower ranks. Players with this rank will not be able to promote other players to higher ranks or the same rank.",
@@ -316,7 +317,8 @@ MSD.Language["en"] = {
 	promotion = "Promotion",
 	on_duty = "On Duty",
 	other_players = "Other players",
-
+	mrs_change_jobname = "Change job name to the rank name",
+	mrs_set_prefix = "Add the rank name as a prefix to the job name",
 }
 
 -- Other phrases
@@ -347,8 +349,3 @@ MSD.Language[lng]["DarkRP Money"] = "DarkRP Money"
 
 MSD.Language[lng]["Quest NPCs are disabled"] = "Quest NPCs are disabled"
 MSD.Language[lng]["You can enable them in settings"] = "You can enable them in settings"
-
-
--- rank_list
--- group_addnew
--- enter_group
