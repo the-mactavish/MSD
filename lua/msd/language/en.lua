@@ -276,6 +276,47 @@ MSD.Language["en"] = {
 	q_cooldow_publick = "Per-Player cooldown timer",
 	q_stop_anytime = "Allow to abandon quest manually",
 	quest_abandon = "You abandon the quest",
+	q_dotime_set = "Set quest do time",
+
+
+	enter_path_or_url = "Enter path or url",
+	rank_edit = "Ranks setup",
+	rank_list = "Ranks list",
+	group_list = "Group list",
+	group_addnew = "Add new group",
+	blank = "Blank",
+
+	mrs_show_all = "Show ranks to all players",
+	mrs_show_team = "Show ranks only to the group",
+	mrs_use_sn = "Display short rank names",
+	use_url = "Use URL",
+
+	enter_srt_name = "Enter short name",
+	srt_name = "Short name",
+	mrs_prom_demote = "The next 2 options affect only lower ranks. Players with this rank will not be able to promote other players to higher ranks or the same rank.",
+	mrs_whilelist = "If you select rank requirement for a job, the player will be able to play this job only if he has selected rank or higher.",
+	can_promote = "Can promote player rank",
+	can_demote = "Can demote player rank",
+	edit_player_model = "Edit custom player model",
+	enable_player_model = "Enable custom player model",
+	disable_player_model = "Disable custom player model",
+	edit_custom_stats = "Edit custom player stats",
+	autoprom = "Auto promote to next rank",
+	in_min = "in minutes",
+	mrs_promoted = "You have been promoted",
+	mrs_demoted = "You have been demoted",
+	mrs_job_smallrank = "You must be %s or higher to play as %s",
+	show_group = "Display rank group name",
+	hide_rank = "Display only rank icon",
+	mrs_hud_follow = "Rotate UI around player depending on view angle",
+	set_overhead = "Player info UI",
+	offline_users = "Offline users",
+	mrs_noranks = "Your current job has no ranks",
+	mrs_nopower = "Your current rank has no extra permissions",
+	promotion = "Promotion",
+	on_duty = "On Duty",
+	other_players = "Other players",
+
 }
 
 -- Other phrases
@@ -306,3 +347,8 @@ MSD.Language[lng]["DarkRP Money"] = "DarkRP Money"
 
 MSD.Language[lng]["Quest NPCs are disabled"] = "Quest NPCs are disabled"
 MSD.Language[lng]["You can enable them in settings"] = "You can enable them in settings"
+
+
+-- rank_list
+-- group_addnew
+-- enter_group

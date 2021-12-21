@@ -1005,7 +1005,7 @@ function MSD.NumberWang(parent, x, y, w, h, min, max, val, label, func)
 	return button
 end
 
-function MSD.ButtonIcon(parent, x, y, w, h, text, icon, func, func2, color)
+function MSD.ButtonIcon(parent, x, y, w, h, text, icon, func, func2, color, color2, drawf)
 	local button = vgui.Create("DButton")
 	button:SetText(text)
 
@@ -1030,6 +1030,8 @@ function MSD.ButtonIcon(parent, x, y, w, h, text, icon, func, func2, color)
 	button.Paint = function(self, wd, hd)
 		draw.RoundedBox(MSD.Config.Rounded, 0, 0, wd, hd, MSD.Theme["l"])
 
+		if drawf then drawf(self, wd, hd) end
+
 		if (self.hover or self.hovered) and not self.disabled then
 			self.alpha = Lerp(FrameTime() * 5, self.alpha, 1)
 		else
@@ -1039,9 +1041,9 @@ function MSD.ButtonIcon(parent, x, y, w, h, text, icon, func, func2, color)
 		draw.DrawText(self:GetText(), "MSDFont.22", 48, hd / 2 - 11, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255), TEXT_ALIGN_LEFT)
 		draw.DrawText(self:GetText(), "MSDFont.22", 48, hd / 2 - 11, MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255 - self.alpha * 255), TEXT_ALIGN_LEFT)
 		draw.RoundedBox(0, MSD.Config.Rounded, hd - 1, wd - MSD.Config.Rounded * 2, 1, MSD.ColorAlpha(color or MSD.Text["n"], 255 - self.alpha * 255))
-		draw.RoundedBox(0, MSD.Config.Rounded, hd - 1, wd - MSD.Config.Rounded * 2, 1, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255))
+		draw.RoundedBox(0, MSD.Config.Rounded, hd - 1, wd - MSD.Config.Rounded * 2, 1, MSD.ColorAlpha(color2 or MSD.Config.MainColor["p"], self.alpha * 255))
 		MSD.DrawTexturedRect(12, hd / 2 - 12, 24, 24, icon, MSD.ColorAlpha(color or MSD.Text["l"], 255 - self.alpha * 255))
-		MSD.DrawTexturedRect(12, hd / 2 - 12, 24, 24, icon, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha * 255))
+		MSD.DrawTexturedRect(12, hd / 2 - 12, 24, 24, icon, MSD.ColorAlpha(color2 or MSD.Config.MainColor["p"], self.alpha * 255))
 
 		return true
 	end
