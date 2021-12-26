@@ -12,20 +12,20 @@ end
 
 function MSD.OpenMenuManager(parrent, mod_open)
 	if not MSD.AdminAccess(LocalPlayer()) then return end
-	if MSD.SetupMenu then
-		if parrent then
-			MSD.SetupMenu:Center()
-		elseif not MSD.SetupMenu:IsVisible() then
+
+	if IsValid(MSD.SetupMenu) then
+		if not MSD.SetupMenu:IsVisible() then
 			MSD.SetupMenu:AlphaTo(255, 0.4)
 			MSD.SetupMenu:Show()
 			MSD.SetupMenu:Center()
-		else
-			MSD.SetupMenu:AlphaTo(0, 0.4, 0, function()
-				MSD.SetupMenu:Close()
-			end)
+			return
 		end
-
-		return
+		if parrent then
+			MSD.SetupMenu:Center()
+			return
+		else
+			MSD.SetupMenu:Close()
+		end
 	end
 
 	local pnl_w, pnl_h = ScrW(), ScrH()
