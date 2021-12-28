@@ -12,6 +12,8 @@ MSD.Icons48 = {
 	account_edit = Material("msd/icons/account-edit.png", "smooth"),
 	account_multiple = Material("msd/icons/account-multiple.png", "smooth"),
 	account_convert = Material("msd/icons/account-convert.png", "smooth"),
+	arrow_up = Material("msd/icons/arrow_up.png", "smooth"),
+	arrow_down = Material("msd/icons/arrow_down.png", "smooth"),
 	folder_open = Material("msd/icons/folder-open.png", "smooth"),
 	file_document = Material("msd/icons/file-document.png", "smooth"),
 	menu = Material("msd/icons/menu.png", "smooth"),
@@ -48,7 +50,8 @@ MSD.Icons48 = {
 	reload = Material("msd/icons/reload.png", "smooth"),
 	reload_alert = Material("msd/icons/reload-alert.png", "smooth"),
 	skip_to = Material("msd/icons/debug-step-over.png", "smooth"),
-	cash = Material("msd/icons/cash.png", "smooth")
+	cash = Material("msd/icons/cash.png", "smooth"),
+	star = Material("mqs/map_markers/s1.png", "smooth")
 }
 
 MSD.Materials = {
@@ -147,9 +150,15 @@ function MSD.DrawTexturedOutlined(x, y, w, h, mat, color, outlinewidth, ocolor)
 	surface.DrawTexturedRect(x, y, w, h)
 end
 
+local cached_mat = {}
+
 function MSD.DrawTexturedRect(x, y, w, h, mat, color)
 	if isstring(mat) then
-		mat = Material(mat)
+		local crc = util.CRC(mat)
+		if not cached_mat[crc] then
+			cached_mat[crc] = Material(mat, "smooth")
+		end
+		mat = cached_mat[crc]
 	end
 
 	surface.SetDrawColor(color)
