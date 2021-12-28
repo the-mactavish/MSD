@@ -331,9 +331,7 @@ MSD.Language[lng]["Leave area"] = "Leave area"
 MSD.Language[lng]["Kill NPC"] = "Kill NPC"
 MSD.Language[lng]["Collect quest ents"] = "Collect quest ents"
 MSD.Language[lng]["Talk to NPC"] = "Talk to NPC"
-
 MSD.Language[lng]["There is no quests available"] = "There is no quests available"
-
 MSD.Language[lng]["Give weapon"] = "Give weapon"
 MSD.Language[lng]["Give ammo"] = "Give ammo"
 MSD.Language[lng]["Strip Weapon"] = "Strip Weapon"
@@ -346,8 +344,6 @@ MSD.Language[lng]["Remove vehicle"] = "Remove vehicle"
 MSD.Language[lng]["Remove all entites"] = "Remove all entites"
 MSD.Language[lng]["Set HP"] = "Set HP"
 MSD.Language[lng]["Set Armor"] = "Set Armor"
-
 MSD.Language[lng]["DarkRP Money"] = "DarkRP Money"
-
 MSD.Language[lng]["Quest NPCs are disabled"] = "Quest NPCs are disabled"
 MSD.Language[lng]["You can enable them in settings"] = "You can enable them in settings"
