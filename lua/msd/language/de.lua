@@ -1,11 +1,8 @@
 MSD.Language["de"] = {
 
-
 	-- UI
 
-
 	lang_name = "Deutsch",
-
 
 	ok = "OK",
 	map = "Karte",
@@ -220,11 +217,9 @@ MSD.Language["de"] = {
 	q_npc_quest_no = "NPC Sprache bei keiner Quest",
 	q_money_give = "Geld zum Geben",
 
-
 	-- Simple NPCs
 
-
-	npc_editor = "NPC Editor",
+	npc_editor = "NPC ",
 	npc_new = "Neuer NPC",
 	npc_select = "Wähle einen NPC",
 	npc_e_speech = "Gib NPC Sprache ein",
@@ -236,7 +231,105 @@ MSD.Language["de"] = {
 	npc_q_target = "NPC ist ein objektives Ziel",
 	npc_hostile = "Feindlicher NPC",
 
+		-- Update 1.1.0
+	cam_start = "Startparameter der Kamera",
+	cam_end = "Kamera-Endparameter",
+	cam_pos = "Kamera Position",
+	cam_ang = "Kamera Winkel",
+	cam_fov = "Kamera-Sichtfeld",
+	cam_effect = "Kameraverschluss-Effekt",
+	q_open_target = "Erlaubt anderen Spielern NPCs zu töten",
+	q_npc_mind = "Mindest Distanz zu NPCs",
+	not_spawned = "nicht gespawnt",
+	dis_text = "Angezeigter Text",
+	cam_speed = "Kamerabewegungsgeschwindigkeit (niedrigere Zahl - langsamere Bewegung)",
+	fov_speed = "FOV-Wechselgeschwindigkeit (niedrigere Zahl - langsamere Bewegung)",
+	category_des = "Questkategorie, wird verwendet, um Quests zu sortieren",
+	sortquests_cat = "Quests nach Kategorie sortieren",
+	search_q = "Suche nach Quests",
+	quest_tools = "Quest Tools",
+	set_anim = "Animation einstellen",
+	s_quest_blacklist = "Quest-Blacklist einrichten",
+	s_quest_blacklist_desc = "Wählen Sie Quests aus, die diese Quest blockieren, wenn Sie sie gespielt haben",
+	hold_use = "Halten sie [%s] gedrückt",
+	duplicate = "Duplizieren",
+	unsorted = "Unsortiert",
+	search = "Suche",
+	duration = "Dauer",
+	category = "Kategorie",
+	blacklist = "Blacklist",
 
+
+	--  Update 1.2.0
+
+	restore_wep = "Stellen Sie Waffen am Questende wieder her",
+	e_cmd = "Geben sie eine Konsolen Kommand ein",
+	e_args = "Enter command arguments",
+	hint_cmd = "Verknüpfungen zum automatischen Ausfüllen: \n$uid - UserID, \n$sid - SteamID, \n$s64 - SteamID 64, \n$n - Spielername",
+	youaretracked = "Deine Positon ist nun für alle Sichtbar.",
+	border_rounded = "Abgerundetes Border desgin",
+	border_square = "Quadrat border design",
+	access_settings = "Menüzugriff",
+	compact_obj = "Kompakte Zielliste für Quests",
+	e_usergroup = "Benutzergruppe eingeben",
+	ug_isanadmin = "Diese Benutzergruppe hat bereits vollen Zugriff",
+	find_player_id32 = "Finde Spielerdaten nach SteamID 32",
+	user_data = "Benutzerdaten-Editor",
+	access_editors = "Zugriff für Quest-Editoren festlegen",
+	access_admins = "Vollzugriff einstellen",
+	add_usergroup = "Benutzergruppe hinzufügen",
+	edit_objmod = "Zielreihenfolge bearbeiten",
+	editmod = "Bearbeitungsmodus",
+	move = "Bewegen",
+	q_errorloop = "Quest in einer Endlosschleife eingegeben",
+	q_cooldow_perply = "Öffentlicher Cooldown-Timer",
+	q_cooldow_publick = "Abklingzeit pro Spieler",
+	q_stop_anytime = "Erlaube, die Quest manuell abzubrechen",
+	quest_abandon = "Du hast die Quest abgebrochen",
+	q_dotime_set = "Quest-Erledigungszeit einstellen",
+
+
+	-- Ranks
+
+	enter_path_or_url = "Geben sie einen Pfad oder eine URL ein",
+	rank_edit = "Rang einstellen",
+	rank_list = "Rang Liste",
+	group_list = "Gruppen Liste",
+	group_addnew = "Eine neue Gruppe hinzufügen",
+	blank = "Leer",
+	mrs_show_all = "Ränge allen Spielern anzeigen",
+	mrs_show_team = "Ränge nur der Gruppe anzeigen",
+	mrs_use_sn = "Kurze Rangnamen anzeigen",
+	use_url = "URL verwenden",
+	enter_srt_name = "Kurznamen eingeben",
+	srt_name = "Kurzbezeichnung",
+	mrs_prom_demote = "Die nächsten 2 Optionen betreffen nur niedrigere Ränge. Spieler mit diesem Rang können keine anderen Spieler auf höhere Ränge oder den gleichen Rang befördern.",
+	mrs_whilelist = "Wenn Sie eine Ranganforderung für einen Job auswählen, kann der Spieler diesen Job nur spielen, wenn sein Rang dem gewählten Rang entspricht oder höher ist.",
+	can_promote = "Kann den Spielerrang erhöhen",
+	can_demote = "Kann den Spielerrang zurückstufen",
+	edit_player_model = "Benutzerdefiniertes Spielermodell bearbeiten",
+	enable_player_model = "Benutzerdefiniertes Spielermodell aktivieren",
+	disable_player_model = "Benutzerdefiniertes Spielermodell deaktivieren",
+	edit_custom_stats = "Benutzerdefinierte Spielerstatistiken bearbeiten",
+	autoprom = "Automatische Beförderung zum nächsten Rang",
+	in_min = "in Minuten",
+	mrs_promoted = "Sie sind befördert worden",
+	mrs_demoted = "Sie sind degradiert worden",
+	mrs_job_smallrank = "Du musst %s oder höher sein, um als %s zu spielen", -- You must be Sergeant II or higher to play as Watch Commander
+	show_group = "Ranggruppenname anzeigen",
+	hide_rank = "Nur Rangsymbol anzeigen",
+	mrs_hud_follow = "Drehen der Benutzeroberfläche um den Spieler je nach Blickwinkel",
+	set_overhead = "Spieler-Info UI",
+	offline_users = "Offline-Benutzer",
+	mrs_noranks = "Ihr derzeitiger Arbeitsplatz hat keine Dienstgrade",
+	mrs_nopower = "Ihr aktueller Rang hat keine zusätzlichen Berechtigungen",
+	promotion = "Beförderung",
+	on_duty = "Im Dienst",
+	other_players = "Andere Spieler",
+	mrs_change_jobname = "Jobname in den Rangnamen ändern",
+	mrs_set_prefix = "Fügen Sie den Namen des Dienstgrads als Präfix zum Jobnamen hinzu.",
+	copy_all_data = "Alle Daten kopieren",
+	copy_only_stats = "Nur Statistiken und Spielermodell kopieren",
 }
 
 
