@@ -281,7 +281,6 @@ MSD.Language["tr"] = {
 	quest_abandon = "Görevi terk ettin",
 	q_dotime_set = "Görev yapma zamanını ayarla",
 
-	
 	-- Ranks
 
 	enter_path_or_url = "Klasör yolu ya da url girin",
