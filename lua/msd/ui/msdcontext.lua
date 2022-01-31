@@ -7,6 +7,9 @@ function MSD.AdminAccess(ply)
 	if MQS then
 		return MQS.IsEditor(ply)
 	end
+	if MRS then
+		return MRS.IsAdministrator(ply)
+	end
 	return ply:IsSuperAdmin()
 end
 
