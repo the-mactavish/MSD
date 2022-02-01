@@ -321,6 +321,8 @@ MSD.Language["en"] = {
 	mrs_set_prefix = "Add the rank name as a prefix to the job name",
 	copy_all_data = "Copy all data",
 	copy_only_stats = "Copy only stats and player model",
+	mrs_change_plyname = "Change player name to the rank name",
+	mrs_set_prefix_ply = "Add the rank name as a prefix to the player name",
 }
 
 -- Other phrases
