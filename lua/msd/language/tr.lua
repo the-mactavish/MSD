@@ -1,10 +1,8 @@
 MSD.Language["tr"] = {
 
-	-- UI
-
 	lang_name = "Türkçe",
 
-	ok = "OK",
+	ok = "Tamam",
 	map = "Harita",
 	off = "Kapalı",
 	on = "Açık",
@@ -322,6 +320,8 @@ MSD.Language["tr"] = {
 	mrs_set_prefix = "Rütbe ismini mesleğin başına ekle",
 	copy_all_data = "Bütün verileri kopyala",
 	copy_only_stats = "Sadece istatistikleri ve oyuncu modelini kopyala",
+	mrs_change_plyname = "Oyuncunun ismini rütbe ismi yap",
+	mrs_set_prefix_ply = "Rütbe ismini önek gibi oyuncunun isminin önüne koy",
 
 }
 
@@ -333,12 +333,10 @@ MSD.Language[lng]["Leave area"] = "Bölgeden ayrıl"
 MSD.Language[lng]["Kill NPC"] = "NPC'yi öldür"
 MSD.Language[lng]["Collect quest ents"] = "Görev varlıklarını topla"
 MSD.Language[lng]["Talk to NPC"] = "NPC ile konuş"
-
 MSD.Language[lng]["There is no quests available"] = "Mevcut görev bulunmamakta"
-
 MSD.Language[lng]["Give weapon"] = "Silah ver"
 MSD.Language[lng]["Give ammo"] = "Mermi ver"
-MSD.Language[lng]["Strip Weapon"] = "Silahı soy"
+MSD.Language[lng]["Strip Weapon"] = "Silaha el koy"
 MSD.Language[lng]["Spawn quest entity"] = "Görev varlığı oluştur"
 MSD.Language[lng]["Spawn entity"] = "Varlık oluştur"
 MSD.Language[lng]["Spawn npc"] = "NPC oluştur"
@@ -346,10 +344,8 @@ MSD.Language[lng]["Manage do time"] = "Yapım süresini yönet"
 MSD.Language[lng]["Spawn vehicle"] = "Araç oluştur"
 MSD.Language[lng]["Remove vehicle"] = "Aracı kaldır"
 MSD.Language[lng]["Remove all entites"] = "Tüm varlıkları kaldır"
-MSD.Language[lng]["Set HP"] = "HP Ayarla"
+MSD.Language[lng]["Set HP"] = "Can Ayarla"
 MSD.Language[lng]["Set Armor"] = "Zırh Ayarla"
-
 MSD.Language[lng]["DarkRP Money"] = "DarkRP Parası"
-
 MSD.Language[lng]["Quest NPCs are disabled"] = "Görev NPC'leri devre dışı"
 MSD.Language[lng]["You can enable them in settings"] = "Ayarlardan aktif edebilirsin"
