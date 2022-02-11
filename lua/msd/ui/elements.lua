@@ -1479,16 +1479,16 @@ function MSD.ComboBox(parent, x, y, w, h, label, val)
 	ComboBox:SetTextColor(MSD.Text["s"])
 
 	ComboBox.Paint = function(self, wd, hd)
-		if self:IsMenuOpen() or self.pressed then
+		if ( self:IsMenuOpen() or self.pressed ) and not self.disabled then
 			self.alpha = Lerp(FrameTime() * 5, self.alpha, 255)
 		else
 			self.alpha = Lerp(FrameTime() * 5, self.alpha, 0)
 		end
 
 		draw.RoundedBox(MSD.Config.Rounded, 0, 0, wd, hd, MSD.Theme["l"])
-		draw.RoundedBox(0, MSD.Config.Rounded, hd - 1, wd - MSD.Config.Rounded * 2, 1, MSD.ColorAlpha(MSD.Text["s"], 255 - self.alpha))
+		draw.RoundedBox(0, MSD.Config.Rounded, hd - 1, wd - MSD.Config.Rounded * 2, 1, MSD.ColorAlpha(self.disabled and MSD.Text["n"] or MSD.Text["s"], 255 - self.alpha))
 		draw.RoundedBox(0, MSD.Config.Rounded, hd - 1, wd - MSD.Config.Rounded * 2, 1, MSD.ColorAlpha(MSD.Config.MainColor["p"], self.alpha))
-		draw.SimpleText(self:GetText(), "MSDFont.22", 3, hd / 2 - 10, MSD.Text["d"], TEXT_ALIGN_LEFT)
+		draw.SimpleText(self:GetText(), "MSDFont.22", 3, hd / 2 - 10, self.disabled and MSD.Text["n"] or MSD.Text["d"], TEXT_ALIGN_LEFT)
 
 		if label and not self.error then
 			draw.SimpleText(label, "MSDFont.16", 3, 0, MSD.ColorAlpha(MSD.Text["d"], 120), TEXT_ALIGN_LEFT)

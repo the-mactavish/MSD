@@ -323,6 +323,8 @@ MSD.Language["en"] = {
 	copy_only_stats = "Copy only stats and player model",
 	mrs_change_plyname = "Change player name to the rank name",
 	mrs_set_prefix_ply = "Add the rank name as a prefix to the player name",
+	promote_limit = "Promotion limitationn",
+	demote_limit = "Demotion limitation",
 }
 
 -- Other phrases
