@@ -279,7 +279,6 @@ MSD.Language["en"] = {
 	quest_abandon = "You abandoned the quest",
 	q_dotime_set = "Set quest do time",
 
-
 	-- Ranks
 
 	enter_path_or_url = "Enter path or url",
@@ -323,8 +322,14 @@ MSD.Language["en"] = {
 	copy_only_stats = "Copy only stats and player model",
 	mrs_change_plyname = "Change player name to the rank name",
 	mrs_set_prefix_ply = "Add the rank name as a prefix to the player name",
+
 	promote_limit = "Promotion limitationn",
 	demote_limit = "Demotion limitation",
+	salary_value = "Salary value",
+	salary_set = "Set given value as a salary",
+	salary_add = "Add given value on top of salary",
+	salary_multiply = "Multiply salary by given value",
+	force_team = "Force change team to",
 }
 
 -- Other phrases
