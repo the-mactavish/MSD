@@ -330,6 +330,10 @@ MSD.Language["en"] = {
 	salary_add = "Add given value on top of salary",
 	salary_multiply = "Multiply salary by given value",
 	force_team = "Force change team to",
+	mrs_hud_3d2d = "Use 3D2D hud for players",
+	mrs_chat_command = "Chat command to open the Rank menu",
+	mrs_promote_command = "Chat command to promote a player",
+	mrs_demote_command = "Chat command to demote a player",
 }
 
 -- Other phrases
