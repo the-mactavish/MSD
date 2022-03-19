@@ -3,6 +3,7 @@ MSD.Icons48 = {
 	cog = Material("msd/icons/cog.png", "smooth"),
 	eye = Material("msd/icons/eye.png", "smooth"),
 	box = Material("mqs/map_markers/b5.png", "smooth"),
+	box_open = Material("mqs/icons/box_open.png", "smooth"),
 	layers = Material("msd/icons/layers.png", "smooth"),
 	layers_plus = Material("msd/icons/layers-plus.png", "smooth"),
 	layers_remove = Material("msd/icons/layers-remove.png", "smooth"),
@@ -49,9 +50,18 @@ MSD.Icons48 = {
 	cancel = Material("msd/icons/cancel.png", "smooth"),
 	reload = Material("msd/icons/reload.png", "smooth"),
 	reload_alert = Material("msd/icons/reload-alert.png", "smooth"),
+	heart = Material("msd/icons/cards-heart.png", "smooth"),
+	heart_outline = Material("msd/icons/cards-heart-outline.png", "smooth"),
+	heart_broken = Material("msd/icons/heart-broken.png", "smooth"),
+	heart_flash = Material("msd/icons/heart-flash.png", "smooth"),
 	skip_to = Material("msd/icons/debug-step-over.png", "smooth"),
 	cash = Material("msd/icons/cash.png", "smooth"),
-	star = Material("mqs/map_markers/s1.png", "smooth")
+	magazine = Material("msd/icons/magazine-pistol.png", "smooth"),
+	ammo = Material("mqs/icons/ammo.png", "smooth"),
+	armor = Material("mqs/map_markers/a1.png", "smooth"),
+	armor_outline = Material("mqs/map_markers/a2.png", "smooth"),
+	armor_broken = Material("mqs/map_markers/a4.png", "smooth"),
+	armor_flash = Material("mqs/map_markers/a5.png", "smooth")
 }
 
 MSD.Materials = {
