@@ -100,8 +100,8 @@ MSD.Text = {
 
 local NewFont = surface.CreateFont
 
-for i = 0, 20 do
-	NewFont("MSDFont." .. 16 + i, {
+for i = 0, 40 do
+	NewFont("MSDFont." .. 12 + i, {
 		font = "AdihausDIN",
 		extended = true,
 		size = 16 + i,
