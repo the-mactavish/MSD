@@ -178,7 +178,11 @@ end
 
 function MSD.DrawTexturedRectRotated(rot, x, y, w, h, mat, color)
 	if isstring(mat) then
-		mat = Material(mat)
+		local crc = util.CRC(mat)
+		if not cached_mat[crc] then
+			cached_mat[crc] = Material(mat, "smooth")
+		end
+		mat = cached_mat[crc]
 	end
 
 	surface.SetDrawColor(color)
