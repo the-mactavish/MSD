@@ -104,7 +104,7 @@ for i = 0, 40 do
 	NewFont("MSDFont." .. 12 + i, {
 		font = "AdihausDIN",
 		extended = true,
-		size = 16 + i,
+		size = 12 + i,
 		weight = 500
 	})
 end
@@ -218,7 +218,7 @@ function MSD.Blur(panel, inn, density, alpha, back_alpha, w, h)
 	end
 
 	if back_alpha and back_alpha > 0 then
-		draw.RoundedBox(8, 0, 0, w, h, MSD.ColorAlpha(color_black, back_alpha))
+		draw.RoundedBox(MSD.Config.Rounded, 0, 0, w, h, MSD.ColorAlpha(color_black, back_alpha))
 	end
 end
 

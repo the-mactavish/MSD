@@ -334,6 +334,14 @@ MSD.Language["en"] = {
 	mrs_chat_command = "Chat command to open the Rank menu",
 	mrs_promote_command = "Chat command to promote a player",
 	mrs_demote_command = "Chat command to demote a player",
+
+	mqs_fix_cam = "Fix Cinematic Camera event (toggle only if needed)",
+	add_new_spawn = "Add new spawn point",
+	remove_all_spawn = "Remove all spawn point",
+	nolongertracked = "You are no longer tracked by other players",
+	target = "Target",
+	kill_player = "Kill Player",
+	kill_amount = "Amount of targets to kill",
 }
 
 -- Other phrases
