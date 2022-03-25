@@ -349,7 +349,12 @@ MSD.Language["en"] = {
 	icon_size = "Icon size",
 	icon_right = "Icon alignment to the right",
 	font_size = "Font size",
-	rank_hide = "Do not display this rank on the HUD"
+	rank_hide = "Do not display this rank on the HUD",
+	action_select = "Select an action",
+	action_set_rank = "Set rank to selected, only if current rank is lower",
+	action_set_rank_force = "Set rank to selected, anyway",
+	action_promote_rank = "Promote only by one rank, selected rank is maximum",
+	action_demote_rank = "Demote by one rank, selected rank is minimum",
 }
 
 -- Other phrases
