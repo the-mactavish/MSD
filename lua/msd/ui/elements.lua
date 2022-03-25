@@ -424,7 +424,7 @@ function MSD.TextEntry(parent, x, y, w, h, text, label, value, func, auto_update
 		Entry.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -502,7 +502,7 @@ function MSD.VectorDisplay(parent, x, y, w, h, text, vector, func)
 	end
 
 	if x == "static" then
-		Entry.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h }
+		Entry.StaticScale = { w = w, fixed_h = h, minw = 50, minh = h }
 	else
 		Entry:SetSize(w, h)
 	end
@@ -526,7 +526,7 @@ function MSD.VectorDisplay(parent, x, y, w, h, text, vector, func)
 			self.cpanel:Remove()
 			self.cpanel = nil
 			self:SizeTo(self:GetWide(), h, 0.2, 0, -1, function()
-				Entry.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h}
+				Entry.StaticScale = { w = w, fixed_h = h, minw = 50, minh = h}
 				parent:Rebuild()
 				self.rebuild = nil
 			end)
@@ -536,7 +536,7 @@ function MSD.VectorDisplay(parent, x, y, w, h, text, vector, func)
 		Entry.StaticScale = {
 			w = w,
 			fixed_h = h + 50,
-			minw = 150,
+			minw = 50,
 			minh = h + 50
 		}
 		parent:Rebuild()
@@ -585,7 +585,7 @@ function MSD.AngleDisplay(parent, x, y, w, h, text, angle, func)
 	end
 
 	if x == "static" then
-		Entry.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h }
+		Entry.StaticScale = { w = w, fixed_h = h, minw = 50, minh = h }
 	else
 		Entry:SetSize(w, h)
 	end
@@ -610,7 +610,7 @@ function MSD.AngleDisplay(parent, x, y, w, h, text, angle, func)
 			self.cpanel:Remove()
 			self.cpanel = nil
 			self:SizeTo(self:GetWide(), h, 0.2, 0, -1, function()
-				Entry.StaticScale = { w = w, fixed_h = h, minw = 150, minh = h}
+				Entry.StaticScale = { w = w, fixed_h = h, minw = 50, minh = h}
 				parent:Rebuild()
 				self.rebuild = nil
 			end)
@@ -620,7 +620,7 @@ function MSD.AngleDisplay(parent, x, y, w, h, text, angle, func)
 		Entry.StaticScale = {
 			w = w,
 			fixed_h = h + 50,
-			minw = 150,
+			minw = 50,
 			minh = h + 50
 		}
 		parent:Rebuild()
@@ -1611,7 +1611,8 @@ function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2
 	return button
 end
 
-function MSD.ColorSelector(parent, x, y, w, h, text, color, func)
+function MSD.ColorSelector(parent, x, y, w, h, text, color, func, alpha_chl)
+	color = table.Copy(color)
 	local button = vgui.Create("DButton")
 	button:SetText(text)
 
@@ -1716,16 +1717,27 @@ function MSD.ColorSelector(parent, x, y, w, h, text, color, func)
 		end, true, nil, false, true)
 
 		self.HSV = vgui.Create("DColorCube", self.cpanel)
-		self.HSV:SetPos(40, 5)
-		self.HSV:SetSize(190, 190)
+		self.HSV:SetPos(alpha_chl and 55 or 40, 5)
+		self.HSV:SetSize(alpha_chl and 175 or 190, 190)
 		self.HSV:SetColor(self.color)
 		self.HSV.OnUserChanged = function(pn, col)
 			SetColors(col, {[pn] = true, [self.RGB] = true})
 		end
 
+		if alpha_chl then
+			self.AlphaBar = vgui.Create( "DAlphaBar", self.cpanel)
+			self.AlphaBar:SetPos( 30, 5 )
+			self.AlphaBar:SetSize( 20, 190 )
+			self.AlphaBar:SetValue( button.color.a / 255 )
+			self.AlphaBar.OnChange = function(pn, al)
+				button.color.a = al * 255
+				UpdateColors(button.color)
+			end
+		end
+
 		self.RGB = vgui.Create("DRGBPicker", self.cpanel)
 		self.RGB:SetPos(5, 5)
-		self.RGB:SetSize(30, 190)
+		self.RGB:SetSize(alpha_chl and 20 or 30, 190)
 		self.RGB.OnChange = function(pn, col)
 			local oc = ColorToHSV(col)
 			local _, s, v = ColorToHSV(self.HSV:GetRGB())
@@ -1761,7 +1773,7 @@ function MSD.ColorSelector(parent, x, y, w, h, text, color, func)
 			if not ignore[self.red] then self.red:SetText(col.r) end
 			if not ignore[self.green] then self.green:SetText(col.g) end
 			if not ignore[self.blue] then self.blue:SetText(col.b) end
-
+			if self.AlphaBar and not ignore[self.AlphaBar] then self.AlphaBar:SetValue( col.a / 255 ) end
 			UpdateColors(col)
 		end
 

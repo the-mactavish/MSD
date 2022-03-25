@@ -342,6 +342,14 @@ MSD.Language["en"] = {
 	target = "Target",
 	kill_player = "Kill Player",
 	kill_amount = "Amount of targets to kill",
+	into_quest = "Introduction quest",
+	into_quest_auto = "Force player to play introduction quest",
+	into_quest_start = "To strat quest hold [%s]",
+	set_ui_align_center = "Horizontal alignment to the center",
+	icon_size = "Icon size",
+	icon_right = "Icon alignment to the right",
+	font_size = "Font size",
+	rank_hide = "Do not display this rank on the HUD"
 }
 
 -- Other phrases
