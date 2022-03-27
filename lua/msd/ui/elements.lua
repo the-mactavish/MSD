@@ -958,7 +958,7 @@ function MSD.NumberWang(parent, x, y, w, h, min, max, val, label, func)
 		button.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -1158,7 +1158,7 @@ function MSD.VolumeSlider(parent, x, y, w, h, text, var, func, cl)
 		button.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -1240,7 +1240,7 @@ function MSD.VolumeScale(parent, x, y, w, h, text, var, func, cl)
 		button.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -1322,7 +1322,7 @@ function MSD.BoolSlider(parent, x, y, w, h, text, var, func)
 		button.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -1398,7 +1398,7 @@ function MSD.DTextSlider(parent, x, y, w, h, text1, text2, var, func)
 		button.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -1465,7 +1465,7 @@ function MSD.ComboBox(parent, x, y, w, h, label, val)
 		ComboBox.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -1548,7 +1548,7 @@ function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2
 		button.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -1625,7 +1625,7 @@ function MSD.ColorSelector(parent, x, y, w, h, text, color, func, alpha_chl)
 		button.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -1668,7 +1668,7 @@ function MSD.ColorSelector(parent, x, y, w, h, text, color, func, alpha_chl)
 				button.StaticScale = {
 					w = w,
 					fixed_h = h,
-					minw = 150,
+					minw = 50,
 					minh = h
 				}
 				parent:Rebuild()
@@ -1681,7 +1681,7 @@ function MSD.ColorSelector(parent, x, y, w, h, text, color, func, alpha_chl)
 		button.StaticScale = {
 			w = w,
 			fixed_h = h + 200,
-			minw = 150,
+			minw = 50,
 			minh = h + 200
 		}
 		parent:Rebuild()
@@ -1844,7 +1844,7 @@ function MSD.NPCModelFrame(parent, x, y, w, h, model, anim)
 		icon.StaticScale = {
 			w = w,
 			fixed_h = h,
-			minw = 150,
+			minw = 50,
 			minh = h
 		}
 	else
@@ -1901,8 +1901,89 @@ function MSD.NPCModelFrame(parent, x, y, w, h, model, anim)
 	end
 
 	if not x or not y then
-		parent:AddItem(button)
+		parent:AddItem(icon)
 	end
 
 	return icon
+end
+
+function MSD.BigModelButton(parent, x, y, wd, hd, text, icon, func, text2, tr, color, func2)
+	local pnl = vgui.Create("DPanel")
+	if x and y then
+		pnl:SetParent(parent)
+		pnl:SetPos(x, y)
+	end
+	if x == "static" then
+		pnl.StaticScale = { w = wd, fixed_h = hd, minw = 150, minh = hd }
+	else
+		pnl:SetSize(wd, hd)
+	end
+	pnl.Paint = function()
+		if not IsValid(pnl.Icon.Entity) then return end
+		local ent_color = pnl.Icon:GetColor()
+		ent_color.a = pnl:GetAlpha()
+	end
+	pnl.SetCustomModel = function(mdl)
+		pnl.Icon:SetModel( mdl )
+		pnl.Iconmdl = mdl
+		local mn, mx = pnl.Icon.Entity:GetRenderBounds()
+		local size = 0
+		size = math.max(size, math.abs(mn.x) + math.abs(mx.x))
+		size = math.max(size, math.abs(mn.y) + math.abs(mx.y))
+		size = math.max(size, math.abs(mn.z) + math.abs(mx.z))
+		pnl.Icon:SetFOV(90 - size)
+		pnl.Icon:SetCamPos(Vector(size, size + 5, 23))
+		pnl.Icon:SetLookAt((mn + mx) * 0.95)
+	end
+
+	pnl.Icon = vgui.Create("DModelPanel", pnl)
+	pnl.Icon:SetModel("")
+	pnl.Icon:SetMouseInputEnabled(false)
+	function pnl.Icon:LayoutEntity(Entity)
+		return
+	end
+
+	local button = vgui.Create("DButton", pnl)
+	button:SetText("")
+	button.alpha = 0
+	button.color_idle = color_white
+	button.text = text
+	button.Paint = function(self, w, h)
+		if self.hover and not self.disable then
+			self.alpha = Lerp(FrameTime() * 7, self.alpha, 1)
+		else
+			self.alpha = Lerp(FrameTime() * 7, self.alpha, 0)
+		end
+		local mida = pnl.Iconmdl and not tr
+		draw.RoundedBox(0, 0, 0, w, h, MSD.Theme["d"])
+
+		if not pnl.Iconmdl then
+			MSD.DrawTexturedRect(w / 2 - 24, h / 2 - 36, 48, 48, icon, MSD.ColorAlpha(self.color_idle, 255 - self.alpha * 255))
+		else
+			draw.RoundedBox(0, 0, 0, w * self.alpha, h, MSD.Theme["l"])
+		end
+		draw.DrawText(button.text, "MSDFont.25", w / 2, mida and h / 2 - 12 or h - 30, MSD.ColorAlpha(self.color_idle, 255 - self.alpha * 255), mida and TEXT_ALIGN_LEFT or TEXT_ALIGN_CENTER)
+		if text2 then draw.DrawText(text2, "MSDFont.21", w / 2, h / 2 + 12 , self.color_idle, TEXT_ALIGN_LEFT) end
+
+		if self.alpha > 0.01 then
+			if not pnl.Iconmdl then MSD.DrawTexturedRect(w / 2 - 24, h / 2 - 36, 48, 48, icon, MSD.ColorAlpha(color or MSD.Config.MainColor["p"], self.alpha * 255)) end
+			draw.DrawText(button.text, "MSDFont.25", w / 2, mida and h / 2 - 12 or h - 30, MSD.ColorAlpha(color or MSD.Config.MainColor["p"], self.alpha * 255), mida and TEXT_ALIGN_LEFT or TEXT_ALIGN_CENTER)
+		end
+	end
+	button.OnCursorEntered = function(self) self.hover = true end
+	button.OnCursorExited = function(self) self.hover = false end
+	button.DoClick = function(self) if self.disable then return end func(self) end
+	button.DoRightClick = function(self) if self.disable or not func2 then return end func2(self) end
+	pnl.button = button
+	function pnl:PerformLayout()
+		self.button:StretchToParent( 0, 0, 0, 0 )
+		local mida = pnl.Iconmdl and not tr
+		if not mida then
+			self.Icon:StretchToParent( 5, 5, 5, 5 )
+		else
+			self.Icon:StretchToParent( 5, 5, self:GetWide() / 2, 5 )
+		end
+	end
+	if not x or not y then parent:AddItem(pnl) end
+	return pnl
 end
