@@ -355,6 +355,8 @@ MSD.Language["en"] = {
 	action_set_rank_force = "Set rank to selected, anyway",
 	action_promote_rank = "Promote only by one rank, selected rank is maximum",
 	action_demote_rank = "Demote by one rank, selected rank is minimum",
+	rank = "Rank",
+	format = "Format"
 }
 
 -- Other phrases
