@@ -356,7 +356,9 @@ MSD.Language["en"] = {
 	action_promote_rank = "Promote only by one rank, selected rank is maximum",
 	action_demote_rank = "Demote by one rank, selected rank is minimum",
 	rank = "Rank",
-	format = "Format"
+	format = "Format",
+	file_list = "File list",
+	file_exist = "This save file is already exist"
 }
 
 -- Other phrases
