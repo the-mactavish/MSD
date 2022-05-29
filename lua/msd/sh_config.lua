@@ -33,6 +33,10 @@ MSD.Config.MainColor = {
 	["rd"] = Color(220, 0, 0),
 }
 
+MSD.Config.HUDShowIcon = false
+MSD.Config.HUDIcon = "https://i.imgur.com/ND3b6Do.png"
+MSD.Config.HUDText = "MacNCo"
+
 -- Util
 
 function MSD.AddModule(name, menu, icon)

@@ -164,7 +164,7 @@ function MSD.OpenSettingsMenu(panel)
 	panel.Canvas.Paint = function() end
 
 	panel.Settings = vgui.Create("MSDPanelList", panel)
-	panel.Settings:SetSize(panel:GetWide() / 2, panel:GetTall())
+	panel.Settings:SetSize(panel:GetWide() / 2, panel:GetTall() - 80)
 	panel.Settings:SetPos(0, 0)
 	panel.Settings:EnableVerticalScrollbar()
 	panel.Settings:EnableHorizontal(true)
@@ -222,20 +222,36 @@ function MSD.OpenSettingsMenu(panel)
 			end
 		end)
 
-		if LocalPlayer():IsSuperAdmin() then
-			MSD.BigButton(panel.Settings, "static", nil, 2, 80, Ln("upl_changes"), MSD.Icons48.save, function()
-				MSD.SaveConfig()
-				panel.Settings.Update()
-			end)
+		if not MSD.HUD then return end
 
-			MSD.BigButton(panel.Settings, "static", nil, 2, 80, Ln("res_changes"), MSD.Icons48.cross, function()
-				MSD.Config = oldcfg
-				panel.Settings.Update()
-			end)
-		end
+		MSD.Header(panel.Settings, Ln("set_hud"))
+
+		MSD.BoolSlider(panel.Settings, "static", nil, 1, 50, Ln("custom_icon"), MSD.Config.HUDShowIcon, function(self, value)
+			MSD.Config.HUDShowIcon = value
+		end)
+
+		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("q_icon68"), Ln("e_url") .. ":", MSD.Config.HUDIcon, function(self, value)
+			MSD.Config.HUDIcon = value
+		end)
+
+		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("e_text"), Ln("e_text") .. ":", MSD.Config.HUDText, function(self, value)
+			MSD.Config.HUDText = value
+		end)
 	end
 
 	panel.Settings.Update()
+
+	if LocalPlayer():IsSuperAdmin() then
+		MSD.BigButton(panel, 0, panel:GetTall() - 80, panel:GetWide() / 4, 80, Ln("upl_changes"), MSD.Icons48.save, function()
+			MSD.SaveConfig()
+			panel.Settings.Update()
+		end)
+
+		MSD.BigButton(panel, panel:GetWide() / 4, panel:GetTall() - 80, panel:GetWide() / 4, 80, Ln("res_changes"), MSD.Icons48.cross, function()
+			MSD.Config = oldcfg
+			panel.Settings.Update()
+		end)
+	end
 
 	local pnl = vgui.Create("DPanel")
 
