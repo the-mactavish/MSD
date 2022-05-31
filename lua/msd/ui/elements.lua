@@ -1,5 +1,5 @@
 function MSD.WorkSpacePanel(parent, title, wd, hd, a_ignore)
-	if not wd or not hd then
+	if not (wd and hd) then
 		wd, hd = 1.1, 1.3
 	end
 
@@ -105,7 +105,7 @@ function MSD.IconButton(parent, mat, x, y, s, color, color2, func)
 
 	button.DoRightClick = func
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -168,7 +168,7 @@ function MSD.IconButtonText(parent, text, mat, x, y, s, color, color2, func)
 
 	button.DoRightClick = func
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -492,7 +492,7 @@ function MSD.TextEntry(parent, x, y, w, h, text, label, value, func, auto_update
 		end
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(Entry)
 	end
 
@@ -575,7 +575,7 @@ function MSD.VectorDisplay(parent, x, y, w, h, text, vector, func)
 		end, true, nil, false, true)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(Entry)
 	end
 
@@ -659,7 +659,7 @@ function MSD.AngleDisplay(parent, x, y, w, h, text, angle, func)
 		end, true, nil, false, true)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(Entry)
 	end
 
@@ -712,7 +712,7 @@ function MSD.ColorSelectBut(parent, x, y, w, h, color, func)
 		func(self)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -779,7 +779,7 @@ function MSD.Binder(parent, x, y, w, h, text, var, func)
 		end
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(binder)
 	end
 end
@@ -837,7 +837,7 @@ function MSD.ButtonScr(parent, x, y, w, h, text, func, al_left)
 		func(self)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -895,7 +895,7 @@ function MSD.Button(parent, x, y, w, h, text, func, al_left)
 		func(self)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -947,7 +947,7 @@ function MSD.ButtonSimple(parent, x, y, w, h, text, fsize, func)
 		func(self)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1007,7 +1007,7 @@ function MSD.NumberWang(parent, x, y, w, h, min, max, val, label, func)
 		func(self)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1077,7 +1077,7 @@ function MSD.ButtonIcon(parent, x, y, w, h, text, icon, func, func2, color, colo
 		end
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1147,7 +1147,7 @@ function MSD.ButtonIconText(parent, x, y, w, h, text, text2, icon, func, func2, 
 		end
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1229,7 +1229,7 @@ function MSD.VolumeSlider(parent, x, y, w, h, text, var, func, cl)
 		func(self, self.value)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1311,7 +1311,7 @@ function MSD.VolumeScale(parent, x, y, w, h, text, var, func, cl)
 		func(self, self.value)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1387,7 +1387,7 @@ function MSD.BoolSlider(parent, x, y, w, h, text, var, func)
 		func(self, self.var)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1455,7 +1455,7 @@ function MSD.DTextSlider(parent, x, y, w, h, text1, text2, var, func)
 		func(self, self.var)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1537,7 +1537,7 @@ function MSD.ComboBox(parent, x, y, w, h, label, val)
 		self.Menu:Open(mx, my, false, self)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(ComboBox)
 	end
 
@@ -1613,7 +1613,7 @@ function MSD.BigButton(parent, x, y, w, h, text, icon, func, color, text2, func2
 		func2(self)
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1789,7 +1789,7 @@ function MSD.ColorSelector(parent, x, y, w, h, text, color, func, alpha_chl)
 		SetColors(self.color, {})
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(button)
 	end
 
@@ -1909,26 +1909,27 @@ function MSD.NPCModelFrame(parent, x, y, w, h, model, anim)
 		end
 	end
 
-	if not x or not y then
+	if not (x and y) then
 		parent:AddItem(icon)
 	end
 
 	return icon
 end
 
+local static = {static = true}
 function MSD.BigModelButton(parent, x, y, wd, hd, text, icon, func, text2, tr, color, func2)
 	local pnl = vgui.Create("DPanel")
 	if x and y then
 		pnl:SetParent(parent)
 		pnl:SetPos(x, y)
 	end
-	if x == "static" then
+	if static[x] then -- прикольная группа была раньше кста
 		pnl.StaticScale = { w = wd, fixed_h = hd, minw = 150, minh = hd }
 	else
 		pnl:SetSize(wd, hd)
 	end
 	pnl.Paint = function()
-		if not IsValid(pnl.Icon.Entity) then return end
+		if pnl.Icon.Entity == NULL then return end
 		local ent_color = pnl.Icon:GetColor()
 		ent_color.a = pnl:GetAlpha()
 	end
@@ -1948,9 +1949,7 @@ function MSD.BigModelButton(parent, x, y, wd, hd, text, icon, func, text2, tr, c
 	pnl.Icon = vgui.Create("DModelPanel", pnl)
 	pnl.Icon:SetModel("")
 	pnl.Icon:SetMouseInputEnabled(false)
-	function pnl.Icon:LayoutEntity(Entity)
-		return
-	end
+	function pnl.Icon:LayoutEntity(Entity) end
 
 	local button = vgui.Create("DButton", pnl)
 	button:SetText("")
@@ -1987,12 +1986,12 @@ function MSD.BigModelButton(parent, x, y, wd, hd, text, icon, func, text2, tr, c
 	function pnl:PerformLayout()
 		self.button:StretchToParent( 0, 0, 0, 0 )
 		local mida = pnl.Iconmdl and not tr
-		if not mida then
-			self.Icon:StretchToParent( 5, 5, 5, 5 )
-		else
+		if mida then
 			self.Icon:StretchToParent( 5, 5, self:GetWide() * 0.5, 5 )
+		else
+			self.Icon:StretchToParent( 5, 5, 5, 5 )
 		end
 	end
-	if not x or not y then parent:AddItem(pnl) end
+	if not (x and y) then parent:AddItem(pnl) end
 	return pnl
 end
