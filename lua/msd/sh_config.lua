@@ -73,32 +73,42 @@ end
 --──────────────────────────────────--
 ------------- CFG Saving -------------
 --──────────────────────────────────--
-net.Receive("MSD.GetConfigData", function(l, ply)
-	if CLIENT then
-		local config = net.ReadTable()
-		MSD.Config = config
-	else
-		net.Start("MSD.GetConfigData")
+local function SendConfig(ply)
+	net.Start("MSD.GetConfigData")
 		net.WriteTable(MSD.Config)
-		net.Send(ply)
-	end
-end)
+	net.Send(ply)
+end
 
-MSD.SaveConfig = function()
-	if CLIENT then
+if CLIENT then
+	net.Receive("MSD.GetConfigData", function()
+		MSD.Config = net.ReadTable()
+	end)
+else
+	local Received = {}
+
+	net.Receive("MSD.GetConfigData", function(l, ply)
+		if Received[ply] then return end
+		Received[ply] = true
+
+		SendConfig(ply)
+	end)
+end
+
+if CLIENT then
+	MSD.SaveConfig = function()
 		local json_data = util.TableToJSON(MSD.Config, false)
 		local cd = util.Compress(json_data)
 		local bn = string.len(cd)
+
 		net.Start("MSD.SaveConfig")
 			net.WriteInt(bn, 32)
 			net.WriteData(cd, bn)
 		net.SendToServer()
-	else
-		net.Start("MSD.GetConfigData")
-		net.WriteTable(MSD.Config)
-		net.Broadcast()
-		json_table = util.TableToJSON(MSD.Config, true)
-		file.Write("msd_data/config.txt", json_table)
+	end
+else
+	MSD.SaveConfig = function()
+		SendConfig(ply)
+		file.Write("msd_data/config.txt",  util.TableToJSON(MSD.Config, true))
 	end
 end
 
@@ -106,26 +116,28 @@ function MSD.LoadConfig()
 	if CLIENT then
 		net.Start("MSD.GetConfigData")
 		net.SendToServer()
-	end
-
-	if SERVER then
-		net.Receive("MSD.SaveConfig", function(l, ply)
-			if MSD.cfgLastChange and MSD.cfgLastChange > CurTime() then return end
-			MSD.cfgLastChange = CurTime() + 1
-			if not ply:IsSuperAdmin() then return end
-			local bytes_number = net.ReadInt(32)
-			local compressed_data = net.ReadData(bytes_number)
+	else
+		local function SaveConfig()
+			local compressed_data = net.ReadData(net.ReadInt(32))
 			local json_data = util.Decompress(compressed_data)
 			local config = util.JSONToTable(json_data)
 
 			MSD.Config = config
 			MSD.SaveConfig()
+		end
+
+		net.Receive("MSD.SaveConfig", function(l, ply)
+			if ply:IsSuperAdmin() == false then return end
+
+			if timer.Exists("MSD.SaveConfig") then
+				timer.Create("MSD.SaveConfig", 1, 2, SaveConfig)
+			else
+				timer.Create("MSD.SaveConfig", 1, 2, function() end)
+				SaveConfig()
+			end
 		end)
 
-		if not file.Exists("msd_data/config.txt", "DATA") then
-			json_table = util.TableToJSON(MSD.Config, true)
-			file.Write("msd_data/config.txt", json_table)
-		else
+		if file.Exists("msd_data/config.txt", "DATA") then
 			local config = util.JSONToTable(file.Read("msd_data/config.txt", "DATA"))
 
 			for k, v in pairs(config) do
@@ -133,11 +145,14 @@ function MSD.LoadConfig()
 					MSD.Config[k] = v
 				end
 			end
-			if #player.GetAll() > 0 then
+
+			if #player.GetHumans() > 0 then
 				net.Start("MSD.GetConfigData")
-				net.WriteTable(MSD.Config)
+					net.WriteTable(MSD.Config)
 				net.Broadcast()
 			end
+		else
+			file.Write("msd_data/config.txt", util.TableToJSON(MSD.Config, true))
 		end
 	end
 end
