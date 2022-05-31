@@ -226,16 +226,83 @@ function MSD.OpenSettingsMenu(panel)
 
 		MSD.Header(panel.Settings, Ln("set_hud"))
 
-		MSD.BoolSlider(panel.Settings, "static", nil, 1, 50, Ln("custom_icon"), MSD.Config.HUDShowIcon, function(self, value)
-			MSD.Config.HUDShowIcon = value
+		MSD.BoolSlider(panel.Settings, "static", nil, 1, 50, Ln("custom_icon"), MSD.Config.HUD.ShowIcon, function(self, value)
+			MSD.Config.HUD.ShowIcon = value
 		end)
 
-		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("q_icon68"), Ln("e_url") .. ":", MSD.Config.HUDIcon, function(self, value)
-			MSD.Config.HUDIcon = value
+		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("q_icon68"), Ln("e_url") .. ":",  MSD.Config.HUD.Icon, function(self, value)
+			MSD.Config.HUD.Icon = value
 		end)
 
-		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("e_text"), Ln("e_text") .. ":", MSD.Config.HUDText, function(self, value)
-			MSD.Config.HUDText = value
+		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("e_text"), Ln("e_text") .. ":",  MSD.Config.HUD.Text, function(self, value)
+			MSD.Config.HUD.Text = value
+		end)
+
+		local acombo = MSD.ComboBox(panel.Settings, "static", nil, 1, 50, "", "")
+
+		local algm = {
+			Ln("set_ui_align_left"),
+			Ln("set_ui_align_center"),
+			Ln("set_ui_align_right")
+		}
+		for i,t in pairs(algm) do
+			acombo:AddChoice(t, i - 1)
+			acombo:SetValue(t)
+		end
+
+		acombo.OnSelect = function(self, index, text, data)
+			MSD.Config.HUD.AlignX = data
+		end
+
+		local sld0, txt1, sld2, txt2
+		sld0 = MSD.VolumeSlider(panel.Settings, "static", nil, 1.2, 50, Ln("set_ui_offset_h"), MSD.Config.HUD.X, function(self, var)
+			var = math.Round(var, 3)
+			MSD.Config.HUD.X = var
+			txt1:SetText(var * 100)
+		end)
+
+		txt1 = MSD.TextEntry(panel.Settings, "static", nil, 6, 50, "", "", MSD.Config.HUD.X * 100, function(self, value)
+			value = math.Clamp((tonumber(value) or 0) / 100,0,1)
+			sld0.value = value
+			MSD.Config.HUD.X = value
+		end, true, nil, nil, true)
+
+		sld2 = MSD.VolumeSlider(panel.Settings, "static", nil, 1.2, 50, Ln("set_ui_offset_v"), MSD.Config.HUD.Y, function(self, var)
+			var = math.Round(var, 3)
+			MSD.Config.HUD.Y = var
+			txt2:SetText(var * 100)
+		end)
+
+		txt2 = MSD.TextEntry(panel.Settings, "static", nil, 6, 50, "", "", MSD.Config.HUD.Y * 100, function(self, value)
+			value = math.Clamp((tonumber(value) or 0) / 100,0,1)
+			sld2.value = value
+			MSD.Config.HUD.Y = value
+		end, true, nil, nil, true)
+
+		MSD.BoolSlider(panel.Settings, "static", nil, 1, 50, Ln("show_team"), MSD.Config.HUD.ShowGroup, function(self, value)
+			MSD.Config.HUD.ShowGroup = value
+		end)
+
+		MSD.BoolSlider(panel.Settings, "static", nil, 1, 50, Ln("mrs_hud_follow"), MSD.Config.HUD.Follow, function(self, value)
+			MSD.Config.HUD.Follow = value
+		end)
+
+		MSD.BoolSlider(panel.Settings, "static", nil, 1, 50, Ln("use_team_colors"), MSD.Config.HUD.TeamColor, function(self, value)
+			MSD.Config.TeamColor = value
+		end)
+
+		MSD.BoolSlider(panel.Settings, "static", nil, 1, 50, Ln("icon_right"), MSD.Config.HUD.IconRight, function(self, value)
+			MSD.Config.HUD.IconRight = value
+		end)
+
+		MSD.VolumeSlider(panel.Settings, "static", nil, 1, 50, Ln("icon_size"), (MSD.Config.HUD.IconSize - 24) / 40, function(self, var)
+			var = math.Round(var, 3)
+			MSD.Config.HUD.IconSize = math.Clamp(24 + math.Round(var * 40), 24, 64)
+		end)
+
+		MSD.VolumeSlider(panel.Settings, "static", nil, 1, 50, Ln("font_size"), (MSD.Config.HUD.FontSize - 16) / 30, function(self, var)
+			var = math.Round(var, 3)
+			MSD.Config.HUD.FontSize = math.Clamp(16 + math.Round(var * 30), 16, 46)
 		end)
 	end
 

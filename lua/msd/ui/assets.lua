@@ -350,10 +350,20 @@ end
 MSD.ImgLib = {}
 MSD.ImgLib.Images = {}
 MSD.ImgLib.PreCacheStarted = {}
+MSD.ImgLib.Avatars = {}
 MSD.ImgLib.NoMaterial = Material("msd/icons/file-hidden.png", "smooth noclamp")
 
-function MSD.ImgLib.GetMaterial(url)
+function MSD.ImgLib.GetMaterial(url, jpg)
+	if url == "" then
+		return MSD.ImgLib.NoMaterial
+	end
+
 	local crc = util.CRC(url) .. ".png"
+
+	if jpg then
+		crc = util.CRC(url) .. ".jpg"
+	end
+
 	if MSD.ImgLib.Images[crc] then return MSD.ImgLib.Images[crc] end
 
 	if (file.Exists("msd_imgs/" .. crc, "DATA")) then
@@ -361,11 +371,11 @@ function MSD.ImgLib.GetMaterial(url)
 
 		return MSD.ImgLib.Images[crc]
 	else
-		return MSD.ImgLib.PreCacheMaterial(url, crc)
+		return MSD.ImgLib.PreCacheMaterial(url, crc, jpg)
 	end
 end
 
-function MSD.ImgLib.PreCacheMaterial(url, crc)
+function MSD.ImgLib.PreCacheMaterial(url, crc, jpg)
 	if not crc then
 		crc = util.CRC(url) .. ".png"
 	end
@@ -378,11 +388,14 @@ function MSD.ImgLib.PreCacheMaterial(url, crc)
 		MSD.ImgLib.PreCacheStarted[crc] = true
 
 		http.Fetch(url, function(body, size, headers, code)
-			if (body:find("^.PNG")) then
+			if not jpg and (body:find("^.PNG")) then
 				file.Write("msd_imgs/" .. crc, body)
 				MSD.ImgLib.Images[crc] = Material("data/msd_imgs/" .. crc, "smooth noclamp")
 
 				return MSD.ImgLib.Images[crc]
+			elseif jpg then
+				file.Write("msd_imgs/" .. crc, body)
+				MSD.ImgLib.Images[crc] = Material("data/msd_imgs/" .. crc, "smooth noclamp")
 			else
 				print("Image is not a PNG, url - " .. url)
 			end
@@ -392,4 +405,19 @@ function MSD.ImgLib.PreCacheMaterial(url, crc)
 	end
 
 	return MSD.ImgLib.NoMaterial
+end
+
+function MSD.ImgLib.GetAvatar(crc)
+	crc = tostring(crc)
+	if not MSD.ImgLib.Avatars[crc] then
+		MSD.ImgLib.Avatars[crc] = ""
+
+		http.Fetch("https://macnco.one/steamid/avatar.php?input=" .. crc, function(body, size, headers, code)
+			MSD.ImgLib.Avatars[crc] = body
+		end, function()
+			print("Failed to get link, url - " .. url)
+		end)
+	end
+
+	return MSD.ImgLib.Avatars[crc] or ""
 end

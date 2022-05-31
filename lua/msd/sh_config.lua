@@ -33,9 +33,21 @@ MSD.Config.MainColor = {
 	["rd"] = Color(220, 0, 0),
 }
 
-MSD.Config.HUDShowIcon = false
-MSD.Config.HUDIcon = "https://i.imgur.com/ND3b6Do.png"
-MSD.Config.HUDText = "MacNCo"
+MSD.Config.HUD = {
+	ShowIcon = false,
+	Icon = "https://i.imgur.com/ND3b6Do.png",
+	Text = "MacNCo",
+	X = 0.5,
+	Y = 0.5,
+	AlignX = 0,
+	IconRight = false,
+	IconSize = 48,
+	FontSize = 28,
+	ShowGroup = true,
+	TeamColor = false,
+	Follow = true,
+	Dist = 200,
+}
 
 -- Util
 
