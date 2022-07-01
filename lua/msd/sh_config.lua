@@ -21,12 +21,12 @@
 -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
-
 MSD.Config.Language = "en"
 MSD.Config.Rounded = 8
 MSD.Config.Blur = false
 MSD.Config.Vignette = false
 MSD.Config.BgrColor = Color(45, 45, 45)
+
 MSD.Config.MainColor = {
 	["p"] = Color(0, 155, 255),
 	["r"] = Color(255, 0, 0),
@@ -48,8 +48,6 @@ MSD.Config.HUD = {
 	Follow = true,
 	Dist = 200,
 }
-
--- Util
 
 function MSD.AddModule(name, menu, icon)
 	local mod = {
@@ -75,8 +73,7 @@ end
 --──────────────────────────────────--
 net.Receive("MSD.GetConfigData", function(l, ply)
 	if CLIENT then
-		local config = net.ReadTable()
-		MSD.Config = config
+		MSD.Config = net.ReadTable()
 	else
 		net.Start("MSD.GetConfigData")
 		net.WriteTable(MSD.Config)
@@ -90,15 +87,14 @@ MSD.SaveConfig = function()
 		local cd = util.Compress(json_data)
 		local bn = string.len(cd)
 		net.Start("MSD.SaveConfig")
-			net.WriteInt(bn, 32)
-			net.WriteData(cd, bn)
+		net.WriteInt(bn, 32)
+		net.WriteData(cd, bn)
 		net.SendToServer()
 	else
 		net.Start("MSD.GetConfigData")
 		net.WriteTable(MSD.Config)
 		net.Broadcast()
-		json_table = util.TableToJSON(MSD.Config, true)
-		file.Write("msd_data/config.txt", json_table)
+		file.Write("msd_data/config.txt", util.TableToJSON(MSD.Config, true))
 	end
 end
 
@@ -106,9 +102,7 @@ function MSD.LoadConfig()
 	if CLIENT then
 		net.Start("MSD.GetConfigData")
 		net.SendToServer()
-	end
-
-	if SERVER then
+	else
 		net.Receive("MSD.SaveConfig", function(l, ply)
 			if MSD.cfgLastChange and MSD.cfgLastChange > CurTime() then return end
 			MSD.cfgLastChange = CurTime() + 1
@@ -117,22 +111,21 @@ function MSD.LoadConfig()
 			local compressed_data = net.ReadData(bytes_number)
 			local json_data = util.Decompress(compressed_data)
 			local config = util.JSONToTable(json_data)
-
 			MSD.Config = config
 			MSD.SaveConfig()
 		end)
 
 		if not file.Exists("msd_data/config.txt", "DATA") then
-			json_table = util.TableToJSON(MSD.Config, true)
-			file.Write("msd_data/config.txt", json_table)
+			file.Write("msd_data/config.txt", util.TableToJSON(MSD.Config, true))
 		else
 			local config = util.JSONToTable(file.Read("msd_data/config.txt", "DATA"))
 
 			for k, v in pairs(config) do
-				if MSD.Config[k] != nil then
+				if MSD.Config[k] ~= nil then
 					MSD.Config[k] = v
 				end
 			end
+
 			if #player.GetAll() > 0 then
 				net.Start("MSD.GetConfigData")
 				net.WriteTable(MSD.Config)
