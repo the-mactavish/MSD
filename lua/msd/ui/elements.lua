@@ -21,9 +21,10 @@ function MSD.WorkSpacePanel(parent, title, wd, hd, a_ignore)
 		end)
 	end
 
-    local children = self:GetChildren()
+
     
 	panel.PerformLayout = function(self)
+	    local children = self:GetChildren()
 		for k, v in pairs(children) do
 			v:InvalidateLayout()
 		end
