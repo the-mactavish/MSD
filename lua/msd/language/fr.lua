@@ -320,6 +320,8 @@ MSD.Language["fr"] = {
 	other_players = "Autres joueurs",
 	mrs_change_jobname = "Changer le job au nom du grade",
 	mrs_set_prefix = "Ajouter le nom du grade au préfix du nom du métier",
+	mrs_change_plyname = "Remplacer le nom du joueur par le nom du rang", 
+	mrs_set_prefix_ply = "Ajouter le nom du rang comme préfixe au nom du joueur",
 }
 
 -- Other phrases
