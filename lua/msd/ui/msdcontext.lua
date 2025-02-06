@@ -230,22 +230,19 @@ function MSD.OpenSettingsMenu(panel)
 			MSD.Config.HUD.ShowIcon = value
 		end)
 
-		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("q_icon68"), Ln("e_url") .. ":",  MSD.Config.HUD.Icon, function(self, value)
+		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("q_icon68"), Ln("e_url") .. ":", MSD.Config.HUD.Icon, function(self, value)
 			MSD.Config.HUD.Icon = value
 		end)
 
-		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("e_text"), Ln("e_text") .. ":",  MSD.Config.HUD.Text, function(self, value)
+		MSD.TextEntry(panel.Settings, "static", nil, 1, 50, Ln("e_text"), Ln("e_text") .. ":", MSD.Config.HUD.Text, function(self, value)
 			MSD.Config.HUD.Text = value
 		end)
 
 		local acombo = MSD.ComboBox(panel.Settings, "static", nil, 1, 50, "", "")
 
-		local algm = {
-			Ln("set_ui_align_left"),
-			Ln("set_ui_align_center"),
-			Ln("set_ui_align_right")
-		}
-		for i,t in pairs(algm) do
+		local algm = {Ln("set_ui_align_left"), Ln("set_ui_align_center"), Ln("set_ui_align_right")}
+
+		for i, t in pairs(algm) do
 			acombo:AddChoice(t, i - 1)
 			acombo:SetValue(t)
 		end
@@ -255,6 +252,7 @@ function MSD.OpenSettingsMenu(panel)
 		end
 
 		local sld0, txt1, sld2, txt2
+
 		sld0 = MSD.VolumeSlider(panel.Settings, "static", nil, 1.2, 50, Ln("set_ui_offset_h"), MSD.Config.HUD.X, function(self, var)
 			var = math.Round(var, 3)
 			MSD.Config.HUD.X = var
@@ -262,7 +260,7 @@ function MSD.OpenSettingsMenu(panel)
 		end)
 
 		txt1 = MSD.TextEntry(panel.Settings, "static", nil, 6, 50, "", "", MSD.Config.HUD.X * 100, function(self, value)
-			value = math.Clamp((tonumber(value) or 0) / 100,0,1)
+			value = math.Clamp((tonumber(value) or 0) / 100, 0, 1)
 			sld0.value = value
 			MSD.Config.HUD.X = value
 		end, true, nil, nil, true)
@@ -274,7 +272,7 @@ function MSD.OpenSettingsMenu(panel)
 		end)
 
 		txt2 = MSD.TextEntry(panel.Settings, "static", nil, 6, 50, "", "", MSD.Config.HUD.Y * 100, function(self, value)
-			value = math.Clamp((tonumber(value) or 0) / 100,0,1)
+			value = math.Clamp((tonumber(value) or 0) / 100, 0, 1)
 			sld2.value = value
 			MSD.Config.HUD.Y = value
 		end, true, nil, nil, true)
@@ -324,15 +322,30 @@ function MSD.OpenSettingsMenu(panel)
 
 	pnl.StaticScale = {
 		w = 1,
-		h = 1,
+		h = 4,
 		minw = 150,
 		minh = 150
 	}
 
 	pnl.Paint = function(self, w, h)
-		MSD.DrawTexturedRect(w / 2 - 128, h / 2 - 128, 256, 236, logo, MSD.Text["l"])
-		draw.DrawText("MSD UI version - " .. MSD.Version, "MSDFont.25", w / 2, h / 2 + 130, MSD.Text["l"], TEXT_ALIGN_CENTER)
+		MSD.DrawTexturedRect(w / 2 - 64, h / 2 - 64, 128, 128, logo, MSD.Text["l"])
+		draw.DrawText("MSD UI version - " .. MSD.Version, "MSDFont.25", w / 2, h / 2 + 70, MSD.Text["l"], TEXT_ALIGN_CENTER)
 	end
 
 	panel.Canvas:AddItem(pnl)
+	MSD.InfoHeader(panel.Canvas, "MSD Icons 48")
+
+	for k, v in SortedPairs(MSD.Icons48) do
+		MSD.IconButton(panel.Canvas, v, "static", nil, 32, nil, nil, function()
+			SetClipboardText("MSD.Icons48." .. k)
+		end)
+	end
+
+	MSD.InfoHeader(panel.Canvas, "MQS Markers")
+
+	for k, v in SortedPairs(MSD.PinPoints) do
+		MSD.IconButton(panel.Canvas, v, "static", nil, 32, nil, nil, function()
+			SetClipboardText("MSD.PinPoints[" .. k .. "]")
+		end)
+	end
 end
