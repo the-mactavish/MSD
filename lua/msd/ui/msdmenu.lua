@@ -1,12 +1,13 @@
 if SERVER then return end
 local tblOpenMenus = {}
 
-function RegisterDermaMenuForClose(dmenu)
+function MSD.RegisterMenuForClose(dmenu)
 	table.insert(tblOpenMenus, dmenu)
 end
 
 function MSD.MenuOpen(parentmenu, parent, bg)
 	if (not parentmenu) then
+		MSD.CloseMenus()
 		CloseDermaMenus()
 	end
 
@@ -26,7 +27,7 @@ function MSD.MenuOpen(parentmenu, parent, bg)
 	return dmenu
 end
 
-function CloseDermaMenus()
+function MSD.CloseMenus()
 	for k, dmenu in pairs(tblOpenMenus) do
 		if (IsValid(dmenu)) then
 			dmenu:SetVisible(false)
@@ -38,7 +39,6 @@ function CloseDermaMenus()
 	end
 
 	tblOpenMenus = {}
-	hook.Run("CloseDermaMenus")
 end
 
 local function DermaDetectMenuFocus(panel, mousecode)
@@ -48,10 +48,10 @@ local function DermaDetectMenuFocus(panel, mousecode)
 		return DermaDetectMenuFocus(panel:GetParent(), mousecode)
 	end
 
-	CloseDermaMenus()
+	MSD.CloseMenus()
 end
 
-hook.Add("VGUIMousePressed", "MatDMenuDetectMenuFocus", DermaDetectMenuFocus)
+hook.Add("VGUIMousePressed", "MSD.DMenuDetectMenuFocus", DermaDetectMenuFocus)
 local PANEL = {}
 AccessorFunc(PANEL, "m_bBorder", "DrawBorder")
 AccessorFunc(PANEL, "m_bDeleteSelf", "DeleteSelf")
@@ -69,7 +69,7 @@ function PANEL:Init()
 	self:SetMaxHeight(ScrH() * 0.9)
 	self:SetDeleteSelf(true)
 	self:SetPadding(0)
-	RegisterDermaMenuForClose(self)
+	MSD.RegisterMenuForClose(self)
 end
 
 function PANEL:AddOption(strText, funcFunction, icon, check)

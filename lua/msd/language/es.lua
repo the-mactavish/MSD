@@ -240,6 +240,15 @@
 	set_ui_sounds = "Sonidos de la interfaz",
 	set_ui_sounds_volume = "Volumen de los sonidos de la interfaz",
 	border_radius = "Redondeo de las esquinas",
+
+	collect_only = "Cantidad a recoger",
+	custom_id = "ID personalizado",
+	karma = "Karma",
+	s_quest_conflictlist = "Configurar la lista de misiones en conflicto",
+	s_quest_conflictlist_desc = "Selecciona las misiones que bloquean esta misión mientras alguien las juega",
+	enter_group = "Introduce el nombre del grupo",
+	save_preset = "Guardar plantilla",
+	sound_player = "Reproductor",
 }
 
 -- Otras frases
@@ -271,3 +280,51 @@ MSD.Language[es]["DarkRP Money"] = " Dinero DarkRP"
 MSD.Language[es]["Quest NPCs are disabled"] = "Los NPCs de las misiones están deshabilitados"
 MSD.Language[es]["You can enable them in settings"] = "Puedes habilitarlos en las configuraciones"
 MSD.Language[es]["Wait time"] = "Tiempo de espera"
+
+-- Other phrases
+local lng = "es"
+
+MSD.Language[lng]["All"] = "Todo"
+MSD.Language[lng]["Addons"] = "Addons"
+MSD.Language[lng]["Search"] = "Buscar"
+MSD.Language[lng]["Sound Viewer"] = "Explorador de sonidos"
+MSD.Language[lng]["Custom HP"] = "Vida personalizada"
+MSD.Language[lng]["Skin ID"] = "ID de skin"
+MSD.Language[lng]["NextBot NPC"] = "NPC NextBot"
+MSD.Language[lng]["Export"] = "Exportar"
+MSD.Language[lng]["Import"] = "Importar"
+MSD.Language[lng]["Replace"] = "Reemplazar"
+MSD.Language[lng]["Save as"] = "Guardar como"
+MSD.Language[lng]["Answers"] = "Respuestas"
+MSD.Language[lng]["Line options"] = "Opciones de la línea"
+MSD.Language[lng]["Debug Mode"] = "Modo de depuración"
+MSD.Language[lng]["Default Theme"] = "Tema predeterminado"
+MSD.Language[lng]["Default Theme settings"] = "Ajustes del tema predeterminado"
+MSD.Language[lng]["Retro Theme settings"] = "Ajustes del tema retro"
+MSD.Language[lng]["Preview"] = "Vista previa"
+MSD.Language[lng]["Preview quest entities"] = "Vista previa de las entidades"
+MSD.Language[lng]["Toggle preview"] = "Activar/desactivar vista previa"
+MSD.Language[lng]["Show entity color"] = "Mostrar el color"
+MSD.Language[lng]["Show entity material"] = "Mostrar el material"
+MSD.Language[lng]["Transparent entities"] = "Entidades transparentes"
+MSD.Language[lng]["Filter..."] = "Filtrar..."
+MSD.Language[lng]["Search for quest.."] = "Buscar misión.."
+MSD.Language[lng]["Search for npcs.."] = "Buscar NPC.."
+MSD.Language[lng]["Spawn"] = "Crear"
+MSD.Language[lng]["Remove"] = "Eliminar"
+MSD.Language[lng]["Player"] = "Jugador"
+MSD.Language[lng]["Quest"] = "Misión"
+MSD.Language[lng]["Sounds"] = "Sonidos"
+MSD.Language[lng]["Map"] = "Mapa"
+MSD.Language[lng]["Server"] = "Servidor"
+MSD.Language[lng]["Other"] = "Otros"
+MSD.Language[lng]["Leave area LP"] = "Sal del área del último punto"
+MSD.Language[lng]["Move to any point"] = "Ve a cualquier punto"
+MSD.Language[lng]["Ent Fire"] = "Input de entidad del mapa"
+MSD.Language[lng]["Kill Penalty"] = "Castigo por matar"
+MSD.Language[lng]["Stop NPC protection"] = "Detener la protección del NPC"
+MSD.Language[lng]["Music player pos"] = "Música en un punto"
+MSD.Language[lng]["Emit sound"] = "Sonido en un punto"
+MSD.Language[lng]["Player emit sound"] = "Sonido del jugador"
+MSD.Language[lng]["DarkRP Wanted"] = "DarkRP Se busca"
+MSD.Language[lng]["Set Job Name"] = "Cambiar nombre del trabajo"

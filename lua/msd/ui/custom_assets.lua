@@ -291,7 +291,7 @@ function MSD.AskConfirmPopup(parent, question, acceptText, cancelText, acceptFun
 	end
 
 	panel.Paint = function(self, w, h)
-		Derma_DrawBackgroundBlur(self, self.startTime)
+		MSD.DrawBackgroundBlur(self, self.startTime)
 	end
 
 	panel.Close = function()

@@ -191,7 +191,7 @@ MSB.Open = function()
 		ops_panel.Paint = function(self, w, h)
 			MSDX.Draw(0, 0, 0, (w / 3) * 2 - 4, h, MSD.Theme["l"])
 			MSDX.Draw(0, (w / 3) * 2, 0, w / 3 - 4, h, MSD.Theme["l"])
-			draw.DrawText(Ln("Player"), "MSDFont.25", w / 3 * 2 + 12, 12, color_white, TEXT_ALIGN_LEFT)
+			draw.DrawText(Ln("sound_player"), "MSDFont.25", w / 3 * 2 + 12, 12, color_white, TEXT_ALIGN_LEFT)
 		end
 
 		local browser, path_name = nil, ""

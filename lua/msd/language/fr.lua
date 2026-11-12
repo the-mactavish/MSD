@@ -339,6 +339,15 @@ MSD.Language["fr"] = {
 	set_ui_drawbox = "Rendu standard (draw.RoundedBox)",
 	set_ui_sounds = "Sons de l'interface",
 	set_ui_sounds_volume = "Volume des sons de l'interface",
+
+	collect_only = "Quantité à collecter",
+	custom_id = "ID personnalisé",
+	karma = "Karma",
+	s_quest_conflictlist = "Configurer la liste des quêtes en conflit",
+	s_quest_conflictlist_desc = "Sélectionnez les quêtes qui bloquent cette quête pendant que quelqu'un les joue",
+	enter_group = "Entrez le nom du groupe",
+	save_preset = "Enregistrer le préréglage",
+	sound_player = "Lecteur",
 }
 
 -- Other phrases
@@ -351,7 +360,7 @@ MSD.Language[lng]["Collect quest ents"] = "Collecter les ents de quête"
 MSD.Language[lng]["Talk to NPC"] = "Parler à NPC"
 MSD.Language[lng]["Wait time"] = "Temps d'attente"
 
-MSD.Language[lng]["There is no quests avalible"] = "Il n'y a pas de quêtes disponibles"
+MSD.Language[lng]["There is no quests available"] = "Il n'y a pas de quêtes disponibles"
 
 MSD.Language[lng]["Give weapon"] = "Donner une arme"
 MSD.Language[lng]["Give ammo"] = "Donner des munitions"
@@ -370,3 +379,47 @@ MSD.Language[lng]["DarkRP Money"] = "Argent DarkRP"
 
 MSD.Language[lng]["Quest NPCs are disabled"] = "Les PNJ de quête sont désactivés"
 MSD.Language[lng]["You can enable them in settings"] = "Vous pouvez les activer dans les paramètres"
+MSD.Language[lng]["All"] = "Tout"
+MSD.Language[lng]["Addons"] = "Addons"
+MSD.Language[lng]["Search"] = "Rechercher"
+MSD.Language[lng]["Sound Viewer"] = "Explorateur de sons"
+MSD.Language[lng]["Custom HP"] = "PV personnalisés"
+MSD.Language[lng]["Skin ID"] = "ID du skin"
+MSD.Language[lng]["NextBot NPC"] = "PNJ NextBot"
+MSD.Language[lng]["Export"] = "Exporter"
+MSD.Language[lng]["Import"] = "Importer"
+MSD.Language[lng]["Replace"] = "Remplacer"
+MSD.Language[lng]["Save as"] = "Enregistrer sous"
+MSD.Language[lng]["Answers"] = "Réponses"
+MSD.Language[lng]["Line options"] = "Options de la réplique"
+MSD.Language[lng]["Debug Mode"] = "Mode débogage"
+MSD.Language[lng]["Default Theme"] = "Thème par défaut"
+MSD.Language[lng]["Default Theme settings"] = "Paramètres du thème par défaut"
+MSD.Language[lng]["Retro Theme settings"] = "Paramètres du thème rétro"
+MSD.Language[lng]["Preview"] = "Aperçu"
+MSD.Language[lng]["Preview quest entities"] = "Aperçu des entités de la quête"
+MSD.Language[lng]["Toggle preview"] = "Activer/désactiver l'aperçu"
+MSD.Language[lng]["Show entity color"] = "Afficher la couleur"
+MSD.Language[lng]["Show entity material"] = "Afficher le matériau"
+MSD.Language[lng]["Transparent entities"] = "Entités transparentes"
+MSD.Language[lng]["Filter..."] = "Filtrer..."
+MSD.Language[lng]["Search for quest.."] = "Rechercher une quête.."
+MSD.Language[lng]["Search for npcs.."] = "Rechercher un PNJ.."
+MSD.Language[lng]["Spawn"] = "Créer"
+MSD.Language[lng]["Remove"] = "Supprimer"
+MSD.Language[lng]["Player"] = "Joueur"
+MSD.Language[lng]["Quest"] = "Quête"
+MSD.Language[lng]["Sounds"] = "Sons"
+MSD.Language[lng]["Map"] = "Carte"
+MSD.Language[lng]["Server"] = "Serveur"
+MSD.Language[lng]["Other"] = "Autre"
+MSD.Language[lng]["Leave area LP"] = "Quittez la zone du dernier point"
+MSD.Language[lng]["Move to any point"] = "Allez à n'importe quel point"
+MSD.Language[lng]["Ent Fire"] = "Input d'entité de la carte"
+MSD.Language[lng]["Kill Penalty"] = "Pénalité de meurtre"
+MSD.Language[lng]["Stop NPC protection"] = "Arrêter la protection du PNJ"
+MSD.Language[lng]["Music player pos"] = "Musique à un point"
+MSD.Language[lng]["Emit sound"] = "Son à un point"
+MSD.Language[lng]["Player emit sound"] = "Son du joueur"
+MSD.Language[lng]["DarkRP Wanted"] = "DarkRP Recherché"
+MSD.Language[lng]["Set Job Name"] = "Changer le nom du métier"

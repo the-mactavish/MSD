@@ -349,6 +349,15 @@ MSD.Language["de"] = {
 	set_ui_drawbox = "Standard-Rendering (draw.RoundedBox)",
 	set_ui_sounds = "UI-Sounds",
 	set_ui_sounds_volume = "Lautstärke der UI-Sounds",
+
+	collect_only = "Anzahl zum Sammeln",
+	custom_id = "Eigene ID",
+	karma = "Karma",
+	s_quest_conflictlist = "Konfliktliste der Quests einrichten",
+	s_quest_conflictlist_desc = "Wähle Quests, die diese Quest blockieren, während sie jemand spielt",
+	enter_group = "Gruppennamen eingeben",
+	save_preset = "Vorlage speichern",
+	sound_player = "Player",
 }
 
 
@@ -363,7 +372,7 @@ MSD.Language[lng]["Collect quest ents"] = "Sammle Quest Gegenstände"
 MSD.Language[lng]["Talk to NPC"] = "Spreche mit dem NPC"
 
 
-MSD.Language[lng]["There is no quests avalible"] = "Es sind keine Quests verfügbar"
+MSD.Language[lng]["There is no quests available"] = "Es sind keine Quests verfügbar"
 
 
 MSD.Language[lng]["Give weapon"] = "Gebe Waffe"
@@ -386,3 +395,47 @@ MSD.Language[lng]["DarkRP Money"] = "DarkRP Geld"
 MSD.Language[lng]["Quest NPCs are disabled"] = "Quest NPCs sind deaktiviert"
 MSD.Language[lng]["You can enable them in settings"] = "Du kannst sie in den Einstellungen aktivieren"
 MSD.Language[lng]["Wait time"] = "Wartezeit"
+MSD.Language[lng]["All"] = "Alle"
+MSD.Language[lng]["Addons"] = "Addons"
+MSD.Language[lng]["Search"] = "Suche"
+MSD.Language[lng]["Sound Viewer"] = "Sound-Browser"
+MSD.Language[lng]["Custom HP"] = "Eigene HP"
+MSD.Language[lng]["Skin ID"] = "Skin-ID"
+MSD.Language[lng]["NextBot NPC"] = "NextBot-NPC"
+MSD.Language[lng]["Export"] = "Exportieren"
+MSD.Language[lng]["Import"] = "Importieren"
+MSD.Language[lng]["Replace"] = "Ersetzen"
+MSD.Language[lng]["Save as"] = "Speichern als"
+MSD.Language[lng]["Answers"] = "Antworten"
+MSD.Language[lng]["Line options"] = "Zeilenoptionen"
+MSD.Language[lng]["Debug Mode"] = "Debug-Modus"
+MSD.Language[lng]["Default Theme"] = "Standard-Theme"
+MSD.Language[lng]["Default Theme settings"] = "Einstellungen des Standard-Themes"
+MSD.Language[lng]["Retro Theme settings"] = "Einstellungen des Retro-Themes"
+MSD.Language[lng]["Preview"] = "Vorschau"
+MSD.Language[lng]["Preview quest entities"] = "Quest-Objekte anzeigen"
+MSD.Language[lng]["Toggle preview"] = "Vorschau an/aus"
+MSD.Language[lng]["Show entity color"] = "Farbe der Objekte zeigen"
+MSD.Language[lng]["Show entity material"] = "Material der Objekte zeigen"
+MSD.Language[lng]["Transparent entities"] = "Transparente Objekte"
+MSD.Language[lng]["Filter..."] = "Filter..."
+MSD.Language[lng]["Search for quest.."] = "Quest suchen.."
+MSD.Language[lng]["Search for npcs.."] = "NPCs suchen.."
+MSD.Language[lng]["Spawn"] = "Erstellen"
+MSD.Language[lng]["Remove"] = "Entfernen"
+MSD.Language[lng]["Player"] = "Spieler"
+MSD.Language[lng]["Quest"] = "Quest"
+MSD.Language[lng]["Sounds"] = "Sounds"
+MSD.Language[lng]["Map"] = "Karte"
+MSD.Language[lng]["Server"] = "Server"
+MSD.Language[lng]["Other"] = "Sonstiges"
+MSD.Language[lng]["Leave area LP"] = "Verlasse den Bereich des letzten Punkts"
+MSD.Language[lng]["Move to any point"] = "Gehe zu einem beliebigen Punkt"
+MSD.Language[lng]["Ent Fire"] = "Karten-Entity-Input"
+MSD.Language[lng]["Kill Penalty"] = "Strafe für Tötungen"
+MSD.Language[lng]["Stop NPC protection"] = "NPC-Schutz beenden"
+MSD.Language[lng]["Music player pos"] = "Musik an einem Punkt"
+MSD.Language[lng]["Emit sound"] = "Sound an einem Punkt"
+MSD.Language[lng]["Player emit sound"] = "Sound vom Spieler"
+MSD.Language[lng]["DarkRP Wanted"] = "DarkRP Fahndung"
+MSD.Language[lng]["Set Job Name"] = "Jobnamen ändern"

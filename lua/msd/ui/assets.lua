@@ -626,13 +626,11 @@ function MSD.CornerFlags(tl, tr, bl, br)
 	return (tl and 0 or NO_TL) + (tr and 0 or NO_TR) + (bl and 0 or NO_BL) + (br and 0 or NO_BR)
 end
 
--- Stock Derma background blur (used by many menus), rebuilt on the shader blur; same fade and tint.
--- With MSDX off the original GMod function is used.
-MSD.DermaBlurOriginal = MSD.DermaBlurOriginal or Derma_DrawBackgroundBlur
-
-function Derma_DrawBackgroundBlur(panel, starttime)
+-- Same look as GMod's Derma_DrawBackgroundBlur (fade and tint), drawn with the shader blur.
+-- With MSDX off GMod's own function is used.
+function MSD.DrawBackgroundBlur(panel, starttime)
 	if not MSD.UseMSDX() then
-		return MSD.DermaBlurOriginal(panel, starttime)
+		return Derma_DrawBackgroundBlur(panel, starttime)
 	end
 
 	local fraction = 1
@@ -659,11 +657,11 @@ local function CharWrap(t, w, ow)
 	local len = utf8.len(t)
 
 	for i = 1, len do
-		local wf = string.subUTF8(t, 1, i)
+		local wf = MSD.SubUTF8(t, 1, i)
 		a = a + 1
 		if surface.GetTextSize(wf) >= w then
 			a = 0
-			return wf .. "\n" .. CharWrap(string.subUTF8(t, i + 1, len), ow, ow), surface.GetTextSize(wf)
+			return wf .. "\n" .. CharWrap(MSD.SubUTF8(t, i + 1, len), ow, ow), surface.GetTextSize(wf)
 		end
 	end
 
@@ -676,7 +674,7 @@ function MSD.TextWrap(text, font, w)
 	local spaceSize = surface.GetTextSize(' ')
 
 	text = text:gsub("(%s?[%S]+)", function(word)
-		local char = string.subUTF8(word, 1, 1)
+		local char = MSD.SubUTF8(word, 1, 1)
 
 		if char == "\n" or char == "\t" then
 			total = 0
@@ -697,7 +695,7 @@ function MSD.TextWrap(text, font, w)
 		if char == ' ' then
 			total = wordlen - spaceSize
 
-			return '\n' .. string.subUTF8(word, 2)
+			return '\n' .. MSD.SubUTF8(word, 2)
 		end
 
 		total = wordlen

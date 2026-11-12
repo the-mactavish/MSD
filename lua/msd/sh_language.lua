@@ -75,7 +75,7 @@ local function SubStringGetTrueIndex(str, index)
 	return i - lastCount
 end
 
-function string.subUTF8(str, startIndex, endIndex)
+function MSD.SubUTF8(str, startIndex, endIndex)
 	if startIndex < 0 then
 		startIndex = SubStringGetTotalIndex(str) + startIndex + 1
 	end
@@ -90,3 +90,6 @@ function string.subUTF8(str, startIndex, endIndex)
 		return string.sub(str, SubStringGetTrueIndex(str, startIndex), SubStringGetTrueIndex(str, endIndex + 1) - 1)
 	end
 end
+
+-- Older MacNCo addons call string.subUTF8; only added if nothing else defines it
+string.subUTF8 = string.subUTF8 or MSD.SubUTF8
