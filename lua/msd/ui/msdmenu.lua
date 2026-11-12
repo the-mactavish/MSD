@@ -16,10 +16,10 @@ function MSD.MenuOpen(parentmenu, parent, bg)
 
 	dmenu.Paint = function(self, w, h)
 		if bg then
-			draw.RoundedBox(MSD.Config.Rounded, 0, 0, w, h, MSD.Theme["d_na"])
+			MSDX.Draw(MSD.Config.Rounded, 0, 0, w, h, MSD.Theme["d_na"])
 		else
 			MSD.Blur(self, 1, 2, 255, 55, w, h)
-			draw.RoundedBox(MSD.Config.Rounded, 0, 0, w, h, MSD.Theme["d"])
+			MSDX.Draw(MSD.Config.Rounded, 0, 0, w, h, MSD.Theme["d"])
 		end
 	end
 
@@ -92,11 +92,14 @@ function PANEL:AddOption(strText, funcFunction, icon, check)
 	return pnl
 end
 
-function PANEL:AddSubMenu(strText, funcFunction)
+function PANEL:AddSubMenu(strText, funcFunction, icon)
 	local pnl = vgui.Create("MSD.DMenuOption", self)
 	local SubMenu = pnl:AddSubMenu(strText, funcFunction)
 	pnl:SetText(strText)
-
+	if icon then
+		pnl.icon = icon
+		pnl:SetTextInset(38, 0)
+	end
 	if (funcFunction) then
 		pnl.DoClick = funcFunction
 	end

@@ -126,7 +126,9 @@ function PANEL:AddToWorkSpace(panel)
 	local id = table.insert(self.WorkComponents, panel)
 
 	panel.OnRemove = function()
-		self.WorkComponents[id] = nil
+		if self.WorkComponents then
+			self.WorkComponents[id] = nil
+		end
 	end
 end
 

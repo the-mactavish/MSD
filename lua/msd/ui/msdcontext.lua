@@ -50,8 +50,8 @@ function MSD.OpenMenuManager(parrent, mod_open)
 	panel.Paint = function(self, w, h)
 		MSD.DrawBG(self, w, h)
 
-		draw.RoundedBox(MSD.Config.Rounded, 0, 0, w, 50, MSD.Theme["d"])
-		draw.RoundedBox(MSD.Config.Rounded, 0, 52, w, h - 52, MSD.Theme["l"])
+		MSDX.Draw(MSD.Config.Rounded, 0, 0, w, 50, MSD.Theme["d"])
+		MSDX.Draw(MSD.Config.Rounded, 0, 52, w, h - 52, MSD.Theme["l"])
 	end
 
 	panel.clsBut = MSD.IconButton(panel, MSD.Icons48.cross, panel:GetWide() - 34, 10, 25, nil, MSD.Config.MainColor.p, function()
@@ -152,7 +152,8 @@ end
 
 function MSD.OpenSettingsMenu(panel)
 
-	oldcfg = MSD.Config
+	-- copy, so "reset changes" can restore it (a plain reference changed together with MSD.Config)
+	local oldcfg = table.Copy(MSD.Config)
 
 	panel.Canvas = vgui.Create("MSDPanelList", panel)
 	panel.Canvas:SetSize(panel:GetWide() / 2 - 5, panel:GetTall())
@@ -160,7 +161,7 @@ function MSD.OpenSettingsMenu(panel)
 	panel.Canvas:EnableVerticalScrollbar()
 	panel.Canvas:EnableHorizontal(true)
 	panel.Canvas:SetSpacing(2)
-	panel.Canvas.IgnoreVbar = true
+	panel.Canvas.IgnoreVbar = false
 	panel.Canvas.Paint = function() end
 
 	panel.Settings = vgui.Create("MSDPanelList", panel)
@@ -169,7 +170,7 @@ function MSD.OpenSettingsMenu(panel)
 	panel.Settings:EnableVerticalScrollbar()
 	panel.Settings:EnableHorizontal(true)
 	panel.Settings:SetSpacing(2)
-	panel.Settings.IgnoreVbar = true
+	panel.Settings.IgnoreVbar = false
 	panel.Settings.Paint = function() end
 
 	panel.Settings.Update = function()
@@ -190,9 +191,17 @@ function MSD.OpenSettingsMenu(panel)
 		combo:SetValue(Ln("lang_name"))
 		local sld1
 
+		-- Brightness changes only the HSV value, so a picked background hue is kept
 		local function sliderCL(cl)
-			local c = math.Clamp(math.Round(cl * 255), 30, 250)
-			MSD.Config.BgrColor = Color(c, c, c)
+			local bg = MSD.Config.BgrColor
+			local hue, sat = ColorToHSV(Color(bg.r, bg.g, bg.b))
+			local c = HSVToColor(hue, sat, math.Clamp(cl, 30 / 255, 250 / 255))
+			MSD.Config.BgrColor = Color(c.r, c.g, c.b)
+		end
+
+		local function BgBrightness()
+			local bg = MSD.Config.BgrColor
+			return math.max(bg.r, bg.g, bg.b) / 255
 		end
 
 		MSD.DTextSlider(panel.Settings, "static", nil, 1, 50, Ln("set_ui_blur"), Ln("set_ui_mono"), MSD.Config.Blur, function(self, value)
@@ -206,20 +215,67 @@ function MSD.OpenSettingsMenu(panel)
 			end
 		end)
 
-		sld1 = MSD.VolumeSlider(panel.Settings, "static", nil, 1, 50, Ln("set_ui_brightness"), MSD.Config.BgrColor.r / 255, function(self, var)
+		sld1 = MSD.VolumeSlider(panel.Settings, "static", nil, 1, 50, Ln("set_ui_brightness"), BgBrightness(), function(self, var)
 			sliderCL(var)
+		end)
+
+		MSD.ColorSelector(panel.Settings, "static", nil, 1, 50, Ln("set_ui_bg_color"), MSD.Config.BgrColor, function(self, color)
+			MSD.Config.BgrColor = Color(color.r, color.g, color.b)
+			sld1.value = BgBrightness()
+		end)
+
+		MSD.ColorSelector(panel.Settings, "static", nil, 1, 50, Ln("set_ui_panel_color"), MSD.Config.ThemeColor or Color(0, 5, 10), function(self, color)
+			MSD.Config.ThemeColor = Color(color.r, color.g, color.b)
+			MSD.ApplyTheme()
 		end)
 
 		MSD.ColorSelector(panel.Settings, "static", nil, 1, 50, Ln("set_ui_color"), MSD.Config.MainColor.p, function(self, color)
 			MSD.Config.MainColor.p = color
 		end)
 
-		MSD.DTextSlider(panel.Settings, "static", nil, 1, 50, Ln("border_rounded"), Ln("border_square"), MSD.Config.Rounded == 8, function(self, value)
-			if value then
-				MSD.Config.Rounded = 8
-			else
-				MSD.Config.Rounded = 0
-			end
+		-- Corner roundness: Rounded / Square switch + 4..20 px radius slider
+		local rad_min, rad_max = 4, 20
+		local cur_rad = MSD.Config.Rounded or 0
+		local round_px = cur_rad > 0 and math.Clamp(math.Round(cur_rad), rad_min, rad_max) or 8
+		local rad_sld
+
+		local function RadToFrac(px)
+			return (px - rad_min) / (rad_max - rad_min)
+		end
+
+		local function FracToRad(frac)
+			return math.Round(rad_min + frac * (rad_max - rad_min))
+		end
+
+		MSD.DTextSlider(panel.Settings, "static", nil, 1, 50, Ln("border_rounded"), Ln("border_square"), cur_rad > 0, function(self, value)
+			MSD.Config.Rounded = value and round_px or 0
+			rad_sld.disabled = not value
+		end)
+
+		rad_sld = MSD.VolumeSlider(panel.Settings, "static", nil, 1, 50, Ln("border_radius"), RadToFrac(round_px), function(self, frac)
+			round_px = FracToRad(frac)
+			self.value = RadToFrac(round_px) -- snap to whole pixels
+			MSD.Config.Rounded = round_px
+		end, nil, function(frac)
+			return FracToRad(frac) .. " px"
+		end)
+
+		rad_sld.disabled = cur_rad <= 0
+
+		local msdx = MSD.DTextSlider(panel.Settings, "static", nil, 1, 50, Ln("set_ui_msdx"), Ln("set_ui_drawbox"), MSD.Config.MSDX ~= false, function(self, value)
+			MSD.Config.MSDX = value
+		end)
+
+		if render.GetDXLevel() < 90 then
+			msdx.disabled = true
+		end
+
+		MSD.BoolSlider(panel.Settings, "static", nil, 1, 50, Ln("set_ui_sounds"), MSD.Config.UISounds ~= false, function(self, value)
+			MSD.Config.UISounds = value
+		end)
+
+		MSD.VolumeSlider(panel.Settings, "static", nil, 1, 50, Ln("set_ui_sounds_volume"), MSD.Config.SoundsVolume or 1, function(self, value)
+			MSD.Config.SoundsVolume = value
 		end)
 
 		if not MSD.HUD then return end
@@ -309,11 +365,13 @@ function MSD.OpenSettingsMenu(panel)
 	if LocalPlayer():IsSuperAdmin() then
 		MSD.BigButton(panel, 0, panel:GetTall() - 80, panel:GetWide() / 4, 80, Ln("upl_changes"), MSD.Icons48.save, function()
 			MSD.SaveConfig()
+			oldcfg = table.Copy(MSD.Config)
 			panel.Settings.Update()
 		end)
 
 		MSD.BigButton(panel, panel:GetWide() / 4, panel:GetTall() - 80, panel:GetWide() / 4, 80, Ln("res_changes"), MSD.Icons48.cross, function()
-			MSD.Config = oldcfg
+			MSD.Config = table.Copy(oldcfg)
+			MSD.ApplyTheme()
 			panel.Settings.Update()
 		end)
 	end

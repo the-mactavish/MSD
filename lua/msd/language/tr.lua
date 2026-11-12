@@ -99,6 +99,8 @@ MSD.Language["tr"] = {
 	set_ui_mono = "Monokrom arkaplan",
 	set_ui_vignette = "Arka plan için vignette efekti",
 	set_ui_brightness = "Arkaplan parlaklığı",
+	set_ui_bg_color = "Arkaplan rengi",
+	set_ui_panel_color = "Panel rengi",
 	set_ui_color = "Ana rengi seç",
 	set_ui_align_left = "Sola yatay hizalama",
 	set_ui_align_right = "Sağa yatay hizalama",
@@ -119,6 +121,7 @@ MSD.Language["tr"] = {
 	m_blew = "Görevi batırdın",
 	m_failed = "Görev başarısız",
 	m_success = "Görev başarılı",
+	m_done_quest = "Görev tamamlandı",
 	m_loop = "Görev güncellemesi",
 
 	-- Errors
@@ -260,6 +263,7 @@ MSD.Language["tr"] = {
 	youaretracked = "Konumunuzu artık diğer oyuncular da görebiliyor!",
 	border_rounded = "Yuvarlak kenarlık tasarımı",
 	border_square = "Kare kenarlık tasarımı",
+	border_radius = "Köşe yuvarlaklığı",
 	access_settings = "Menü erişimi",
 	compact_obj = "Görevler için kompakt hedef listesi",
 	e_usergroup = "Kullanıcı grubu girin",
@@ -323,6 +327,20 @@ MSD.Language["tr"] = {
 	mrs_change_plyname = "Oyuncunun ismini rütbe ismi yap",
 	mrs_set_prefix_ply = "Rütbe ismini önek gibi oyuncunun isminin önüne koy",
 
+	-- MSD.NiceTime, %s = number
+	time_few_min = "birkaç dakika",
+	time_sec = "%s sn.",
+	time_min = "%s dk.",
+	time_hour = "%s sa.",
+	time_day = "%s gün",
+	time_week = "%s hf.",
+	time_year = "%s yıl",
+
+	-- UI settings
+	set_ui_msdx = "Shader ile çizim (RNDX)",
+	set_ui_drawbox = "Varsayılan çizim (draw.RoundedBox)",
+	set_ui_sounds = "Arayüz sesleri",
+	set_ui_sounds_volume = "Arayüz sesleri seviyesi",
 }
 
 -- Other phrases

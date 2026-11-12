@@ -68,18 +68,22 @@ function PANEL:EnableVerticalScrollbar()
 	self.VBar = vgui.Create("DVScrollBar", self)
 
 	self.VBar.Paint = function(s, w, h)
-		draw.RoundedBox(MSD.Config.Rounded and 4 or 0, 0, 0, w, h, MSD.Theme.l)
+		if self.HideVbar then return end
+		MSDX.Draw(MSD.Config.Rounded and 4 or 0, 0, 0, w, h, MSD.Theme.l)
 	end
 
 	self.VBar.btnUp.Paint = function(s, w, h)
+		if self.HideVbar then return end
 		MSD.DrawTexturedRect(0, 0, w, h, MSD.Icons48.arrow_up, self.IgnoreVbar and MSD.Theme.l or MSD.Text.a)
 	end
 	self.VBar.btnDown.Paint = function(s, w, h)
+		if self.HideVbar then return end
 		MSD.DrawTexturedRect(0, 0, w, h, MSD.Icons48.arrow_down, self.IgnoreVbar and MSD.Theme.l or MSD.Text.a)
 	end
 
 	self.VBar.btnGrip.Paint = function(s, w, h)
-		draw.RoundedBox(MSD.Config.Rounded and 4 or 0, w / 4, 0, w / 2, h, self.IgnoreVbar and MSD.Theme.l or MSD.Text.a)
+		if self.HideVbar then return end
+		MSDX.Draw(MSD.Config.Rounded and 4 or 0, w / 4, 0, w / 2, h, self.IgnoreVbar and MSD.Theme.l or MSD.Text.a)
 	end
 end
 

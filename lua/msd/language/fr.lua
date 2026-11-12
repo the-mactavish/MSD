@@ -101,6 +101,8 @@ MSD.Language["fr"] = {
 	set_ui_mono = "Fond monochrome",
 	set_ui_vignette = "Effet de vignette pour l'arrière-plan",
 	set_ui_brightness = "Luminosité d'arrière-plan",
+	set_ui_bg_color = "Couleur d'arrière-plan",
+	set_ui_panel_color = "Couleur des panneaux",
 	set_ui_color = "Sélectionnez la couleur principale",
 	set_ui_align_left = "Alignement horizontal vers la gauche",
 	set_ui_align_right = "Alignement horizontal vers la droite",
@@ -121,6 +123,7 @@ MSD.Language["fr"] = {
 	m_blew = "Vous avez fait sauter la mission",
 	m_failed = "Mission échouée",
 	m_success = "Succès de la mission",
+	m_done_quest = "Mission terminée",
 	m_loop = "Mise à jour de la mission",
 
 	-- Erreurs
@@ -261,6 +264,7 @@ MSD.Language["fr"] = {
 	youaretracked = "Votre position est compromise par d'autres joueurs !",
 	border_rounded = "Design de bordure ronde",
 	border_square = "Design de bordure carrée",
+	border_radius = "Arrondi des coins",
 	access_settings = "Accès au menu",
 	compact_obj = "Compacter la liste des objectifs pour les quêtes",
 	e_usergroup = "Entrer un groupe d'utilisateurs",
@@ -320,6 +324,21 @@ MSD.Language["fr"] = {
 	other_players = "Autres joueurs",
 	mrs_change_jobname = "Changer le job au nom du grade",
 	mrs_set_prefix = "Ajouter le nom du grade au préfix du nom du métier",
+
+	-- MSD.NiceTime, %s = number
+	time_few_min = "quelques minutes",
+	time_sec = "%s s",
+	time_min = "%s min",
+	time_hour = "%s h",
+	time_day = "%s j",
+	time_week = "%s sem.",
+	time_year = "%s an(s)",
+
+	-- UI settings
+	set_ui_msdx = "Rendu par shaders (RNDX)",
+	set_ui_drawbox = "Rendu standard (draw.RoundedBox)",
+	set_ui_sounds = "Sons de l'interface",
+	set_ui_sounds_volume = "Volume des sons de l'interface",
 }
 
 -- Other phrases

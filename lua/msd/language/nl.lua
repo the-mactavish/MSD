@@ -99,6 +99,8 @@ MSD.Language["nl"] = {
 	set_ui_mono = "Monochrome achtergrond",
 	set_ui_vignette = "Vigneteffect voor achtergrond",
 	set_ui_brightness = "Achtergrondhelderheid",
+	set_ui_bg_color = "Achtergrondkleur",
+	set_ui_panel_color = "Kleur van panelen",
 	set_ui_color = "Selecteer de hoofdkleur",
 	set_ui_align_left = "Horizontale uitlijning naar links",
 	set_ui_align_right = "Horizontale uitlijning naar rechts",
@@ -119,6 +121,7 @@ MSD.Language["nl"] = {
 	m_blew = "You blew up the mission",
 	m_failed = "Missie gefaald",
 	m_success = "Missie geslaagd",
+	m_done_quest = "Missie voltooid",
 	m_loop = "Missie update",
 
 	-- Errors
@@ -260,6 +263,7 @@ MSD.Language["nl"] = {
 	youaretracked = "Your position is now compromised to other players!",
 	border_rounded = "Rounded border design",
 	border_square = "Vierkant randontwerp",
+	border_radius = "Afronding van hoeken",
 	access_settings = "Toegang tot menu",
 	compact_obj = "Compacte doelstellingenlijst voor speurtochten",
 	e_usergroup = "Gebruikersgroep invoeren",
@@ -321,6 +325,21 @@ MSD.Language["nl"] = {
 	mrs_set_prefix = "Voeg de rangnaam toe als voorvoegsel aan de taaknaam",
 	copy_all_data = "Kopieer alle gegevens",
 	copy_only_stats = "Kopieer alleen statistieken en spelersmodel",
+
+	-- MSD.NiceTime, %s = number
+	time_few_min = "een paar minuten",
+	time_sec = "%s sec.",
+	time_min = "%s min.",
+	time_hour = "%s u.",
+	time_day = "%s d.",
+	time_week = "%s wk.",
+	time_year = "%s jr.",
+
+	-- UI settings
+	set_ui_msdx = "Shader-weergave (RNDX)",
+	set_ui_drawbox = "Standaard weergave (draw.RoundedBox)",
+	set_ui_sounds = "UI-geluiden",
+	set_ui_sounds_volume = "Volume van UI-geluiden",
 }
 
 -- Other phrases

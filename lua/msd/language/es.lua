@@ -101,6 +101,8 @@
 	set_ui_mono = "Fondo monocromático",
 	set_ui_vignette = "Efecto de viñeta para el fondo",
 	set_ui_brightness = "Brillo de fondo",
+	set_ui_bg_color = "Color de fondo",
+	set_ui_panel_color = "Color de los paneles",
 	set_ui_color = "Seleccionar el color principal",
 	set_ui_align_left = "Alineación vertical hacia la izquierda",
 	set_ui_align_right = "Alineación vertical hacia la derecha",
@@ -121,6 +123,7 @@
 	m_blew = "You blew up the mission",
 	m_failed = "Misión fallida",
 	m_success = "Misión exitosa",
+	m_done_quest = "Misión terminada",
 	m_loop = "Actualización de la misión",
 
 	-- Errores
@@ -222,6 +225,21 @@
 	npc_q_target = "NPC is an objective target",
 	npc_hostile = "NPC Hostil",
 
+	-- MSD.NiceTime, %s = number
+	time_few_min = "unos minutos",
+	time_sec = "%s seg.",
+	time_min = "%s min.",
+	time_hour = "%s h.",
+	time_day = "%s d.",
+	time_week = "%s sem.",
+	time_year = "%s a.",
+
+	-- UI settings
+	set_ui_msdx = "Renderizado con shaders (RNDX)",
+	set_ui_drawbox = "Renderizado estándar (draw.RoundedBox)",
+	set_ui_sounds = "Sonidos de la interfaz",
+	set_ui_sounds_volume = "Volumen de los sonidos de la interfaz",
+	border_radius = "Redondeo de las esquinas",
 }
 
 -- Otras frases

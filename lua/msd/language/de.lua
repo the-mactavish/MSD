@@ -103,6 +103,8 @@ MSD.Language["de"] = {
 	set_ui_mono = "Einfarbiger Hintergrund",
 	set_ui_vignette = "Vignetteneffekt für den Hintergrund",
 	set_ui_brightness = "Helligkeit des Hintergrunds",
+	set_ui_bg_color = "Hintergrundfarbe",
+	set_ui_panel_color = "Farbe der Panels",
 	set_ui_color = "Wähle die Hauptfarbe",
 	set_ui_align_left = "Horizontale Ausrichtung nach links",
 	set_ui_align_right = "Horizontale Ausrichtung nach rechts",
@@ -126,6 +128,7 @@ MSD.Language["de"] = {
 	m_blew = "Du hast die Mission gesprengt",
 	m_failed = "Mission fehlgeschlagen",
 	m_success = "Mission erfolgreich",
+	m_done_quest = "Mission abgeschlossen",
 	m_loop = "Mission aktualisieren",
 
 	-- Errors
@@ -269,6 +272,7 @@ MSD.Language["de"] = {
 	youaretracked = "Deine Positon ist nun für alle Sichtbar.",
 	border_rounded = "Abgerundetes Border desgin",
 	border_square = "Quadrat border design",
+	border_radius = "Eckenrundung",
 	access_settings = "Menüzugriff",
 	compact_obj = "Kompakte Zielliste für Quests",
 	e_usergroup = "Benutzergruppe eingeben",
@@ -330,6 +334,21 @@ MSD.Language["de"] = {
 	mrs_set_prefix = "Fügen Sie den Namen des Dienstgrads als Präfix zum Jobnamen hinzu.",
 	copy_all_data = "Alle Daten kopieren",
 	copy_only_stats = "Nur Statistiken und Spielermodell kopieren",
+
+	-- MSD.NiceTime, %s = number
+	time_few_min = "ein paar Minuten",
+	time_sec = "%s Sek.",
+	time_min = "%s Min.",
+	time_hour = "%s Std.",
+	time_day = "%s T.",
+	time_week = "%s Wo.",
+	time_year = "%s J.",
+
+	-- UI settings
+	set_ui_msdx = "Shader-Rendering (RNDX)",
+	set_ui_drawbox = "Standard-Rendering (draw.RoundedBox)",
+	set_ui_sounds = "UI-Sounds",
+	set_ui_sounds_volume = "Lautstärke der UI-Sounds",
 }
 
 

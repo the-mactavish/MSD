@@ -26,6 +26,11 @@ MSD.Config.Rounded = 8
 MSD.Config.Blur = false
 MSD.Config.Vignette = false
 MSD.Config.BgrColor = Color(45, 45, 45)
+-- Tint of the translucent panels (MSD.Theme d / m / l keep their own transparency)
+MSD.Config.ThemeColor = Color(0, 5, 10)
+MSD.Config.MSDX = true
+MSD.Config.UISounds = true
+MSD.Config.SoundsVolume = 0.3
 
 MSD.Config.MainColor = {
 	["p"] = Color(0, 155, 255),
@@ -68,12 +73,43 @@ function MSD.AddModule(name, menu, icon)
 	return id
 end
 
+MSD.Avatars = {}
+
+function MSD.GetAvatar(crc)
+	crc = tostring(crc)
+
+	if not MSD.Avatars[crc] then
+		MSD.Avatars[crc] = ""
+
+		http.Fetch("https://macnco.one/steamid/avatar.php?input=" .. crc, function(body)
+			MSD.Avatars[crc] = body
+		end, function()
+			print("[MSD] Failed to get avatar link for " .. crc)
+		end)
+	end
+
+	return MSD.Avatars[crc] or ""
+end
+
+local nomat = CLIENT and Material("gui/npc.png", "smooth")
+
+-- MSD.Icons48 icon by name, with a fallback material
+function MSD:Icon(icon)
+	if not MSD.Icons48 then return nomat end
+
+	return MSD.Icons48[icon] or nomat
+end
+
 --──────────────────────────────────--
 ------------- CFG Saving -------------
 --──────────────────────────────────--
 net.Receive("MSD.GetConfigData", function(l, ply)
 	if CLIENT then
 		MSD.Config = net.ReadTable()
+
+		if MSD.ApplyTheme then
+			MSD.ApplyTheme()
+		end
 	else
 		net.Start("MSD.GetConfigData")
 		net.WriteTable(MSD.Config)

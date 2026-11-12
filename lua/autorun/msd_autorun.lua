@@ -27,10 +27,10 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 
-if MSD and MSD.Version ~= "1.0.4" then MsgC( Color(255, 8, 0), "[MSD] Another version of MSD detacted\n" ) return end
+if MSD and MSD.Version ~= "1.1.0" then MsgC( Color(255, 8, 0), "[MSD] Another version of MSD detacted\n" ) return end
 
 MSD = {}
-MSD.Version = "1.0.4"
+MSD.Version = "1.1.0"
 MSD.Config = {}
 MSD.Modules = {}
 MSD.ModuleIds = {}
@@ -64,10 +64,14 @@ function MSD.Load()
 	else
 		include("msd/sh_config.lua")
 		include("msd/sh_language.lua")
+		-- Shader renderer (RNDX), loaded first so every UI file can use MSDX
+		MSDX = include("msd/ui/rndx.lua")
 
 		local f = file.Find( "msd/ui/*", "LUA" )
 		for k,v in ipairs( f ) do
-			include( "msd/ui/" .. v )
+			if v ~= "rndx.lua" then
+				include( "msd/ui/" .. v )
+			end
 		end
 
 		list.Set( "DesktopWindows", "MSDModulesSetup", {

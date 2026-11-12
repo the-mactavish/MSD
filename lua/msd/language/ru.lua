@@ -84,8 +84,8 @@ MSD.Language["ru"] = {
 	time_wait = "Время ожидания",
 	map_marker = "Выберите маркер карты",
 	in_sec = "В секундах",
-	def_units = "единицы по-умолчанию", -- "По-умолчанию 350 единиц" оставьте %s без изменений
-	def_seconds = "Секунды по-умолчанию", -- "По-умолчанию 10 секунд" оставьте %s без изменений
+	def_units = "%s единиц по-умолчанию", -- "По-умолчанию 350 единиц" оставьте %s без изменений
+	def_seconds = "%s секунд по-умолчанию", -- "По-умолчанию 10 секунд" оставьте %s без изменений
 	ent_show_pointer = "Показать маркер над энтити",
 	ent_arcade_style = "Аркадный стиль появления энтити",
 	ent_stnd_style = "Стандартное появление энтити",
@@ -101,6 +101,8 @@ MSD.Language["ru"] = {
 	set_ui_mono = "Монохром заднего фона",
 	set_ui_vignette = "Эффект виньетки заднего фона",
 	set_ui_brightness = "Яркость заднего фона",
+	set_ui_bg_color = "Цвет заднего фона",
+	set_ui_panel_color = "Цвет панелей",
 	set_ui_color = "Выберите главный цвет",
 	set_ui_align_left = "Горизонтальное выравнивание влево",
 	set_ui_align_right = "Горизонтальное выравнивание вправо",
@@ -121,6 +123,7 @@ MSD.Language["ru"] = {
 	m_blew = "Ваша миссия раскрыта",
 	m_failed = "Миссия провалена",
 	m_success = "Миссия выполнена",
+	m_done_quest = "Миссия завершена",
 	m_loop = "Обновление миссии",
 
 	-- Errors
@@ -260,6 +263,7 @@ MSD.Language["ru"] = {
 	youaretracked = "Ваше местоположение теперь видно другим игрокам!",
 	border_rounded = "Дизайн с закругленными краями",
 	border_square = "Дизайн с квадратными краями",
+	border_radius = "Скругление углов",
 	access_settings = "Доступ к меню",
 	compact_obj = "Компактный список задач для квестов",
 	e_usergroup = "Введите группу пользователей",
@@ -333,6 +337,21 @@ MSD.Language["ru"] = {
 	mrs_chat_command = "Чат-команда для открытия меню рангов",
 	mrs_promote_command = "Чат-команда для повышения игрока",
 	mrs_demote_command = "Чат-команда для понижения игрока",
+
+	-- MSD.NiceTime, %s = number
+	time_few_min = "пару минут",
+	time_sec = "%s сек.",
+	time_min = "%s мин.",
+	time_hour = "%s ч.",
+	time_day = "%s д.",
+	time_week = "%s нед.",
+	time_year = "%s г.",
+
+	-- UI settings
+	set_ui_msdx = "Шейдерная отрисовка (RNDX)",
+	set_ui_drawbox = "Стандартная отрисовка (draw.RoundedBox)",
+	set_ui_sounds = "Звуки интерфейса",
+	set_ui_sounds_volume = "Громкость звуков интерфейса",
 }
 
 -- Other phrases

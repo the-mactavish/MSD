@@ -99,6 +99,8 @@ MSD.Language["en"] = {
 	set_ui_mono = "Monochrome background",
 	set_ui_vignette = "Vignette effect for background",
 	set_ui_brightness = "Background brightness",
+	set_ui_bg_color = "Background color",
+	set_ui_panel_color = "Panel color",
 	set_ui_color = "Select the main color",
 	set_ui_align_left = "Horizontal alignment to the left",
 	set_ui_align_right = "Horizontal alignment to the right",
@@ -119,6 +121,7 @@ MSD.Language["en"] = {
 	m_blew = "You blew up the mission",
 	m_failed = "Mission failed",
 	m_success = "Mission success",
+	m_done_quest = "Mission done",
 	m_loop = "Mission update",
 
 	-- Errors
@@ -260,6 +263,7 @@ MSD.Language["en"] = {
 	youaretracked = "Your position is now compromised to other players!",
 	border_rounded = "Rounded border design",
 	border_square = "Square border design",
+	border_radius = "Corner roundness",
 	access_settings = "Menu access",
 	compact_obj = "Compact objective list for quests",
 	e_usergroup = "Enter user group",
@@ -361,7 +365,22 @@ MSD.Language["en"] = {
 	file_exist = "This save file is already exist",
 
 	show_team = "Display team name",
-	use_team_colors = "Use team colors"
+	use_team_colors = "Use team colors",
+
+	-- MSD.NiceTime, %s = number
+	time_few_min = "a few minutes",
+	time_sec = "%s sec.",
+	time_min = "%s min.",
+	time_hour = "%s h.",
+	time_day = "%s d.",
+	time_week = "%s wk.",
+	time_year = "%s yr.",
+
+	-- UI settings
+	set_ui_msdx = "Shader rendering (RNDX)",
+	set_ui_drawbox = "Default rendering (draw.RoundedBox)",
+	set_ui_sounds = "UI sounds",
+	set_ui_sounds_volume = "UI sounds volume",
 }
 
 -- Other phrases
