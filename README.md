@@ -10,7 +10,7 @@ Website: http://macnco.one/
 MSD Documentation
 ===
 
-**M**SD (MacNCo Simple Design) is the UI library shared by MacNCo addons such as MQS and MRS. It gives you ready-made menu elements, a layout list, drawing helpers, a config that is synced from the server, and a language system. This page covers the settings and every public function.
+**M**SD (Mac's Simple Design) is the UI library shared by my addons such as MQS and MRS. It gives you ready-made menu elements, a layout list, drawing helpers, a config that is synced from the server, and a language system. This page covers the settings and every public function.
 
 ---
 
